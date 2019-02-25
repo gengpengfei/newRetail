@@ -1,0 +1,97 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span> 会员管理
+	<span class="c-gray en">&gt;</span> 奖励限制
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+		<i class="Hui-iconfont">&#xe68f;</i>
+	</a>
+</nav>
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		{in name="rewardLimitAdd" value=$action_code_list}
+		<span class="l">
+				<a href="/admin/User/rewardLimitAdd" class="btn btn-primary radius">
+					<i class="Hui-iconfont">&#xe600;</i> 添加奖励限制
+				</a>
+			</span>
+		{/in}
+	</div>
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+		<tr>
+			<th scope="col" colspan="11">奖励限制</th>
+		</tr>
+		<tr class="text-c">
+			<th width="10" onclick="sort('User/rewardLimit','id')">ID</th>
+			<th width="50" onclick="sort('User/rewardLimit','min_amount')">最低消费金额</th>
+			<th width="50" onclick="sort('User/rewardLimit','limit_order')">限制订单（每天多少单）</th>
+			<th width="50" onclick="sort('User/rewardLimit','create_time')">添加时间</th>
+			<th width="50">操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		{volist name="rewardLimit" id="c"}
+			<tr class="text-c">
+				<td>{$c.id}</td>
+				<td>{$c.min_amount}</td>
+				<td>{$c.limit_order}</td>
+				<td>{$c.create_time}</td>
+				<td class="td-manage">
+					{in name="rewardLimitEdit" value=$action_code_list}
+						<a title="编辑" href="/admin/User/rewardLimitEdit/id/{$c.id}" class="ml-5" style="text-decoration:none">
+							<i class="Hui-iconfont">&#xe6df;</i>
+						</a>
+					{/in}
+					{in name="rewardLimitDel" value=$action_code_list}
+						<a title="删除" href="javascript:;" onclick="admin_del(this,{$c.id})" class="ml-5" style="text-decoration:none">
+							<i class="Hui-iconfont">&#xe6e2;</i>
+						</a>
+					{/in}
+				</td>
+			</tr>
+		{/volist}
+		</tbody>
+	</table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+/*等级-删除*/
+function admin_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+            url:"/admin/User/rewardLimitDel",
+            data:{"id":id,"is_ajax":1},
+            type:"POST",
+			success: function(data){
+                if(data.code == 1){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:2000});
+                }else{
+                    layer.msg(data.msg,{icon:2,time:2000});
+                }
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+</script>
+</body>
+</html>

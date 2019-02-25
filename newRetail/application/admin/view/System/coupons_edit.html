@@ -1,0 +1,299 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+    <form action="/admin/System/couponsEdit/coupons_id/{$couponsinfo.coupons_id}" method="post" class="form form-horizontal" id="form-pro-add" enctype="multipart/form-data" >
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>优惠券名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$couponsinfo.coupons_name}" name="coupons_name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">上传图片：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="file" name="coupons_img" onchange="changImg(event)" />
+                <div><img id="myImg" src="{$couponsinfo.coupons_img}" height="100px",width="100px"></div>
+            </div>
+        </div>
+        <!--<div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否售卖：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="coupons_type" id="coupons_type">
+                    <option value="">请选择</option>
+					<option value="0">否</option>
+					<option value="1">是</option>
+				</select>
+				</span> </div>
+        </div>-->
+        <!--<div class="row cl" id="coupons_price" {if condition="$couponsinfo.coupons_type eq '0'"}style="display: none"{/if}>
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>优惠券购买金额：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$couponsinfo.coupons_price}" name="coupons_price">
+            </div>
+        </div>-->
+        <!--<div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>使用等级：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="use_rank" id="use_rank">
+                    <option value="">请选择</option>
+                    {volist name="ranklist" id="f"}
+					<option value="{$f.rank_id}">{$f.rank_name}</option>
+                    {/volist}
+				</select>
+				</span> </div>
+        </div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>使用方式：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="use_method" id="use_method">
+                    <option value="">请选择</option>
+					<option value="0">满减</option>
+					<option value="1">满折</option>
+				</select>
+				</span> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>订单满X元：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$couponsinfo.min_amount}" name="min_amount">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>优惠金额(元)/折扣(%)：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$couponsinfo.use_method_info}" name="use_method_info">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>限领数量：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$couponsinfo.limit_time}" name="limit_time">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>发放数量：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$couponsinfo.coupons_max}" name="coupons_max">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>使用限制：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="use_type" id="use_type">
+                    <option value="">请选择</option>
+					<option value="0">线上线下均可使用</option>
+					<option value="1">线上使用</option>
+                    <option value="2">线下使用</option>
+				</select>
+				</span> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>发放开始时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" value="{$couponsinfo.sell_start_date}" name="sell_start_date" id="sell_start_date">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>发放结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" name="sell_end_date" value="{$couponsinfo.sell_end_date}" id="sell_end_date">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开始使用时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" value="{$couponsinfo.use_start_date}" name="use_start_date" id="use_start_date">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>使用结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" value="{$couponsinfo.use_end_date}" name="use_end_date" id="use_end_date">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">使用须知：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <script id="editor" type="text/plain" style="width:100%;height:450px;"></script>
+                </div>
+                </div>
+                <input id="coupons_desc" type="hidden" name="coupons_desc" value="{$couponsinfo.coupons_desc}">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否有效：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="disabled" id="disabled">
+                    <option value="">请选择</option>
+					<option value="0">否</option>
+					<option value="1">是</option>
+				</select>
+				</span> </div>
+        </div>
+
+        <input type="hidden" name="is_ajax" id="is_ajax" value="1">
+        <input type="hidden" value="0" name="coupons_type" id="coupons_type">
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/admin_file/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript">
+    $(function(){
+        var ue = UE.getEditor('editor',{initialFrameWidth:'50%',toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'bold', 'forecolor', 'insertorderedlist', 'insertunorderedlist', '|', 'paragraph', 'justifyleft',
+            'justifycenter', 'justifyright', 'justifyjustify', '|', 'simpleupload', 'emotion', '|','horizontal', 'date', 'time','preview']] });
+        //对编辑器的操作最好在编辑器ready之后再做
+        var coupons_desc = $("#coupons_desc").val();
+        ue.ready(function() {
+            //设置编辑器的内容
+            ue.setContent(coupons_desc);
+        });
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        UE.Editor.prototype.getActionUrl = function(action) {
+            if (action == 'uploadimage') {
+                return '/Admin/Upload/uploadImg';
+            } else {
+                return this._bkGetActionUrl.call(this, action);
+            }
+        };
+
+
+        $("#form-pro-add").validate({
+            rules:{
+                coupons_name:{
+                    required:true
+                },
+                coupons_type:{
+                    required:true
+                },
+                coupons_price:{
+                    required:true,
+                    number: true
+                },
+                use_rank:{
+                    required:true,
+                    number: true
+                },
+                min_amount:{
+                    required:true,
+                    number: true
+                },
+                use_method:{
+                    required:true
+                },
+                use_method_info:{
+                    required:true,
+                    number: true
+                },
+                sell_start_date:{
+                    required:true
+                },
+                sell_end_date:{
+                    required:true
+                },
+                use_start_date:{
+                    required:true
+                },
+                use_end_date:{
+                    required:true
+                },
+                limit_time:{
+                    required:true,
+                    number: true,
+                    max:99
+                },
+                coupons_max:{
+                    required:true,
+                    number: true,
+                    min:0
+                },
+                disabled:{
+                    required:true
+                },
+                use_type:{
+                    required:true
+                },
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                var is_sub=1;
+                var sell_start_time=$('#sell_start_date').val()
+                var sell_end_time=$('#sell_end_date').val();
+                if (sell_end_time<=sell_start_time){
+                    layer.msg('请正确选择发放时间!',{icon: 5,time:2000});
+                    is_sub=2;
+                }
+                var use_start_date=$('#use_start_date').val()
+                var use_end_date=$('#use_end_date').val();
+                if (use_end_date<=use_start_date){
+                    layer.msg('请正确选择使用时间!',{icon: 5,time:2000});
+                    is_sub=2;
+                }
+                if(is_sub==1){
+                    form.submit();
+                }
+            }
+        });
+    });
+
+    //上传图片本地显示图片
+    function changImg(e){
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                $("#myImg").attr("src",e.target.result);
+            }
+        }
+    }
+
+    //通过优惠券类型显示输入框
+    $("#coupons_type").change(function () {
+        var voucher_type=$(this).val();
+        if(parseInt(voucher_type)==0){
+            $('#coupons_price').hide();
+        }else if(parseInt(voucher_type)==1){
+            $('#coupons_price').show();
+        }
+
+    })
+
+    /*是否售卖*/
+    $("#coupons_type").val('{$couponsinfo.coupons_type}').attr("selected",true);
+    /*使用等级*/
+    $("#use_rank").val('{$couponsinfo.use_rank}').attr("selected",true);
+    /*使用方法*/
+    $("#use_method").val('{$couponsinfo.use_method}').attr("selected",true);
+    /*是否有效*/
+    $("#disabled").val('{$couponsinfo.disabled}').attr("selected",true);
+    /*使用限制*/
+    $("#use_type").val('{$couponsinfo.use_type}').attr("selected",true);
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

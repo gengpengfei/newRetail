@@ -1,0 +1,138 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>专题类别名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$activity.activity_name}" placeholder="" id="activity_name" name="activity_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">专题位置：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select name="activity_position" class="select" id="activity_position">
+                    <option value="category_activity" {if $activity.activity_position == 'category_activity'}selected{/if}>category_activity</option>
+                    <option value="index_activity" {if $activity.activity_position == 'index_activity'}selected{/if}>index_activity</option>
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">专题说明：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$activity.activity_desc}" placeholder="" id="activity_desc" name="activity_desc">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">上传专题图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" name="activity_img" value="{$activity.activity_img}">
+				{if $activity.activity_img}
+				<img src="{$activity.activity_img}" height="90px" width="120px">
+				{/if}
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">排序：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$activity.sort_order}" placeholder="" id="sort_order" name="sort_order">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="activity_id" id="activity_id" value="{$activity.activity_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        var activity_id = $("#activity_id").val();
+        if(activity_id){
+            $("#form-admin-add").validate({
+                rules:{
+                    activity_name:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/IntegralShop/activityEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('更新失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('更新成功!',{icon:1,time:2000});
+                                window.location.href="/admin/IntegralShop/activity";
+                            }else{
+                                layer.msg('更新失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                rules:{
+                    activity_name:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/IntegralShop/activityAdd" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/admin/IntegralShop/activity";
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

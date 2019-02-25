@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/mipmap-hdpi-v4/icon_gcoding.png",
+        "source": "/Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/bundles/debug/res/mipmap-hdpi-v4/icon_gcoding.png"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/mipmap-hdpi-v4/ic_launcher.png",
+        "source": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    }
+]

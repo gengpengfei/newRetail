@@ -1,0 +1,138 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$activityList.activity_list_name}" placeholder="" id="activity_list_name" name="activity_list_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">活动说明：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$activityList.activity_list_desc}" placeholder="" id="activity_list_desc" name="activity_list_desc">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">上传活动图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" name="activity_list_img" value="{$activityList.activity_list_img}">
+				{if $activityList.activity_list_img}
+				<img src="{$activityList.activity_list_img}" height="90px" width="120px">
+				{/if}
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">开始时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$activityList.start_time}" id="start_time" name="start_time">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">结束时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$activityList.end_time}" id="end_time" name="end_time">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="activity_id" id="activity_id" value="{$activity_id}">
+				<input type="hidden" name="activity_list_id" id="activity_list_id" value="{$activityList.activity_list_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        var activity_list_id = $("#activity_list_id").val();
+        var activity_id = $("#activity_id").val();
+        if(activity_list_id){
+            $("#form-admin-add").validate({
+                rules:{
+                    activity_list_name:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/IntegralShop/activityListEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('更新失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('更新成功!',{icon:1,time:2000});
+                                window.location.href="/admin/IntegralShop/activityList/activity_id/" +data.data;
+                            }else{
+                                layer.msg('更新失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                rules:{
+                    activity_list_name:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/IntegralShop/activityListAdd" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/admin/IntegralShop/activityList/activity_id/" +data.data;
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

@@ -1,0 +1,7 @@
+#每秒执行一次
+* * * * * /var/www/html/shell/minute.sh
+#每天执行一次
+* * * * * /var/www/html/shell/minute.sh
+#每周执行一次
+* * * * * /var/www/html/shell/minute.sh
+

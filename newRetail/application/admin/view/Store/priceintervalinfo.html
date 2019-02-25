@@ -1,0 +1,90 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+    <form {if $istype neq '2'} action="/admin/Store/priceintervaladd" {else /} action="/admin/Store/priceintervaledit/id/{$id}"{/if} method="post" class="form form-horizontal" id="form-admin-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>最低价格：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$priceintervalinfo.min_price}" name="min_price" id="min_price">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>最高价格：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$priceintervalinfo.max_price}" name="max_price" id="max_price">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>价格说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="price_desc" class="textarea">{$priceintervalinfo.price_desc}</textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">排序：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$priceintervalinfo.sort_order}" name="sort_order">
+            </div>
+        </div>
+        {if $istype eq '2'}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">是否禁用：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="radio" name="disabled" value="0" {if $priceintervalinfo.disabled eq 0}checked{/if}>是
+                <input type="radio" name="disabled" value="1" {if $priceintervalinfo.disabled eq 1}checked{/if}>否
+            </div>
+        </div>
+        {/if}
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input type="hidden" name="is_ajax" id="is_ajax" value="1">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;返回&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $("#form-admin-add").validate({
+        rules:{
+            min_price:{
+                required:true,
+                number:true
+            },
+            max_price:{
+                required:true,
+                number:true
+            },
+            price_desc:{
+                required:true
+            },
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            var min_price=$("#min_price").val();
+            var max_price=$("#max_price").val();
+            if(parseInt(max_price)<=parseInt(min_price)){
+                layer.msg('请正确填写价格!',{icon: 5,time:2000});
+                return false;
+            }
+            form.submit();
+        }
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

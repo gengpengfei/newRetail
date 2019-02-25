@@ -1,0 +1,176 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" href="/admin_file/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<style>
+    .voucher_ul{
+        display: block;
+    }
+    .voucher_ul li{
+        float: left;
+        margin-right: 30px;
+    }
+</style>
+<body class="pos-r">
+<div>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 店铺管理 <span class="c-gray en">&gt;</span> 优惠券列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <form action="/admin/System/couponsList" method="get">
+            <div class="text-c">
+                是否售卖:
+                <span class="select-box inline">
+                <select name="issale" class="select" id="issale">
+                    <option value="">请选择</option>
+                    <option value="1">否</option>
+                    <option value="2">是</option>
+                </select>
+                </span>
+                日期范围：
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;" value="{$where.datemin}">
+                -
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;" value="{$where.datemax}">
+                <input type="text" name="keywords" id="keywords" placeholder=" 店铺名称/优惠券名称" style="width:250px" class="input-text" value="{$where.keywords}" >
+                <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜产品</button>
+            </div>
+        </form>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <a class="btn btn-primary radius" href="/admin/System/couponsAdd"><i class="Hui-iconfont">&#xe600;</i> 添加优惠券</a>
+            </span>
+            <span class="r">共有数据：<strong>{$pronum}</strong> 条</span>
+        </div>
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="20">ID</th>
+                    <th width="100" onclick="sort('System/couponsList','coupons_name')">优惠券名称</th>
+                    <th width="50">面额/折扣</th>
+                    <th width="50" onclick="sort('System/couponsList','coupons_type')">是否售卖</th>
+                    <th width="50" onclick="sort('System/couponsList','coupons_max')">发放数量</th>
+                    <th width="100" onclick="sort('System/couponsList','use_start_date')">开始时间</th>
+                    <th width="100" onclick="sort('System/couponsList','use_end_date')">结束时间</th>
+                    <th width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="couponsList" id="f"}
+                <tr class="text-c va-m">
+                    <td>{$f.coupons_id}</td>
+                    <td>{$f.coupons_name}</td>
+                    <td>{$f.use_method_info}{if condition="$f.use_method eq '0'"}元{else /}%{/if}</td>
+                    <td>{if condition="$f.coupons_type eq '0'"}否{else /}是{/if}</td>
+                    <td>{$f.coupons_max}</td>
+                    <td>{$f.use_start_date}</td>
+                    <td>{$f.use_end_date}</td>
+                    <td class="td-manage">
+                        {if condition="$f.disabled eq 1"}
+                        <a style="text-decoration:none" onClick="coupons_stop(this,{$f.coupons_id})" class="disabled" href="javascript:;" title="停用">
+                            <i class="Hui-iconfont">&#xe631;</i>
+                        </a>
+                        {else}
+                        <a style="text-decoration:none" onClick="coupons_start(this,{$f.coupons_id})" class="disabled" href="javascript:;" title="启用">
+                            <i class="Hui-iconfont">&#xe615;</i>
+                        </a>
+                        {/if}
+                        <a style="text-decoration:none" class="ml-5" href="/admin/System/couponsTint/coupons_id/{$f.coupons_id}" title="限制">
+                            <i class="Hui-iconfont">&#xe61d;</i>
+                        </a>
+                        <a style="text-decoration:none" class="ml-5"  href="/admin/System/couponsEdit/coupons_id/{$f.coupons_id}" title="编辑">
+                            <i class="Hui-iconfont">&#xe6df;</i>
+                        </a>
+                        <a style="text-decoration:none" class="ml-5" href="/admin/System/couponsInfo/coupons_id/{$f.coupons_id}" title="查看">
+                            <i class="Hui-iconfont">&#xe725;</i>
+                        </a>
+                        <a style="text-decoration:none" class="ml-5" href="/admin/System/sendCoupons/coupons_id/{$f.coupons_id}?page={$where.page}&issale={$where.issale}&datemin={$where.datemin}&datemax={$where.datemax}&keywords={$where.keywords}" title="发放优惠券">
+                            <i class="Hui-iconfont">&#xe603;</i>
+                        </a>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <div style="margin-top: 10px;padding-left: 5px;padding-right: 5px;">
+                每页显示
+                <input type="number" id="show_count" onchange="changeCount('System/couponsList',$(this).val())" class="input-text" style="width: 50px;margin-left: 5px;margin-right: 5px;" value="{$show_count}">条
+            </div>
+        </div>
+        <div class="pages">{$page}</div>
+        <input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+        <input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+
+<script type="text/javascript" src="/admin_file/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    /*会员-停用*/
+    function coupons_stop(obj,id){
+        layer.confirm('确认要禁用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/System/couponsEdit",
+                data:{"coupons_id":id,"disabled":0,"is_ajax":1},
+                type:"POST",
+                success:function(data){
+                    if(data.code){
+                        var html = '<a onClick="coupons_start(this,'+id+')" href="javascript:;" title="启用" class="disabled" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>';
+                        $(obj).parents("tr").find(".td-manage").prepend(html);
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+                        $(obj).remove();
+                        layer.msg('已停用!',{icon: 6,time:2000});
+                    }else{
+                        layer.msg('停用失败!',{icon: 5,time:2000});
+                    }
+
+                }
+            })
+
+        });
+    }
+
+    /*会员-启用*/
+    function coupons_start(obj,id){
+        layer.confirm('确认要启用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/System/couponsEdit",
+                data:{"coupons_id":id,"disabled":1,"is_ajax":1},
+                type:"POST",
+                success:function(data){
+                    if(data.code == 1){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a onClick="coupons_stop(this,'+id+')" href="javascript:;" class="disabled" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+                        $(obj).remove();
+                        layer.msg('已启用!', {icon: 6,time:2000});
+                    }else{
+                        layer.msg('启用失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+
+
+    /*搜多框值返回*/
+    $("#issale").val('{$where.issale}').attr("selected",true);
+
+</script>
+</body>
+</html>

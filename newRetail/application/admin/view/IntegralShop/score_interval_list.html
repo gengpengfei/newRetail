@@ -1,0 +1,93 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 积分商城管理
+    <span class="c-gray en">&gt;</span> 筛选条件列表
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        {in name="scoreIntervalAdd" value=$action_code_list}
+        <span class="l">
+				<a href="/admin/IntegralShop/scoreIntervalAdd" class="btn btn-primary radius">
+					<i class="Hui-iconfont">&#xe600;</i> 添加筛选条件
+				</a>
+			</span>
+        {/in}
+    </div>
+    <table class="table table-border table-bordered table-bg" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9">筛选条件列表</th>
+        </tr>
+        <tr class="text-c">
+            <!--<th width="25"><input type="checkbox" name="" value="0"></th>-->
+            <th width="150" onclick="sort('IntegralShop/scoreIntervalList','score_interval_id')">序号</th>
+            <th width="150" onclick="sort('IntegralShop/scoreIntervalList','score_desc')">说明</th>
+            <th width="150" onclick="sort('IntegralShop/scoreIntervalList','min_score')">最低价格</th>
+            <th width="150" onclick="sort('IntegralShop/scoreIntervalList','max_score')">最高价格</th>
+            <th width="150" onclick="sort('IntegralShop/scoreIntervalList','sort_order')">排序</th>
+            <th width="150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="scoreIntervalList" id="c"}
+        <tr class="text-c">
+            <td>{$c.score_interval_id}</td>
+            <td>{$c.score_desc}</td>
+            <td>{$c.min_score}</td>
+            <td>{$c.max_score}</td>
+            <td>{$c.sort_order}</td>
+            <td class="td-manage">
+                {in name="scoreIntervalEdit" value=$action_code_list}
+                <a title="编辑" href="/admin/IntegralShop/scoreIntervalEdit/score_interval_id/{$c.score_interval_id}" class="ml-5" style="text-decoration:none">
+                    <i class="Hui-iconfont">&#xe6df;</i>
+                </a>
+                {/in}
+                {in name="scoreIntervalDel" value=$action_code_list}
+                <a title="删除" href="javascript:;" onclick="admin_del(this,{$c.score_interval_id})" class="ml-5" style="text-decoration:none">
+                    <i class="Hui-iconfont">&#xe6e2;</i>
+                </a>
+                {/in}
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    /*删除*/
+    function admin_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"/admin/IntegralShop/scoreIntervalDel",
+                data:{"score_interval_id":id,"is_ajax":1},
+                type:"POST",
+                success: function(data){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:2000});
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
+</script>
+</body>
+</html>

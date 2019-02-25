@@ -1,0 +1,284 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<style>
+	.form-horizontal .form-label {
+		margin-top: 3px;
+		cursor: text;
+		text-align: right;
+		width: 25%;
+	}
+	.textarea-numberbar {
+		position: static;
+		bottom: 5px;
+		z-index: 1;
+		margin-bottom: 0;
+	}
+</style>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">会员等级：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box radius" style="width: 50%;">
+					<select class="select" size="1" name="rank_id" id="rank_id">
+						<option value="0" {if 1 eq $to_user_type}selected{/if}>不限等级</option>
+						{volist name="$rank_list" id="rank"}
+						<option value="{$rank.rank_id}">{$rank.rank_name}</option>
+						{/volist}
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">搜索用户：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" id="search_user_name" name="search_user_name">
+				<button type="submit" class="btn btn-success radius" id="" name="" onclick="javascript:getUserList()"><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">选择收信人：</label>
+			<div class="formControls col-xs-3 col-sm-2">
+				<table class="table table-border table-bordered table-bg">
+					<thead class="text-c">
+					<tr>
+						<th width="70%">收信人昵称</th>
+						<th>
+							<span style="display: inline-block;width: 30px;">全选</span>
+							<input type="checkbox" value="{$c.user_id}" name="" id="searchResAll" style="margin-top: 0px;" >
+						</th>
+					</tr>
+					</thead>
+					<tbody class="text-c" id="searchRes">
+					</tbody>
+				</table>
+			</div>
+			<div class="formControls col-xs-1 col-sm-1" style="margin-left:3%">
+				<input class="btn btn-primary radius" type="button" value=">>" id="add">
+				<p></p>
+				<input class="btn btn-primary radius" type="button" value="<<" id="del">
+			</div>
+			<div class="formControls col-xs-3 col-sm-2">
+				<table class="table table-border table-bordered table-bg">
+					<thead class="text-c">
+					<tr>
+						<th width="70%">已选中收信人名称</th>
+						<th>
+							<span style="display: inline-block;width: 30px;">全选</span>
+							<input type="checkbox" value="{$c.user_id}" name="" id="addDateAll" style="margin-top: 0px;">
+						</th>
+					</tr>
+					</thead>
+					<tbody class="text-c" id="addDate">
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">手机号总计(个)：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" id="mobileCount" name="mobileCount" value="0" readonly="true">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">短信内容：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea class="textarea" placeholder="短信内容" maxlength="200" name="content" onkeyup="Huitextarealength(this)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/<am>200</am></p>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+
+<script type="text/javascript">
+
+    $(function(){
+		$("#form-admin-add").validate({
+			rules:{
+                mobileCount:{
+					required:true,
+                    min:1
+				},
+                content:{
+                    required:true,
+                    minlength:1,
+                    maxlength:200
+                }
+			},
+            messages: {
+                mobileCount:  "请选择用户"
+            },
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				$(form).ajaxSubmit({
+					type: 'post',
+					url: "/admin/Message/mobileMessageAdd" ,
+					success: function(data){
+						if(data.code == 0){
+							layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+						}else if(data.code == 1){
+							layer.msg('添加成功!',{icon:1,time:2000});
+							window.location.href="/admin/Message/mobileMessageList";
+						}else{
+							layer.msg('添加失败',{icon:4,time:2000});
+						}
+					},
+					error: function(XmlHttpRequest, textStatus, errorThrown){
+						layer.msg('error!',{icon:1,time:2000});
+					}
+				});
+			}
+		});
+    });
+    //获取收件人列表
+    function getUserList(){
+        var search_user_name = $("#search_user_name").val();
+        var rank_id = $("#rank_id").val();
+        var to_user_type = 1;
+        $(searchRes).html('');
+        $(addDate).html('');
+        $.ajax({
+            url:"/admin/Messagereport/getUserListByType",
+            data:{"to_user_type":to_user_type,"search_user_name":search_user_name,"rank_id":rank_id},
+            type:"POST",
+            success:function(data){
+                console.log(data);
+                if(data.code){
+                    var v = data.data;
+                    if(v.length>0){
+                        var html = '';
+                        $(v).each(function (i,e) {
+                            html += '<tr ><th>'+e['nickname']+'</th><td><input type="checkbox" value="'+e['mobile']+' "></td></tr>'
+                        });
+                        $(searchRes).html(html);
+                    }
+                }
+            }
+        })
+    }
+    //添加收件人
+    var addDate = document.getElementById("addDate");
+    var add = document.getElementById("add");
+    add.onclick = function () {
+        var input = $("#searchRes input:checked");
+        if(input.length===0){
+            return false;
+        }
+        var addInput = $("#addDate input");
+        input.each(function (i,e) {
+            if(addInput.length>0){
+                addInput.each(function (x,y) {
+					var tr = $(e).parents("tr");
+					$(addDate).append(tr);
+                });
+                $(addDate).append('<input type="hidden" name="to_user_mobile[]" value="'+$(e).val()+'" class="hiddemkey'+$(e).val()+'" />');
+            }else{
+                var tr = $(e).parents("tr");
+                $(addDate).append(tr);
+                $(addDate).append('<input type="hidden" name="to_user_mobile[]" value="'+$(e).val()+'" class="hiddemkey'+$(e).val()+'" />');
+            }
+        });
+        var addInput1 = $("#addDate input");
+        $("#mobileCount").val(addInput1.length/2);
+    };
+    var del = document.getElementById("del");
+    del.onclick = function () {
+        var input = $("#addDate input:checked");
+        if(input.length===0){
+            return false;
+        }
+        var addInput = $("#searchRes input");
+        input.each(function (i,e) {
+            if(addInput.length>0){
+                addInput.each(function (x,y) {
+					var tr = $(e).parents("tr");
+					$(searchRes).append(tr);
+                });
+                $(".hiddemkey"+$(e).val()).remove();
+            }else{
+                var tr = $(e).parents("tr");
+                $(searchRes).append(tr);
+                $(".hiddemkey"+$(e).val()).remove();
+            }
+        });
+        var addInput1 = $("#addDate input");
+        $("#mobileCount").val(addInput1.length/2);
+    };
+    var searchResAll = document.getElementById("searchResAll");
+    searchResAll.onclick = function () {
+		var addInput = $("#searchRes input");
+        //选中
+		if(searchResAll.checked){
+            addInput.each(function (i,e) {
+                $(e).prop("checked",true);
+            })
+		}else{
+            addInput.each(function (i,e) {
+                $(e).prop("checked",false);
+            })
+		}
+    };
+    var addDateAll = document.getElementById("addDateAll");
+    addDateAll.onclick = function () {
+        var addInput = $("#addDate input");
+        //选中
+        if (addDateAll.checked) {
+            addInput.each(function (i, e) {
+                $(e).prop("checked", true);
+            })
+        } else {
+            addInput.each(function (i, e) {
+                $(e).prop("checked", false);
+            })
+        }
+    };
+    /**
+     * 验证textarea输入框字数限制,只作提示不作提交限制
+     * 1、必须将总数用<am>标签装起来 2、调用本方法
+     * 参考：<em class="textarea-length">0</em>/<am>100</am>
+     * @param obj
+     * @constructor
+     */
+    var Huitextarealength = function (obj){
+        var html = $(obj).parent();
+        var tatal = html.find('am').html();
+        var sets = $(obj).val().length;
+        if(sets*1>tatal*1){
+            var str = '<div style="width: auto;position: absolute; right: 4%;color: red;">内容超出限制</div>';
+            $(obj).after(str);
+            html.find('em').css({color:'red'});
+        }else {
+            $(obj).parent().find('div').remove();
+            html.find('em').css({color:'black'});
+        }
+        //设置已输入数量
+        html.find('em').html(sets);
+    };
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

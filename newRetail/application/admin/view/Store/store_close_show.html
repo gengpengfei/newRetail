@@ -1,0 +1,136 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<style>
+	.text-r{
+		width: 145px;
+	}
+	.table{
+		float: left;
+		width: 49%;
+	}
+</style>
+<link href="/admin_file/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<body>
+<div class="cl pd-20" style=" background-color:#5bacb6">
+	<dl style="color:#fff">
+		<dt>
+			<span class="f-18">店铺名:{$storeInfo.store_name}</span>
+		</dt>
+	</dl>
+</div>
+<div class="pd-20">
+	<table class="table">
+		<tbody>
+			<tr>
+				<th class="text-r" width="80">店铺名称：</th>
+				<td>{$storeInfo.store_name}</td>
+			</tr>
+			<tr>
+				<th class="text-r">店铺说明：</th>
+				<td>{$storeInfo.store_desc}</td>
+			</tr>
+			<tr>
+				<th class="text-r">客服电话：</th>
+				<td>{$storeInfo.store_phone}</td>
+			</tr>
+			<tr>
+				<th class="text-r">店铺地址：</th>
+				<td>{$storeInfo.store_address}</td>
+			</tr>
+			<tr>
+				<th class="text-r">关店原因：</th>
+				<td>{$storeInfo.close_reason}</td>
+			</tr>
+			<tr>
+				<th class="text-r">关店的资料(图片)：</th>
+				<td>
+					{volist name='close_img' id='img'}
+					<a href="" data-lightbox="gallery" data-title="关店的资料(图片)">
+						<img src="{$img}" style="max-width: 400px;max-height: 200px" />
+					</a>
+					{/volist}
+
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<form  id="form-admin-add" method="post"  enctype="multipart/form-data" >
+		<table class="table" style="margin-top: 40px;border-top: 1px solid #ccc;float: none;width: 100%">
+			<tbody>
+			<tr>
+				<th class="text-r">审核：</th>
+				<td>
+					<input onclick="hide_default()" type="radio" name="close_state" value="1" {if $storeInfo.close_state eq 1}checked{/if}>通过
+					<input onclick="show_default()" type="radio" name="close_state" value="2" {if $storeInfo.close_state eq 2}checked{/if}>拒绝
+				</td>
+			</tr>
+			<tr id="default" {if $storeInfo.close_state neq 2}style="display: none"{/if}>
+				<th class="text-r">拒绝原因：</th>
+				<td>
+					<textarea name="reply_reason" class="textarea">{$storeInfo.reply_reason}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th class="text-r"></th>
+				<td>
+					<div class="row cl">
+						<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+						<input type="hidden" name="id" id="id" value="{$storeInfo.id}">
+						<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+							<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+							<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+						</div>
+					</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/admin_file/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+	function hide_default(){
+	    $("#default").hide();
+	}
+    function show_default(){
+        $("#default").show();
+    }
+
+    $(function(){
+		$("#form-admin-add").validate({
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				$(form).ajaxSubmit({
+					type: 'post',
+					url: "/admin/Store/storeCloseShow" ,
+					success: function(data){
+						if(data.code == 0){
+							layer.msg('更新失败,'+data.msg,{icon:2,time:2000});
+						}else if(data.code == 1){
+							layer.msg('更新成功!',{icon:1,time:2000});
+							window.location.href="/admin/Store/storeCloseList";
+						}else{
+							layer.msg('更新失败',{icon:4,time:2000});
+						}
+					},
+					error: function(XmlHttpRequest, textStatus, errorThrown){
+						layer.msg('error!',{icon:1,time:2000});
+					}
+				});
+			}
+		});
+
+    });
+
+</script>
+</body>
+</html>

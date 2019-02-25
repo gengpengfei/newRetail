@@ -1,0 +1,142 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+    <form action="/shop/Store/productedit/store_pro_id/{$storeproinfo.store_pro_id}" method="post" class="form form-horizontal" id="form-pro-add" enctype="multipart/form-data" >
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>单品名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$storeproinfo.store_pro_name}" name="store_pro_name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>店铺：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width: 50%">
+                    {$storelist.store_name}
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">上传图片：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="file" name="store_pro_img" onchange="changImg(event)" />
+                <div><img id="myImg" src="{$storeproinfo.store_pro_img}" height="100px",width="100px"></div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>单品价格：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$storeproinfo.store_pro_price}" name="store_pro_price">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开始时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" value="{$storeproinfo.start_time}" name="start_time" id="start_time">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" name="end_time" value="{$storeproinfo.end_time}" id="end_time">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否推荐：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="is_show" id="is_show">
+					<option value="0">否</option>
+					<option value="1">是</option>
+				</select>
+				</span> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">单品点赞数：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" disabled="disabled" value="{$storeproinfo.store_pro_like}" name="store_pro_like">
+            </div>
+        </div>
+        <input type="hidden" name="is_ajax" id="is_ajax" value="1">
+        <input type="hidden" name="store_id" id="store_id" value="{$storelist.store_id}">
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#form-pro-add").validate({
+            rules:{
+                store_pro_name:{
+                    required:true
+                },
+                store_id:{
+                    required:true
+                },
+                store_pro_price:{
+                    required:true,
+                    number: true
+                },
+                start_time:{
+                    required:true
+                },
+                end_time:{
+                    required:true
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                var is_sub=1;
+                var start_time=$('#start_time').val()
+                var end_time=$('#end_time').val();
+                if (end_time<=start_time){
+                    layer.msg('请正确选择时间!',{icon: 5,time:2000});
+                    is_sub=2;
+                }
+                if(is_sub==1){
+                    form.submit();
+                }
+            }
+        });
+    });
+
+    //上传图片本地显示图片
+    function changImg(e){
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                $("#myImg").attr("src",e.target.result);
+            }
+        }
+    }
+
+    /*选中的店铺*/
+    $("#store_id").val('{$storeproinfo.store_id}').attr("selected",true);
+    /*是否推荐*/
+    $("#is_show").val('{$storeproinfo.is_show}').attr("selected",true);
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

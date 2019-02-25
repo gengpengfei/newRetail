@@ -1,0 +1,118 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+    <form {if $is_type eq 1}action="/shop/Store/navadd"{else}action="/shop/Store/navedit/nav_id/{$navid}"{/if}  method="post" class="form form-horizontal" id="form-pro-add" enctype="multipart/form-data" >
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>行业名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$navinfo.nav_name}" name="nav_name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">行业说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="nav_desc" class="textarea">{$navinfo.nav_desc}</textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">是否显示图片：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="radio" name="is_img" value="0" {if $navinfo.is_img eq 0}checked{/if}>否
+                <input type="radio" name="is_img" value="1" {if $navinfo.is_img eq 1}checked{/if}>是
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>导航类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width: 50%">
+                    <select class="select" name="nav_type" id="nav_type">
+                        <option value="">请选择</option>
+                        <option value="0">内部链接</option>
+                        <option value="1">食恪超市</option>
+                    </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">是否有效：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="radio" name="disabled" value="0" {if $navinfo.disabled eq 0}checked{/if}>否
+                <input type="radio" name="disabled" value="1" {if $navinfo.disabled eq 1}checked{/if}>是
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">排序：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$navinfo.sort_order}" name="sort_order">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">上传图片：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="file" name="nav_img" onchange="changImg(event)" />
+                <div><img id="myImg" src="{$navinfo.nav_img}" height="100px",width="100px"></div>
+            </div>
+        </div>
+        <input type="hidden" name="is_ajax" id="is_ajax" value="1">
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#form-pro-add").validate({
+            rules:{
+                nav_name:{
+                    required:true
+                },
+                nav_type:{
+                    required:true
+                },
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                form.submit();
+            }
+        });
+    });
+
+    //上传图片本地显示图片
+    function changImg(e){
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                $("#myImg").attr("src",e.target.result);
+            }
+        }
+    }
+
+    /*是否外链*/
+    $("#nav_type").val('{$navinfo.nav_type}').attr("selected",true);
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

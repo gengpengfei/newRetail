@@ -1,0 +1,132 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 系统管理
+    <span class="c-gray en">&gt;</span> 商品列表
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <div>
+        <a href="/admin/System/backUpList" class="btn btn-primary radius">
+            <i class="Hui-iconfont">&#xe600;</i> 数据备份
+        </a>
+    </div>
+    <br>
+    <form id="form-admin-add" method="post" name="theForm">
+        <div class="text-c" style="margin-bottom: 5px">
+            <table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="4"><div align="center">恢复备份</div></th>
+                </tr>
+                </thead>
+                <tr>
+                    <td width="18%">
+                        <input type="radio" name="type" value="full" class="radio" checked onclick="findobj('showtables').style.display='none'">
+                        本地sql文件
+                    </td>
+                    <td width="15%">备份数据库所有表</td>
+                </tr>
+                <tr>
+                    <td width="18%">
+                        <input type="radio" name="type" value="custom" class="radio" onclick="findobj('showtables').style.display=''">
+                        自定义备份
+                    </td>
+                    <td width="15%">根据自行选择备份数据表</td>
+                </tr>
+            </table>
+            <br>
+            <center><input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"></center>
+        </div>
+    </form>
+    <br>
+    <table class="table table-border table-bordered table-bg">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9" align="center">服务器上备份文件</th>
+        </tr>
+        <tr class="text-c">
+            <th width="150">文件名</th>
+            <th width="100">时间</th>
+            <th width="100">大小</th>
+            <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="fileList" id="c"}
+        <tr class="text-c">
+            <td>{$c.name}</td>
+            <td>{$c.time}</td>
+            <td>{$c.size}</td>
+            <td class="td-manage">
+                <a title="导入" href="/admin/IntegralShop/productEdit/product_id/{$c.product_id}" class="ml-5" style="text-decoration:none">
+                    <i class="Hui-iconfont">&#xe6df;</i>
+                </a>
+                <a title="删除" href="javascript:;" onclick="admin_del(this,{$c.product_id})" class="ml-5" style="text-decoration:none">
+                    <i class="Hui-iconfont">&#xe6e2;</i>
+                </a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+    /*广告-删除*/
+    function admin_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"/admin/IntegralShop/productDel",
+                data:{"product_id":id,"is_ajax":1},
+                type:"POST",
+                success: function(data){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:2000});
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
+
+    /* 批量删除*/
+    function del_query(){
+        var chk_value =[];
+        $('input[name="product_id"]:checked').each(function(){
+            chk_value.push($(this).val());
+        });
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"/admin/IntegralShop/productDel",
+                data:{"product_id":chk_value},
+                type:"POST",
+                success: function(data){
+                    layer.msg('已删除!',{icon:1,time:2000});
+                    history.go();
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                }
+            })
+        });
+    }
+</script>
+</body>
+</html>

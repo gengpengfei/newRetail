@@ -1,0 +1,240 @@
+﻿<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="/admin_file/lib/Hui-iconfont/1.0.8/iconfont.css" />
+</head>
+<style>
+	.content img {
+		width: 404px;
+		height: 228px;
+	}
+
+	.information  {
+		background: #ffffff;
+		font-size: 14px;
+		color: #4A4A4A;
+		padding: 10px;
+	}
+	.name{
+		text-align: center;
+		border-bottom: 1px solid #ccc;
+		padding: 10px;
+	}
+
+	.address{
+		width:50%;
+		float: left;
+		height: 8vh;
+		line-height: 8vh;
+		text-align: center;
+		border-right: 1px solid #ccc;
+		padding-top: 5px;
+	}
+	.phone{
+		width:49%;
+		float: right;
+		height: 8vh;
+		line-height: 8vh;
+		text-align: center;
+		padding-top: 5px;
+	}
+	.satisfaction{
+		width:45%;
+		float: left;
+		line-height: 4vh;
+		text-align: center;
+		padding-top: 20px;
+	}
+	.comment_info{
+		width:55%;
+		float: right;
+		line-height: 4vh;
+		text-align: center;
+		padding-top: 5px;
+	}
+	.info{
+		border-bottom: 1px solid #ccc;
+		padding-top: 10px;
+	}
+
+	.button {
+		width: 50%;
+		float: left;
+		height: 8vh;
+		background: #F73B0A;
+		line-height: 8vh;
+		text-align: center;
+		color: #ffffff;
+		font-size: 20px;
+		border-right: 1px solid #ccc;
+	}
+	.right {
+		width: 49%;
+		float: right;
+		height: 8vh;
+		background: #F73B0A;
+		line-height: 8vh;
+		text-align: center;
+		color: #ffffff;
+		font-size: 20px;
+	}
+	.good_list{
+		width: 100%;
+		padding:2vw;
+		border-top: 1px solid #ccc;
+	}
+	.pre{
+		margin-right: 5px;
+		height: 80px;
+	}
+	.pre dl{
+		clear: both;
+		padding-top: 5px;
+	}
+	.pre dl dt {
+		float: left;
+		line-height: 10px;
+		margin-left: 2px;
+		margin-top: 5px;
+	}
+	.pre dl dt span {
+		color: #9c9a9c;
+	}
+	.pre dl dd {
+		float: left;
+		height: 10px;
+		width: 100px;
+		margin-top: 5px;
+		line-height: 10px;
+		overflow: hidden;
+		background: #efefef
+	}
+	.pre dl dd div {
+		height: 10px;
+		line-height: 10px;
+		overflow: hidden;
+		float: left
+	}
+	.pre-div{
+		background-color: #F63300 !important;
+	}
+</style>
+<script>
+	function userAgent() {
+		var u = navigator.userAgent;
+		var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            alert('敬请期待');
+            return false;
+            //原理：判断是否认识这个协议，认识则直接跳转，不认识就在这里下载app
+            window.setTimeout(function(){
+                window.location.href = "http://www.wjtr.com/download/index.html"; /***下载app的协议，有安卓同事提供***/
+            },2000);
+        } else if (isiOS) {
+            //判断是否认识这个协议，认识则直接跳转，不认识就在这里下载appios();
+            window.setTimeout(function(){
+                window.location.href = "https://itunes.apple.com/cn/app/%E7%BA%A6%E6%83%A0%E5%A4%9A/id1424235736?mt=8"; /***下载app的地址***/
+            },2000)
+        }
+	}
+	function openAgent() {
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            alert('敬请期待');
+            return false;
+            //原理：判断是否认识这个协议，认识则直接跳转，不认识就在这里下载app
+            window.location.href = "openwjtr://com.futurecommerce"; /***打开app的协议，有安卓同事提供***/
+        } else if (isiOS) {
+            //判断是否认识这个协议，认识则直接跳转，不认识就在这里下载appios();
+            window.location.href = "openwjtr://com.shike.newretailtt"; /***打开app的协议，有ios同事提供***/
+        }
+    }
+	setTimeout(function () {
+		window.postMessage(JSON.stringify({ 'type': 'setHeight', 'height': document.body.scrollHeight }))
+	}, 300);
+</script>
+
+<body style="margin: 0;padding:5px;">
+
+	<div class="content">
+		<img src="{$store_img}">
+	</div>
+	<div class="information">
+		<div class="name">{$storeInfo.store_name}</div>
+		<div class="address"><i class="Hui-iconfont">&#xe6c9;</i>{$storeInfo.store_address}</div>
+		<div class="phone"><i class="Hui-iconfont">&#xe6a3;</i>{$storeInfo.store_phone}</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<div class="information">
+		<div class="info">商家信息：</div>
+		<div>{$storeInfo.store_info}</div>
+	</div>
+	{if $comment_list}
+	<div class="information">
+		<div class="info">用户评价：<br></div>
+		<div class="satisfaction">
+			<span>满意度</span><br>
+			<span style="color: #F73B0A">{$satisfaction}</span><br>
+			<span style="color: #9B9B9B">根据用户评分计算</span>
+		</div>
+		<div class="comment_info">
+			<div class="pre">
+				{volist name="comment_info" id="c"}
+				<dl>
+					<dt>{$c.0}</dt>
+					<dd>
+						<div style="background-color: #D8D8D8; background: none; width:{$c.1}%">
+							<div class="pre-div" style="background: none;width: 100%;"></div>
+						</div>
+					</dd>
+					<dt>{$c.2}</dt>
+				</dl>
+				{/volist}
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="good_list" style="height: auto;">
+		{volist name="comment_list" id="comment"}
+		<div>
+			<img src="{$comment.head_img.0}/small{$comment.head_img.1}{$comment.head_img.2}{$comment.head_img.3}" style="width: 15vw;border-radius: 50%;vertical-align: top;">
+			<div style="display: inline-block;">
+				<div style="padding: 5px;font-weight: bold;float: left">{$comment.user_name}</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="float: right;padding-top: 5px;color:#9B9B9B ">{$comment.create_time}</div>
+				<br>
+				<br>
+				<div style="padding: 5px">{$comment.comment_cont}
+					{if $comment.has_img}<br>
+					{volist name="$comment.comment_img" id="image"}
+					<img src="{$image.0}/small{$image.1}{$image.2}{$image.3}" style="width: 100px;height: 100px">
+					{/volist}
+					{/if}
+				</div>
+			</div>
+		</div>
+		{/volist}
+	</div>
+	{/if}
+	<div style="height: 10vh"></div>
+	<div class="button">
+		<span onclick="userAgent()" style="font-size:18px">立即下载APP</span>
+	</div>
+	<div class="right">
+		<span onclick="openAgent()" style="font-size:18px">打开APP</span>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<div class="page-container">
+    <div class="text-c" style="margin-bottom: 5px">
+        <table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+            <thead>
+            <tr>
+                <th colspan="4"><div align="center">店铺基本信息</div></th>
+            </tr>
+            </thead>
+            <tr>
+                <td width="18%"><div align="right"><strong>店铺名：</strong></div></td>
+                <td width="32%">{$storeinfo.store_name}</td>
+                <td width="18%"><div align="right"><strong>店铺信誉积分：</strong></div></td>
+                <td>{$storeinfo.store_credit}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>店铺类型：</strong></div></td>
+                <td>{if $storeinfo.store_type eq '0'}非认证{else}认证{/if}</td>
+                <td><div align="right"><strong>店铺状态：</strong></div></td>
+                <td>{if $storeinfo.is_close eq '0'}{if $storeinfo.disabled eq '0'}关店{else}开店{/if}{else}强制被关店{/if}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>所属行业：</strong></div></td>
+                <td>{$navinfo.nav_name}</td>
+                <td><div align="right"><strong>所属分类：</strong></div></td>
+                <td>{$categorystr}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>所在地址：</strong></div></td>
+                <td>{$storeinfo.store_address}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>平均评分数：</strong></div></td>
+                <td>{$storeinfo.comment_num}</td>
+                <td><div align="right"><strong>店铺热度：</strong></div></td>
+                <td>{$storeinfo.store_hot}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-c" style="margin-top: 20px">
+        <table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+            <thead>
+            <tr>
+                <th colspan="4"><div align="center">店铺订单统计信息&nbsp;</th>
+            </tr>
+            </thead>
+            <tr>
+                <td width="18%"><div align="right"><strong>线下买单数：</strong></div></td>
+                <td width="32%">{$storereport.offline_order}单</td>
+                <td width="18%"><div align="right"><strong>线下营业额：</strong></div></td>
+                <td>{$storereport.offline_order_price}元</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>商品订单数：</strong></div></td>
+                <td>{$storereport.valid_order}单</td>
+                <td><div align="right"><strong>商品总金额：</strong></div></td>
+                <td>{$storereport.valid_order_price}元</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>店铺返积分总额：</strong></div></td>
+                <td>{$storereport.store_score}积分</td>
+                <td><div align="right"><strong>店铺补贴总金额：</strong></div></td>
+                <td>{$storereport.coupons_price}元</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-c" style="margin-top: 20px">
+            <div>
+                <a href="/admin/Report/storefororderlist/store_id/{$storeinfo.store_id}/order_type/1">
+                    <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe627;</i> 查看商品订单列表</button>
+                </a>
+                <a href="/admin/Report/storefororderlist/store_id/{$storeinfo.store_id}/order_type/2">
+                    <button class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe627;</i> 查看支付订单列表</button>
+                </a>
+                <button onClick="window.location.href='/admin/Report/storeorderlist'" class="btn btn-default radius" type="button">&nbsp;&nbsp;返回&nbsp;&nbsp;</button>
+            </div>
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

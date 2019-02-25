@@ -1,0 +1,112 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<div class="page-container">
+    <div class="text-c" style="margin-bottom: 5px">
+        <table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+            <thead>
+            <tr>
+                <th colspan="4"><div align="center">订单的基础信息</div></th>
+            </tr>
+            </thead>
+            <tr>
+                <td width="18%"><div align="right"><strong>订单编号：</strong></div></td>
+                <td width="32%">{$storeOrderInfo.order_sn}</td>
+                <td width="18%"><div align="right"><strong>订单时间：</strong></div></td>
+                <td>{$storeOrderInfo.create_time}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>订单状态：</strong></div></td>
+                <td>{if $storeOrderInfo.order_state eq 'T01'}待付款
+                    {elseif $storeOrderInfo.order_state eq 'T02'}未使用
+                    {elseif $storeOrderInfo.order_state eq 'T03'}已使用
+                    {elseif $storeOrderInfo.order_state eq 'T04'}退款关闭
+                    {elseif $storeOrderInfo.order_state eq 'T05'}已关闭{/if}</td>
+                <td><div align="right"><strong>订单类型：</strong></div></td>
+                {if $storeOrderInfo.order_type eq 1}
+                <td class="td-status"><span class="label label-success radius">支付订单</span></td>
+                {else}
+                <td class="td-status"><span class="label label-success radius">商品订单</span></td>
+                {/if}
+            </tr>
+            <tr>
+                <td><div align="right"><strong>用户账号：</strong></div></td>
+                <td>{$storeOrderInfo.mobile}</td>
+                <td><div align="right"><strong>用户手机号：</strong></div></td>
+                <td>{$storeOrderInfo.user_name}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>订单金额：</strong></div></td>
+                <td>{$storeOrderInfo.order_price}</td>
+                <td><div align="right"><strong>商家补贴：</strong></div></td>
+                <td>{$storeOrderInfo.discount_price}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>实付金额：</strong></div></td>
+                <td>{$storeOrderInfo.buy_price}</td>
+                <td><div align="right"><strong>退款金额：</strong></div></td>
+                <td>{$storeOrderInfo.refund_price}</td>
+            </tr>
+        </table>
+    </div>
+    <!-- 商品列表页面 start -->
+    <div class="text-c" style="margin-bottom: 5px">
+        <table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+            <thead>
+            <tr>
+                <th colspan="7" scope="col" ><div align="center">商品信息</div></th>
+            </tr>
+            </thead>
+            <tr>
+                <td scope="col" width="30%"><div align="center"><strong>商品名称</strong></div></td>
+                <td scope="col"><div align="center"><strong>商品编号</strong></div></td>
+                <td scope="col"><div align="center"><strong>商品价格</strong></div></td>
+                <td scope="col"><div align="center"><strong>商品类别</strong></div></td>
+                <td scope="col"><div align="center"><strong>商品使用状态</strong></div></td>
+                <td scope="col"><div align="center"><strong>实付金额</strong></div></td>
+                <td scope="col"><div align="center"><strong>小计</strong></div></td>
+            </tr>
+
+            {volist name="uservoucherlist" id="goods"}
+            <tr>
+                <td>{$goods.voucher_name}</td>
+                <td>{$goods.order_sn}</td>
+                <td>{$goods.voucher_price}</td>
+                <td>{if $goods.voucher_type eq '0'}领用{else}购买{/if}</td>
+                <td>{$goods.used_state}</td>
+                <td>{$goods.buy_price}</td>
+                <td>{$goods.buy_price}</td>
+            </tr>
+            {/volist}
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><div align="right"><strong>合计：</strong></div></td>
+                <td><div align="right">{$uservouchersum}</div></td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-c" style="margin-top: 20px">
+        <div>
+            <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;返回&nbsp;&nbsp;</button>
+        </div>
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

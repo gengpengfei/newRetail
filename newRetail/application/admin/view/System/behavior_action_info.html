@@ -1,0 +1,424 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">用户行为动作名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$behaviorStore.action_name}" id="action_name" name="action_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">积分获取方式名称：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="behavior_id">
+					<option value=" " >请选择用户行为</option>
+                    {volist name="behaviorInfo" id="behavior"}
+					<option value="{$behavior.behavior_id}" {if $behaviorStore.behavior_id == $behavior.behavior_id}selected{/if}>{$behavior.behavior_name}</option>
+					{/volist}
+				</select>
+				</span> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">用户行为动作说明：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea class="input-text" id="action_desc" name="action_desc">
+					{$behaviorStore.action_desc}
+				</textarea>
+
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">是否绑定店铺：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" name="is_store" value="0" onclick="hide_store()" {if $behaviorStore.is_store eq 0}checked{/if}>否
+				<input type="radio" name="is_store" value="1" onclick="show_store()" {if $behaviorStore.is_store eq 1}checked{/if}>是
+			</div>
+		</div>
+
+		<div class="row cl" id="store_id" {if $behaviorStore.is_store eq 0}style="display: none"{/if}>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>绑定店铺：</label>
+			<input type="hidden" value="" placeholder="" name="stintid" id="stintid">
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" style="width: 250px" value="" placeholder="输入名称/说明/关键字" id="seachData"> <input class="btn btn-primary radius" type="button" value="搜索" id="button">
+			</div>
+		</div>
+		<div class="row cl" id="store" {if $behaviorStore.is_store eq 0}style="display: none"{/if}>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span></label>
+			<div class="formControls col-xs-3 col-sm-3">
+				<table class="table table-border table-bordered table-bg">
+					<thead class="text-c">
+					<tr><th width="150">店铺名</th><th>选中</th></tr>
+					</thead>
+					<tbody class="text-c" id="searchRes">
+
+					</tbody>
+				</table>
+			</div>
+			<div class="formControls col-xs-1 col-sm-1" style="margin-left:3%">
+				<input class="btn btn-primary radius" type="button" value=">>" id="add">
+				<p></p>
+				<input class="btn btn-primary radius" type="button" value="<<" id="del">
+			</div>
+			<div class="formControls col-xs-3 col-sm-3">
+				<table class="table table-border table-bordered table-bg">
+					<thead class="text-c">
+					<tr><th width="150">店铺名</th><th>选中</th></tr>
+					</thead>
+					<tbody class="text-c" id="addDate">
+					{volist name='storeList' id='f'}
+					<tr><th>{$f.name}</th><td><input type="checkbox" value="{$f.id}"></td></tr>
+					{/volist}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">是否赠送积分：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" name="is_score" value="0" onclick="hide_score()" {if $behaviorStore.is_score eq 0}checked{/if}>否
+				<input type="radio" name="is_score" value="1" onclick="show_score()" {if $behaviorStore.is_score eq 1}checked{/if}>是
+			</div>
+		</div>
+
+		<div class="row cl" id="score" {if $behaviorStore.is_score eq 0}style="display: none"{/if}>
+			<label class="form-label col-xs-4 col-sm-3">获取积分类型：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="score_rule_type" id="score_rule_type" onchange="hide_default($(this).val())">
+					<option value="0" {if $behaviorStore.score_rule_type eq 0}selected{/if}>不赠送</option>
+					<option value="1" {if $behaviorStore.score_rule_type eq 1}selected{/if}>固定积分</option>
+					<option value="2" {if $behaviorStore.score_rule_type eq 2}selected{/if}>按不同订单金额区间</option>
+					<option value="3" {if $behaviorStore.score_rule_type eq 3}selected{/if}>按订单金额百分比</option>
+				</select>
+				</span> </div>
+		</div>
+		<div class="row cl" id="score_info" {if $behaviorStore.score_rule_type eq 2 || $behaviorStore.score_rule_type eq 0} style="display: none"{/if}>
+			<label class="form-label col-xs-4 col-sm-3">赠送积分值：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$behaviorStore.score_rule_info}" id="score_rule_info" name="score_rule_info">
+			</div>
+		</div>
+
+		<div class="row cl" id="score_rule" {if $behaviorStore.score_rule_type neq 2} style="display: none" {/if}>
+		<label class="form-label col-xs-4 col-sm-3">订单金额区间：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			{volist name="score_rule_info" key="k" id="s"}
+			<table id="score_information">
+				<tr>
+					<td>
+						<input type="text" class="input-text" value="{$s.min}" name="min_score[]" id="min_score" style="width: 16%">
+						-
+						<input type="text" class="input-text" value="{$s.max}" name="max_score[]" id="max_score" style="width: 16%">
+						<input type="text" class="input-text" value="{$s.score}" name="score_integral[]" id="score_integral" style="width: 16%">
+						<a href="javascript:;" onclick="addScore(this)"><strong>[+]</strong></a>
+					</td>
+				</tr>
+				<tr style="height: 10px"></tr>
+			</table>
+			{/volist}
+		</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">是否赠送活跃度：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" name="is_active" value="0" onclick="hide_active()" {if $behaviorStore.is_active eq 0}checked{/if}>否
+				<input type="radio" name="is_active" value="1" onclick="show_active()" {if $behaviorStore.is_active eq 1}checked{/if}>是
+			</div>
+		</div>
+
+		<div class="row cl" id="active" {if $behaviorStore.is_active eq 0}style="display: none"{/if}>
+			<label class="form-label col-xs-4 col-sm-3">获取活跃类型：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="active_rule_type" id="active_rule_type" onchange="show_default($(this).val())">
+					<option value="0" {if $behaviorStore.active_rule_type eq 0}selected{/if}>不赠送</option>
+					<option value="1" {if $behaviorStore.active_rule_type eq 1}selected{/if}>固定活跃度</option>
+					<option value="2" {if $behaviorStore.active_rule_type eq 2}selected{/if}>按不同订单金额区间</option>
+					<option value="3" {if $behaviorStore.active_rule_type eq 3}selected{/if}>按订单金额百分比</option>
+				</select>
+				</span> </div>
+		</div>
+		<div class="row cl" id="active_info" {if $behaviorStore.active_rule_type eq 2 || $behaviorStore.active_rule_type eq 0} style="display: none"{/if}>
+			<label class="form-label col-xs-4 col-sm-3">赠送积分值：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$behaviorStore.active_rule_info}" id="active_rule_info" name="active_rule_info">
+			</div>
+		</div>
+
+		<div class="row cl" id="active_rule" {if $behaviorStore.active_rule_type neq 2} style="display: none" {/if}>
+			<label class="form-label col-xs-4 col-sm-3">订单金额区间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			{volist name="active_rule_info" key="k" id="c"}
+			<table id="rule_info">
+				<tr>
+					<td>
+						<input type="text" class="input-text" value="{$c.min}" name="min_active[]" id="min_active" style="width: 16%">
+						-
+						<input type="text" class="input-text" value="{$c.max}" name="max_active[]" id="max_active" style="width: 16%">
+						<input type="text" class="input-text" value="{$c.active}" name="active_integral[]" id="active_integral" style="width: 16%">
+						<a href="javascript:;" onclick="addLadder(this)"><strong>[+]</strong></a>
+					</td>
+				</tr>
+				<tr style="height: 10px"></tr>
+			</table>
+			{/volist}
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="behavior_action_id" id="behavior_action_id" value="{$behaviorStore.behavior_action_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        var behavior_action_id = $("#behavior_action_id").val();
+        if(behavior_action_id){
+            $("#form-admin-add").validate({
+                rules:{
+                    reason_desc:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    var is_store = $("input[name='is_store']:checked").val();
+                    if (is_store == 1){
+                        var val = '';
+                        if($("#addDate input").length == 0){
+                            layer.msg('至少绑定一个店铺!',{icon: 5,time:2000});
+                            return false;
+                        }
+                        $("#addDate input").each(function (i,e) {
+                            val += $(e).val()+',';
+                        })
+                        var aa = val.substring(0,val.length-1);
+                        $("#stintid").val(aa);
+                    }
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/System/behaviorStoreEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('更新失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('更新成功!',{icon:1,time:2000});
+                                window.location.href="/admin/System/behaviorStoreList";
+                            }else{
+                                layer.msg('更新失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                rules:{
+                    reason_desc:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    var is_store = $("input[name='is_store']:checked").val();
+                    if (is_store == 1){
+                        var val = '';
+                        if($("#addDate input").length == 0){
+                            layer.msg('至少绑定一个店铺!',{icon: 5,time:2000});
+                            return false;
+                        }
+                        $("#addDate input").each(function (i,e) {
+                            val += $(e).val()+',';
+                        })
+                        var aa = val.substring(0,val.length-1);
+                        $("#stintid").val(aa);
+                    }
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/System/behaviorStoreAdd" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/admin/System/behaviorStoreList";
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+
+    });
+
+    var button = document.getElementById("button");
+    var seachData = document.getElementById("seachData");
+    var searchRes = document.getElementById("searchRes");
+    var addDate = document.getElementById("addDate");
+    button.onclick=function () {
+        var val = seachData.value;
+        $.ajax('/Admin/System/searchAdd', {
+            method: 'POST',
+            data:{keyWord:val},
+            dataType:'json'
+        }).done(function( res) {
+            if(res.length>0){
+                var html = '';
+                $(res).each(function (i,e) {
+                    html += '<tr ><th>'+e['name']+'</th><td><input type="checkbox" value="'+e['id']+'"></td></tr>'
+                })
+                $(searchRes).html(html);
+            }else{
+                var html = '';
+                $(searchRes).html(html);
+            }
+        });
+    }
+    var add = document.getElementById("add");
+    add.onclick = function () {
+        var input = $("#searchRes input:checked");
+        if(input.length===0){
+            return false;
+        }
+        var addInput = $("#addDate input");
+        input.each(function (i,e) {
+            if(addInput.length>0){
+                addInput.each(function (x,y) {
+                    if($(y).val() == $(e).val()){
+                        $(e).parents("tr").remove();
+                        return false;
+                    }else{
+                        var tr = $(e).parents("tr");
+                        $(addDate).append(tr);
+                    }
+                });
+            }else{
+                var tr = $(e).parents("tr");
+                $(addDate).append(tr);
+            }
+        })
+    }
+    var del = document.getElementById("del");
+    del.onclick = function () {
+        var input = $("#addDate input:checked");
+        if(input.length===0){
+            return false;
+        }
+        var tr = input.parents("tr");
+        tr.remove();
+    }
+
+
+    function hide_default(obj,id){
+        if (obj == 2) {
+            $("#score_rule").show();
+            $("#score_info").hide();
+        }else{
+            $("#score_rule").hide();
+            $("#score_info").show();
+        }
+    }
+    function show_default(obj,id){
+        if (obj == 2) {
+            $("#active_rule").show();
+            $("#active_info").hide();
+        }else{
+            $("#active_rule").hide();
+            $("#active_info").show();
+        }
+    }
+    function hide_score() {
+        $("#score").hide();
+    }
+    function show_score() {
+        $("#score").show();
+    }
+    function hide_store() {
+        $("#store_id").hide();
+        $("#store").hide();
+    }
+    function show_store() {
+        $("#store_id").show();
+        $("#store").show();
+    }
+    function hide_active() {
+        $("#active").hide();
+    }
+    function show_active() {
+        $("#active").show();
+    }
+
+    /**
+     * 新增一个价格阶梯
+     */
+    function addLadder(obj, min_active, max_active, active_integral)
+    {
+        var tr = $(obj).parent().parent().parent(),
+            trs = $(obj).parent();
+        tr.after(tr.clone());
+        $(obj).remove();
+        var html= "<a href='javascript:;' onclick='removeLadder(this)'><strong>[-]</strong></a>";
+        trs.append(html);
+    }
+    //addScore
+    function addScore(obj, min_score, max_score, score_integral)
+    {
+        var tr = $(obj).parent().parent().parent(),
+            trs = $(obj).parent();
+        tr.after(tr.clone());
+        $(obj).remove();
+        var html= "<a href='javascript:;' onclick='removeScore(this)'><strong>[-]</strong></a>";
+        trs.append(html);
+    }
+
+    /**
+     * 删除一个价格阶梯
+     */
+    function removeLadder(obj)
+    {
+        var i = obj.parentNode.parentNode.rowIndex;
+        document.getElementById('rule_info').deleteRow(i);
+    }
+    function removeScore(obj)
+    {
+        var i = obj.parentNode.parentNode.rowIndex;
+        document.getElementById('score_information').deleteRow(i);
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

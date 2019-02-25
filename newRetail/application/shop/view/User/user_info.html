@@ -1,0 +1,199 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<style>
+	.form-horizontal .form-label {
+		margin-top: 3px;
+		cursor: text;
+		text-align: right;
+		width: 25%;
+	}
+</style>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" readonly=true value="{$user_info.user_name}" placeholder="" id="user_name" name="user_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">昵称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$user_info.nick_name}" placeholder="" id="nick_name" name="nick_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">手机：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$user_info.mobile}" placeholder="" id="mobile" name="mobile">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">邮箱：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$user_info.email}" placeholder="" id="email" name="email">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">性别：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="sex" type="radio" id="sex-1" value="1" {if $user_info.sex eq 1}checked{/if}>
+					<label for="sex-1">男</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="sex-2" name="sex" value="0" {if $user_info.sex eq 0}checked{/if}>
+					<label for="sex-2">女</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">生日：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" id="birthday" name="birthday" class="input-text Wdate" style="width:120px;" value="{$user_info.birthday}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">积分：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$user_info.user_score}" placeholder="" id="user_score" name="user_score">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">启用状态：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="disabled" type="radio" id="disabled1" value="1" {if condition="$user_info.disabled eq 1"}checked{/if}>
+					<label for="disabled1">启用</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="disabled2" name="disabled" value="0" {if condition="$user_info.disabled eq 0"}checked{/if}>
+					<label for="disabled2">禁用</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="user_id" id="user_id" value="{$user_info.user_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        var user_id = $("#user_id").val();
+        if(user_id){
+            $("#form-admin-add").validate({
+                rules:{
+                    user_name:{
+                        required:true,
+                        minlength:5,
+                        maxlength:16
+                    },
+                    nick_name:{
+                        minlength:2,
+                        maxlength:16
+                    },
+
+
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/shop/User/userEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('编辑失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('编辑成功!',{icon:1,time:2000});
+                                window.location.href="/shop/User/userList";
+                            }else{
+                                layer.msg('编辑失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                rules:{
+                    user_name:{
+                        required:true,
+                        minlength:4,
+                        maxlength:16
+                    },
+                    nickname:{
+                        minlength:2,
+                        maxlength:16
+                    },
+                    password:{
+                        required:true,
+                        minlength:8,
+                        maxlength:16,
+                    },
+                    password_confirm:{
+                        required:true,
+                        minlength:8,
+                        maxlength:16,
+                        equalTo: "#password"
+                    },
+
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/shop/User/userAdd" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/shop/User/userList";
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

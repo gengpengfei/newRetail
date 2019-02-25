@@ -1,0 +1,81 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span> 管理员管理
+	<span class="c-gray en">&gt;</span> 管理员列表
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+		<i class="Hui-iconfont">&#xe68f;</i>
+	</a>
+</nav>
+<div class="page-container">
+	<form action="/admin/Authority/adminLog" method="get">
+		<div class="text-c">
+			类型：
+			<span class="select-box radius " style="width:150px">
+				<select class="select" name="logtype" id="logtype" size="1">
+					<option value="0">操作类型</option>
+					<option value="登录" {if condition="$where.logtype eq '登录'"}selected{/if}>登录</option>
+					<option value="操作" {if condition="$where.logtype eq '操作'"}selected{/if}>操作</option>
+				</select>
+			</span>
+			日期范围：
+			<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;" value="{$where.datemin}">
+			-
+			<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;" value="{$where.datemax}">
+			<input type="text" class="input-text" style="width:250px" placeholder="操作者" id="keywords" name="keywords" value="{$where.keywords}">
+			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜记录</button>
+		</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+	</div>
+	<table class="table table-border table-bordered table-bg table-hover table-sort">
+		<thead>
+		<tr>
+			<th scope="col" colspan="9">操作记录列表</th>
+		</tr>
+		<tr class="text-c">
+			<th width="40" onclick="sort('Authority/adminLog','log_id')">ID</th>
+			<th width="150" onclick="sort('Authority/adminLog','admin_nickname')">操作者</th>
+			<th width="130" onclick="sort('Authority/adminLog','create_time')">操作日期</th>
+			<th width="130" onclick="sort('Authority/adminLog','ip')">IP地址</th>
+			<th width="150" onclick="sort('Authority/adminLog','content')">操作记录</th>
+		</tr>
+		</thead>
+		<tbody>
+		{volist name="admin_user_list" id="c"}
+			<tr class="text-c">
+				<td>{$c.log_id}</td>
+				<td>{$c.admin_nickname}</td>
+				<td>{$c.create_time}</td>
+				<td>{$c.ip}</td>
+				<td>{$c.content}</td>
+			</tr>
+		{/volist}
+		</tbody>
+	</table>
+	<div style="margin-top: 10px;padding-left: 5px;padding-right: 5px;">
+		每页显示
+		<input type="number" id="show_count" onchange="changeCount('Authority/adminLog',$(this).val())" class="input-text" style="width: 50px;margin-left: 5px;margin-right: 5px;" value="{$show_count}">条
+	</div>
+</div>
+<div class="pages">{$page}</div>
+
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

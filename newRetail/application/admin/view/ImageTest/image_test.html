@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">资源管理</h4>
+</div>
+<div class="modal-body" id = "modal_body">
+    <div class="row">
+        <div class="col-sm-5"><a href="{:url('admin/image/show',['directory'=>$parent,'type'=>$type])}" data-toggle="tooltip" title="上一级" id="button-parent" class="btn btn-default"><i class="fa fa-level-up"></i></a> <a href="{:url('admin/image/show',['directory'=>$directory,'type'=>$type])}" data-toggle="tooltip" title="刷新" id="button-refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+            <button type="button" data-toggle="tooltip" title="上传" id="button-upload" class="btn btn-primary"><i class="fa fa-upload"></i></button>
+            <button type="button" data-toggle="tooltip" title="新目录" id="button-folder" class="btn btn-default"><i class="fa fa-folder"></i></button>
+            <button type="button" data-toggle="tooltip" title="删除" id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+        </div>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <input type="text" name="search" value="<?php echo $filter_name; ?>" placeholder="。。。。" class="form-control">
+                <span class="input-group-btn">
+            <button type="button" data-toggle="tooltip" title="搜索" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
+            </span></div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <?php foreach ($images as $image) { ?>
+
+        <div class="col-sm-3 text-center">
+
+            <?php if ($image['type'] == 'directory') { ?>
+            <div class="text-center"><a href="{:url('admin/image/show',['directory'=>$image['path'],'type'=>$type])}" class="directory" style="vertical-align: middle;"><i class="fa fa-folder" style="font-size: 6em"></i></a></div>
+            <label>
+                <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
+                <?php echo $image['name']; ?></label>
+            <?php } ?>
+
+            <?php if ($image['type'] == 'image') { ?>
+            <a href="<?php echo $image['img_src']; ?>" class="thumbnail" thumb = "<?php echo $image['thumb']; ?>"><img src="<?php echo $image['thumb']; ?>" alt="<?php echo $image['name']; ?>" title="<?php echo $image['name']; ?>" /></a>
+            <label>
+                <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
+                <?php echo $image['name']; ?></label>
+            <?php } ?>
+
+            <?php if ($image['type'] == 'video') { ?>
+            <a href="<?php echo $image['file_src']; ?>" class="videonail"><i class="fa-file-video-o" style="font-size: 6em"></i></a>
+            <label>
+                <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
+                <?php echo $image['name']; ?></label>
+            <?php } ?>
+
+            <?php if ($image['type'] == 'pdf') { ?>
+            <a href="<?php echo $image['file_src']; ?>" class="pdfnail"><i class="fa-file-pdf-o" style="font-size: 6em"></i></a>
+            <label>
+                <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
+                <?php echo $image['name']; ?></label>
+            <?php } ?>
+
+
+        </div>
+
+        <?php } ?>
+    </div>
+</div>
+
+<div class="row" id="imgcopy" style="display: none">
+    <div class="col-md-8">
+
+        <strong class="text-primary">截图</strong>
+        <br />
+        <br />
+
+        <div class="img-container">
+            <img src="" class="img-responsive" id="img-responsive" />
+        </div>
+
+    </div>
+    <div class="col-md-4">
+
+        <strong class="text-primary">预览</strong>
+        <br />
+        <br />
+        <div class="img-shade">
+            <div id="img-preview" class="img-preview"></div>
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th width="25%">X</th>
+                <th width="25%">Y</th>
+                <th width="25%">W</th>
+                <th width="25%">H</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td id="img-1-x">0px</td>
+                <td id="img-1-y">0px</td>
+                <td id="img-1-w">0px</td>
+                <td id="img-1-h">0px</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a id="crop-img" href="data/crop-image.php" class="btn btn-secondary">确定</a>
+
+    </div>
+</div>
+
+<div class="modal-footer" id="modal_footer"><div class="page">{$pagination}</div></div>
+<!---->
+<script>
+
+    function load_image_syatem(url,data) {
+        //展示图片管理器信息
+        jQuery('#image_system').modal('show', {backdrop: 'static'});
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            dataType: 'json',
+            data:data,
+            success: function(resp)
+            {
+                $(".modal-content").html(resp);
+            }
+        });
+    }
+
+    function getvoidtime(){
+        var x=document.getElementById("video_src");
+        var num = Math.ceil(x.duration);
+        $("#time_out").val(num);
+    }
+
+    $('a.videonail').on('click', function(e) {
+        e.preventDefault();
+
+        $('#'+data_name).val( $(this).attr('href'));
+        $("#video_src").attr('src',$(this).attr('href'));
+
+        $("#"+thumb_id).attr('src',"{$Think.config.defaultbgv}");
+
+        $('#image_system').modal('hide');
+        setTimeout("getvoidtime()",2000);
+
+    });
+
+
+    $('a.pdfnail').on('click', function(e) {
+        e.preventDefault();
+
+        $('#'+data_name).val( $(this).attr('href'));
+
+        $("#"+thumb_id).attr('src',"{$Think.config.defaultbgp}");
+        $('#image_system').modal('hide');
+
+    });
+
+
+
+
+    $('a.thumbnail').on('click', function(e) {
+        e.preventDefault();
+
+//		$('#'+data_name).val( $(this).attr('href'));
+//
+//		$("#"+thumb_id).attr('src',$(this).attr('thumb'));
+
+        var thumbimg = $(this).attr('thumb');
+        $("#modal_body").hide();
+        $("#imgcopy").show();
+
+
+        var img = $(this).attr('href');
+        $("#img-responsive").attr('src',img);
+
+
+
+        var imgsize = new Array(220,145);
+        if(data_size){
+            imgsize = data_size.split(",");
+        }
+
+        var aspect_ratio = imgsize[0] / imgsize[1]
+        var preview_size = [260, 260/aspect_ratio],
+
+
+
+            $image = $(".img-container img"),
+            $x = $("#img-1-x"),
+            $y = $("#img-1-y"),
+            $w = $("#img-1-w"),
+            $h = $("#img-1-h");
+
+        // Plugin Initialization
+        $image.cropper({
+            aspectRatio: aspect_ratio,
+            preview: '#img-preview',
+            resizable:true,
+            autoCropArea:1,
+            dragCrop:false,
+            done: function(data)
+            {
+                data.x = parseInt(data.x);
+                data.y = parseInt(data.y);
+                data.width = parseInt(data.width);
+                data.height = parseInt(data.height);
+                $x.text( data.x );
+                $y.text( data.y );
+                $w.text( data.width );
+                $h.text( data.height );
+            }
+        });
+
+        // Preview Image Setup (based on defined crop width and height
+        $("#img-preview").css({
+            width: preview_size[0],
+            height: preview_size[1]
+        });
+
+        $("#crop-img").on('click', function(ev)
+        {
+            ev.preventDefault();
+            $.ajax({
+                url:"{:url('admin/image/croper')}",
+                method: 'GET',
+                dataType: 'json',
+                data:{ "x": $x.text(), 'y': $y.text(),'w':$w.text(),'h':$h.text(),'img':img},
+                success: function(resp)
+                {
+                    if(resp.code == 1){
+                        $('#'+data_name).val(""+resp.msg);
+
+                        $("#"+thumb_id).attr('src',resp.msg);
+
+//						var myVideo = $("#"+thumb_id);//获取video元素
+//						var tol = 0;
+//
+//						myVideo.addEventListener("loadedmetadata", function(){
+//							tol = myVideo.duration;//获取总时长
+//							$("#"+time_out).val(tol);
+//						});
+
+
+                        $('#image_system').modal('hide');
+                    }else{
+                        alert(resp.msg);
+                    }
+
+                }
+            });
+        });
+
+
+
+        //$('#image_system').modal('hide');
+
+    });
+
+    $('.pagination a').on('click', function(e) {
+        e.preventDefault();
+        load_image_syatem($(this).attr('href'))
+    });
+
+    $('a.directory').on('click', function(e) {
+        e.preventDefault();
+        load_image_syatem($(this).attr('href'))
+        //$('#image_system').load($(this).attr('href'));
+    });
+
+
+    $('#button-parent').on('click', function(e) {
+        e.preventDefault();
+        load_image_syatem($(this).attr('href'))
+        //$('#image_system').load($(this).attr('href'));
+    });
+
+    $('#button-refresh').on('click', function(e) {
+        e.preventDefault();
+        load_image_syatem($(this).attr('href'))
+        //$('#image_system').load($(this).attr('href'));
+    });
+
+    $('input[name=\'search\']').on('keydown', function(e) {
+        if (e.which == 13) {
+            $('#button-search').trigger('click');
+        }
+    });
+
+    $('#button-search').on('click', function(e) {
+        var url = "{:url('admin/image/show',['directory'=>$directory])}";
+        var data = '';
+        var filter_name = $('input[name=\'search\']').val();
+
+        if (filter_name) {
+            data = {'filter_name' : encodeURIComponent(filter_name)};
+        }
+
+
+        load_image_syatem(url,data);
+    });
+
+    $('#button-upload').on('click', function() {
+        $('#form-upload').remove();
+
+        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" multiple="multiple" name="file[]" value="" /></form>');
+
+        $('#form-upload input[name=\'file[]\']').trigger('click');
+
+        if (typeof timer != 'undefined') {
+            clearInterval(timer);
+        }
+
+        timer = setInterval(function() {
+            if ($('#form-upload input[name=\'file[]\']').val() != '') {
+                clearInterval(timer);
+                $.ajax({
+                    url: "{:url('admin/image/upload',['directory'=>$directory])}",
+                    type: 'post',
+                    dataType: 'json',
+                    data: new FormData($('#form-upload')[0]),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#button-upload i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
+                        $('#button-upload').prop('disabled', true);
+                    },
+                    complete: function() {
+                        $('#button-upload i').replaceWith('<i class="fa fa-upload"></i>');
+                        $('#button-upload').prop('disabled', false);
+                    },
+                    success: function(json) {
+                        if (json['error']) {
+                            alert(json['error']);
+                        }
+
+                        if (json['success']) {
+                            alert(json['success']);
+
+                            $('#button-refresh').trigger('click');
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
+            }
+        }, 500);
+    });
+
+    $('#button-folder').popover({
+        html: true,
+        placement: 'bottom',
+        trigger: 'click',
+        title: '文件夹名称',
+        content: function() {
+            html  = '<div class="input-group">';
+            html += '  <input type="text" name="folder" value="" placeholder="文件夹名称" class="form-control">';
+            html += '  <span class="input-group-btn"><button type="button" title="新目录" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
+            html += '</div>';
+
+            return html;
+        }
+    });
+
+    $('#button-folder').on('shown.bs.popover', function() {
+        $('#button-create').on('click', function() {
+            $.ajax({
+                    url: '{:url('admin/image/folder',['directory'=>$directory])}',
+                type: 'post',
+                dataType: 'json',
+                data: 'folder=' + encodeURIComponent($('input[name=\'folder\']').val()),
+                beforeSend: function() {
+                $('#button-create').prop('disabled', true);
+            },
+            complete: function() {
+                $('#button-create').prop('disabled', false);
+            },
+            success: function(json) {
+                if (json['error']) {
+                    alert(json['error']);
+                }
+
+                if (json['success']) {
+                    alert(json['success']);
+
+                    $('#button-refresh').trigger('click');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+        });
+    });
+
+
+    $('#image_system #button-delete').on('click', function(e) {
+        if (confirm('确认删除选中资源嘛?')) {
+            $.ajax({
+                url: '{:url("admin/image/delete")}',
+                type: 'post',
+                dataType: 'json',
+                data: $('input[name^=\'path\']:checked'),
+                beforeSend: function() {
+                    $('#button-delete').prop('disabled', true);
+                },
+                complete: function() {
+                    $('#button-delete').prop('disabled', false);
+                },
+                success: function(json) {
+                    if (json['error']) {
+                        alert(json['error']);
+                    }
+
+                    if (json['success']) {
+                        alert(json['success']);
+
+                        $('#button-refresh').trigger('click');
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

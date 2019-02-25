@@ -1,0 +1,122 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 系统管理
+    <span class="c-gray en">&gt;</span> 数据备份
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <!--<div >
+        <a href="/admin/System/restore" class="btn btn-primary radius">
+            <i class="Hui-iconfont">&#xe600;</i> 恢复备份
+        </a>
+    </div>
+    <br>-->
+    <form id="form-admin-add" method="post" name="theForm">
+        <div class="text-c" style="margin-bottom: 5px">
+            <table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="4"><div align="center">备份类型</div></th>
+                </tr>
+                </thead>
+                <tr>
+                    <td width="18%">
+                        <input type="radio" name="type" value="full" class="radio" checked onclick="findobj('showtables').style.display='none'">
+                        全部备份
+                    </td>
+                    <td width="15%">备份数据库所有表</td>
+                </tr>
+                <tr>
+                    <td width="18%">
+                        <input type="radio" name="type" value="custom" class="radio" onclick="findobj('showtables').style.display=''">
+                       自定义备份
+                    </td>
+                    <td width="15%">根据自行选择备份数据表</td>
+                </tr>
+                <tbody id="showtables" style="display:none">
+                <tr>
+                    <td colspan="2">
+                        <table>
+                            <div>
+                                <input name="chkall" onclick="checkall(this.form, 'customtables[]')" type="checkbox"><b>全选</b>
+                            </div>
+                            {volist name="dataList" id="c"}
+                                <div style="display:inline-block;border-bottom:1px solid #9da0a4 ;width:20%;height: 40px;line-height: 40px;">
+                                    <input name="customtables[]" value="{$c.name}"  type="checkbox">&nbsp;&nbsp;{$c.name}
+                                </div>
+                            {/volist}
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+                <thead>
+                <tr>
+                    <th colspan="4"><div align="center">其它选项&nbsp;</div></th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>备份文件名</td>
+                    <td><input type="text" name="sql_file_name" value="{$sql_name}"></td>
+                </tr>
+            </table>
+            <br>
+            <center><input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"></center>
+        </div>
+    </form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    function findobj(str) {
+        return document.getElementById(str);
+    }
+    function checkall(frm, chk) {
+        for (i = 0; i < frm.elements.length; i++)
+        {
+            if (frm.elements[i].name == chk)
+            {
+                frm.elements[i].checked = frm.elements['chkall'].checked;
+            }
+        }
+    }
+    $("#form-admin-add").validate({
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/admin/System/dumpSql" ,
+                success: function(data){
+                    if(data.code == 0){
+                        layer.msg('备份失败,'+data.msg,{icon:2,time:2000});
+                    }else if(data.code == 1){
+                        layer.msg('备份成功!',{icon:1,time:2000});
+                        location.reload();
+                    }else{
+                        layer.msg('备份失败',{icon:4,time:2000});
+                    }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('error!',{icon:1,time:2000});
+                }
+            });
+        }
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

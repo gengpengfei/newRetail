@@ -1,0 +1,102 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 
+	<span class="c-gray en">&gt;</span> 店铺管理
+	<span class="c-gray en">&gt;</span> 权限编辑
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+		<i class="Hui-iconfont">&#xe68f;</i>
+	</a>
+</nav>
+
+<article class="page-container">
+	<form action="/admin/Store/storeUserRuleEdit" method="post" class="form form-horizontal" enctype="multipart/form-data" id="form-member-add">
+		<div>
+			{volist name="allMenunew" id="v"}
+				<div class="row cl checkbox-{$v.action_id}" id="address">
+					<label class="form-label col-xs-4 col-sm-3">
+						{$v.action_name}：
+						（全选
+						<div class="formControls skin-minimal sel_controller" style="display: inline-block;width: 18px;height:18px">
+							<input type="checkbox" value="{$v.action_id}" id="checkbox-{$v.action_id}" {if condition="$v.isAll eq 1"}checked="checked"{/if}>
+						</div>
+						）
+					</label>
+					<div class="formControls col-xs-8 col-sm-9 skin-minimal" id="check" style="border-bottom:1px solid #eee;padding-bottom:20px;">
+						{volist name="v.children" id="c"}
+							<div class="check-box col-xs-2 col-sm-2 sel_action">
+								<input type="checkbox" value="{$c.action_id}" id="checkbox-{$c.action_id}" {if condition="$c.isHave eq 1"}checked="checked"{/if}>
+								<label for="checkbox-{$v.action_id}">{$c.action_name}</label>
+							</div>
+						{/volist}
+					</div>
+				</div>
+			{/volist}
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="button" id="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<input type="hidden" name="admin_id" id="admin_id" value="{$admin_user_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input value="" type="hidden" name="admin_action_list" id="admin_action_list">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本--> 
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#button").click(function () {
+		var val = '';
+		layer.confirm('确认提交吗？',function(index){
+			$(".icheckbox-blue").each(function () {
+			    if($(this).hasClass('checked')){
+			        if(val == ''){
+                        val += $(this).find('input').val();
+					}else{
+                        val += ',' + $(this).find('input').val();
+					}
+
+                }
+			});
+			$("#admin_action_list").val(val);
+			$('#form-member-add').submit();
+		});
+	});
+
+	$(".iCheck-helper").click(function(){
+		var isController = $(this).parents('div').hasClass('sel_controller');
+	    if(isController){
+	        //一类全选
+			var id = $(this).prev().attr("id");
+	        if($("."+id).find('.sel_controller').find('.icheckbox-blue').hasClass('checked')){
+                $("."+id).find('.sel_action').find('.icheckbox-blue').addClass('checked');
+            }else{
+                $("."+id).find('.sel_action').find('.icheckbox-blue').removeClass('checked');
+			}
+		}
+	})
+});
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

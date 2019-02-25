@@ -1,0 +1,131 @@
+
+<aside class="Hui-aside">
+    <div class="menu_dropdown bk_2">
+        {volist name="leftMenu" id="f"}
+            <dl id="menu-product">
+                <dt style="line-height: 40px;">
+                    <i class="Hui-iconfont" style="color: #666;width: 18px;">&#{$f.icone};</i> {$f.action_name}
+                <dd>
+                    <ul>
+                        {volist name="f.children" id="c"}
+                            <li><a data-href="/admin/{$c.action_path}/{$c.action_code}" data-title="{$c.action_name}" href="javascript:void(0)">{$c.action_name}</a></li>
+                        {/volist}
+                    </ul>
+                </dd>
+            </dl>
+        {/volist}
+    </div>
+</aside>
+<!--<style type="text/css">-->
+    <!--#Parent{-->
+        <!--position: absolute;-->
+        <!--top: 44px;-->
+        <!--bottom: 0;-->
+        <!--left: 0;-->
+        <!--padding-top: 10px;-->
+        <!--width: 199px;-->
+        <!--z-index: 99;-->
+        <!--overflow: auto;-->
+        <!--background-color: rgba(238,238,238,0.98);-->
+        <!--_background-color: rgb(238,238,238);-->
+        <!--border-right: 1px solid #e5e5e5;-->
+    <!--}-->
+    <!--#nav{-->
+        <!--width: 199px;-->
+        <!--font-size: 14px;-->
+        <!--line-height: 40px;-->
+    <!--}-->
+    <!--#nav li{-->
+        <!--width: 199px;-->
+        <!--padding-bottom: 1px;-->
+        <!--list-style-image: none;-->
+        <!--list-style-type: none;-->
+        <!--background-color: #FFFFFF;-->
+    <!--}-->
+    <!--#nav a{-->
+        <!--padding-left: 20px;-->
+        <!--width:199px;-->
+        <!--background-color: #EAEAEA;-->
+        <!--display: block;-->
+        <!--text-decoration: none;-->
+    <!--}-->
+    <!--#nav li ul{-->
+        <!--padding-top: 1px;-->
+        <!--list-style-image: none;-->
+        <!--list-style-type: none;-->
+    <!--}-->
+    <!--.cx {-->
+        <!--display:none;-->
+        <!--visibility:hidden;-->
+    <!--}-->
+    <!--.ex {-->
+        <!--display:inherit;-->
+        <!--visibility:inherit;-->
+    <!--}-->
+<!--</style>-->
+<!--<div id="Parent">-->
+    <!--<ul id="nav">-->
+        <!--{volist name="leftMenu" id="f"}-->
+        <!--<li>-->
+            <!--<a href="javascript:void(0);" onclick="doMenu(this,'1')"><i class="Hui-iconfont" style="color: #666;width: 18px;">&#{$f.icone};</i> {$f.action_name}</a>-->
+            <!--<ul class="cx">-->
+                <!--{volist name="f.children" id="c"}-->
+                <!--{if condition="$c.is_children eq 1"}-->
+                <!--<li><a href="javascript:void(0);" onclick="doMenu(this,'2')" > <i class="Hui-iconfont" style="color: #666;width: 18px;">&#{$f.icone};</i> {$c.action_name}</a>-->
+                    <!--{volist name="c.children" id='cc'}-->
+                    <!--<ul class="cx">-->
+                        <!--<li><a href="/admin/{$f.action_code}/{$c.action_code}">{$cc.action_name}</a></li>-->
+                        <!--<li><a href="/admin/{$f.action_code}/{$c.action_code}" >{$cc.action_name}</a></li>-->
+                    <!--</ul>-->
+                    <!--{/volist}-->
+                <!--</li>-->
+                <!--{else/}-->
+                <!--<li>-->
+                    <!--<a href="/admin/{$f.action_code}/{$c.action_code}" onclick="doMenu(this,'2')" >-->
+                        <!--{$c.action_name}-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--{/if}-->
+                <!--{/volist}-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--{/volist}-->
+    <!--</ul>-->
+<!--</div>-->
+<!--<script>-->
+    <!--window.onload=function(){-->
+        <!--statUp();-->
+    <!--}-->
+    <!--function doMenu(obj,strDeep){-->
+        <!--var items=obj.parentNode.getElementsByTagName("ul");-->
+        <!--//获取a 对象你节点li 下包含的 所有ul集合-->
+        <!--var itmUl;-->
+        <!--var deeps=strDeep; //strDeep 为当前菜单的级数-->
+        <!--if(items.length>0){-->
+            <!--itmUl=items[0];-->
+        <!--}-->
+        <!--if(itmUl.className!="ex"){-->
+            <!--cxAll();//当前节点为关闭状态时,先执行关闭所有ul子菜单-->
+            <!--if(deeps=='2'){ //若要展开三级菜单当,还要将其二级父菜单展开-->
+                <!--itmUl.parentNode.parentNode.className="ex";-->
+
+            <!--}-->
+            <!--itmUl.className="ex"; //展开下级菜单-->
+        <!--}else{-->
+            <!--itmUl.className="cx";-->
+        <!--}-->
+    <!--}-->
+    <!--function statUp(){-->
+        <!--cxAll();-->
+        <!--var ulDom=document.getElementById("nav");-->
+        <!--var items=ulDom.getElementsByTagName("ul");-->
+    <!--}-->
+    <!--function cxAll(){-->
+        <!--var ulDom=document.getElementById("nav");-->
+        <!--var items=ulDom.getElementsByTagName("ul");-->
+        <!--for (var i=0;i<items.length;i++)-->
+        <!--{-->
+            <!--items[i].className="cx";-->
+        <!--}-->
+    <!--}-->
+<!--</script>-->

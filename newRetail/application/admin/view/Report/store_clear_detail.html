@@ -1,0 +1,124 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<div class="page-container">
+    <div class="text-c" style="margin-bottom: 5px">
+        <table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+            <thead>
+            <tr>
+                <th colspan="4"><div align="center">账单的基础信息</div></th>
+            </tr>
+            </thead>
+            <tr>
+                <td width="18%"><div align="right"><strong>店铺：</strong></div></td>
+                <td width="32%">{$storeClear.store_name}</td>
+                <td width="18%"><div align="right"><strong>店铺主名：</strong></div></td>
+                <td>{$storeClear.mobile}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>开户行：</strong></div></td>
+                <td>{$storeClear.audit_bank}</td>
+                <td><div align="right"><strong>银行卡号：</strong></div></td>
+                <td>{$storeClear.audit_bank_card}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>店铺结算金额：</strong></div></td>
+                <td>{$storeClear.pay_price}</td>
+                <td><div align="right"><strong>结算状态：</strong></div></td>
+                {if condition="$storeClear.pay_state eq 0"}
+                <td class="td-status"><span class="label label-success radius">未打款</span></td>
+                {else}
+                <td class="td-status"><span class="label label-success radius">已打款</span></td>
+                {/if}
+            </tr>
+            <tr>
+                <td><div align="right"><strong>结算的开始时间：</strong></div></td>
+                <td>{$storeClear.clear_start_time}</td>
+                <td><div align="right"><strong>结算结束时间：</strong></div></td>
+                <td>{$storeClear.clear_end_time}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-c" style="margin-bottom: 5px">
+        <table class="table table-border table-bordered table-bg" style="margin-top: 20px">
+            <thead>
+            <tr>
+                <th scope="col" colspan="13"><div align="center">用户消费列表</div></th>
+            </tr>
+            <tr class="text-c">
+                <!--<th width="25"><input type="checkbox" name="" value="0"></th>-->
+                <th width="50">序号</th>
+                <th width="50">店铺</th>
+                <th width="50">用户名</th>
+                <th width="100">订单号</th>
+                <th width="50">订单状态</th>
+                <th width="50">支付方式</th>
+                <th width="50">订单金额</th>
+                <th width="80">实付金额</th>
+                <th width="50">店铺优惠券金额</th>
+                <th width="50">新零售补贴金额</th>
+                <th width="50">店铺结算金额</th>
+                <th width="50">说明</th>
+                <th width="50">结算状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="storeClearList" id="c"}
+            <tr class="text-c">
+                <td>{$c.id}</td>
+                <td>{$c.store_name}</td>
+                <td>{$c.user_name}</td>
+                <td>{$c.order_sn}</td>
+                {if condition="$c.order_type eq 1"}
+                <td class="td-status"><span class="label label-success radius">线下消费</span></td>
+                {else}
+                <td class="td-status"><span class="label label-success radius">线上购买</span></td>
+                {/if}
+                {if condition="$c.pay_type eq 0"}
+                <td class="td-status"><span class="label label-success radius">余额</span></td>
+                {elseif condition="$c.pay_type eq 1"}
+                <td class="td-status"><span class="label label-success radius">支付宝</span></td>
+                {else}
+                <td class="td-status"><span class="label label-success radius">微信</span></td>
+                {/if}
+                <td>{$c.order_price}</td>
+                <td>{$c.buy_price}</td>
+                <td>{$c.user_voucher_price}</td>
+                <td>{$c.discount_price}</td>
+                <td>{$c.clear_price}</td>
+                <td>{$c.clear_desc}</td>
+                {if condition="$c.clear_state eq 0"}
+                <td class="td-status"><span class="label label-success radius">未结算</span></td>
+                {elseif condition="$c.clear_state eq 1"}
+                <td class="td-status"><span class="label label-success radius">已结算</span></td>
+                {elseif condition="$c.clear_state eq 2"}
+                <td class="td-status"><span class="label label-success radius">待收款</span></td>
+                {else}
+                <td class="td-status"><span class="label label-success radius">已收款</span></td>
+                {/if}
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+    <div class="text-c" style="margin-top: 20px">
+        <div>
+            <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;返回&nbsp;&nbsp;</button>
+        </div>
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

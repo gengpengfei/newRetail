@@ -1,0 +1,557 @@
+-- Merging decision tree log ---
+meta-data#JPUSH_APPKEY
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:41:5-43:43
+	android:value
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:43:9-40
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:42:9-36
+meta-data#JPUSH_CHANNEL
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:44:5-46:42
+	android:value
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:46:9-39
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:45:9-37
+manifest
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:1:1-51:12
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:1:1-51:12
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:1:1-51:12
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:1:1-51:12
+MERGED from [:react-native-smart-barcode] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-smart-barcode/android/build/intermediates/manifests/full/release/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-linear-gradient] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-linear-gradient/android/build/intermediates/manifests/full/release/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:2:1-29:12
+MERGED from [:react-native-fs] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-fs/android/build/intermediates/manifests/full/release/AndroidManifest.xml:2:1-13:12
+MERGED from [:react-native-baidu-map] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/manifests/full/release/AndroidManifest.xml:2:1-19:12
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:2:1-104:12
+MERGED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:2:1-60:12
+MERGED from [com.facebook.react:react-native:0.51.1] /Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/AndroidManifest.xml:2:1-15:12
+MERGED from [com.github.yalantis:ucrop:2.2.2-native] /Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:appcompat-v7:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.fresco:animated-gif:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/animated-gif-1.3.0.aar/cd8a4983659775e1cc3bef731e9177a1/AndroidManifest.xml:2:1-9:12
+MERGED from [id.zelory:compressor:2.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/compressor-2.1.0.aar/3d3fc99e1ddb1540ed24d1830566b6ac/AndroidManifest.xml:2:1-12:12
+MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/textlayoutbuilder-1.0.0.aar/e666c5b0e35566452cb0fa35597b13df/AndroidManifest.xml:10:1-18:12
+MERGED from [com.facebook.fresco:fresco:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/fresco-1.3.0.aar/d19030077b6e94cfb169232c33692a6b/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/imagepipeline-okhttp3-1.3.0.aar/8cc1ff8142b69cfbe5e554acf9bf1e22/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.soloader:soloader:0.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/870ea6b976b0d76d4b0349729f19cc13/AndroidManifest.xml:1:1-4:12
+MERGED from [org.webkit:android-jsc:r174650] /Users/jk/.gradle/caches/transforms-1/files-1.1/android-jsc-r174650.aar/62748de722fda19c4d27d7cea10419d8/AndroidManifest.xml:1:1-3:12
+MERGED from [com.facebook.fresco:animated-base:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/animated-base-1.3.0.aar/229c9d4f0be363b417dd5e9ed4ae6d1c/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/imagepipeline-1.3.0.aar/6e23a1a651b100271f949e80bc02a8ab/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-1.3.0.aar/d94ec144833e3e9ee5c657d6f60528b1/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:drawee:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/drawee-1.3.0.aar/de667393647b297b0a93bda931107655/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:fbcore:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/fbcore-1.3.0.aar/c07cbfd3f363d40140a8d2e30e0a76b3/AndroidManifest.xml:2:1-9:12
+MERGED from [com.android.support:support-fragment:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.0.aar/38f47ba22c9cfea383a07e70dc3f6e89/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.1.0.aar/865828ea219da2712b22a004f1260a99/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.0.aar/fc40e7291fb000b300327e2f6fe5b357/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.0.aar/762c470efa3fd8bb239fe54643356c2b/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.1.0.aar/e087664bdefeea3f5916d5783282882d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.0.aar/9e9fac14dfdd528e807029334b4bd06c/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/8464fa454c77d78de24b66978e48d7be/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/51cc9e24e8d5762b28ef01c0cda01fea/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/0ef27264690c1a437050537d0a78ea3c/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/98415f6df7b35405f69c98df3641cc9c/AndroidManifest.xml:17:1-22:12
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:1:1-51:12
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:1:1-51:12
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:1:1-51:12
+	package
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:2:5-36
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+	android:versionName
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:4:5-30
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:1:11-69
+	android:versionCode
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:3:5-28
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:6:5-78
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:26:5-79
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:26:5-79
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:6:22-76
+uses-permission#com.android.launcher.permission.READ_SETTINGS
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:7:5-85
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:7:22-82
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:8:5-67
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:19:5-68
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:19:5-68
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:8:22-65
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:9:5-76
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:32:5-76
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:32:5-76
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:9:22-73
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:10:5-76
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:27:5-76
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:27:5-76
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:10:22-73
+uses-permission#android.permission.GET_TASKS
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:11:5-68
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:36:5-68
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:36:5-68
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:11:22-65
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:12:5-80
+MERGED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:10:5-81
+MERGED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:10:5-81
+MERGED from [:react-native-fs] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-fs/android/build/intermediates/manifests/full/release/AndroidManifest.xml:11:5-81
+MERGED from [:react-native-fs] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-fs/android/build/intermediates/manifests/full/release/AndroidManifest.xml:11:5-81
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:21:5-81
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:21:5-81
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:12:22-78
+uses-permission#android.permission.WRITE_SETTINGS
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:13:5-73
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:23:5-73
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:23:5-73
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:13:22-70
+uses-permission#android.permission.INTERNET
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:14:5-67
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:18:5-67
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:18:5-67
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:14:22-64
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:15:5-77
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:30:5-78
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:30:5-78
+MERGED from [com.facebook.react:react-native:0.51.1] /Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/AndroidManifest.xml:11:5-78
+MERGED from [com.facebook.react:react-native:0.51.1] /Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/AndroidManifest.xml:11:5-78
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:15:22-75
+uses-permission#android.permission.CAMERA
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:16:5-64
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:16:22-62
+uses-permission#android.permission.VIBRATE
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:17:5-65
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:24:5-66
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:24:5-66
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:17:22-63
+uses-feature#android.hardware.camera
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:18:5-59
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:18:19-57
+uses-feature#android.hardware.camera.autofocus
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:19:5-69
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:19:19-67
+uses-sdk
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:20:5-22:41
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:20:5-22:41
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:20:5-22:41
+MERGED from [:react-native-smart-barcode] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-smart-barcode/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-smart-barcode] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-smart-barcode/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-linear-gradient] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-linear-gradient/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-linear-gradient] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-linear-gradient/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:6:5-8:41
+MERGED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:6:5-8:41
+MERGED from [:react-native-fs] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-fs/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-fs] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-fs/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-baidu-map] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-baidu-map] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.51.1] /Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.51.1] /Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.yalantis:ucrop:2.2.2-native] /Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.yalantis:ucrop:2.2.2-native] /Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.fresco:animated-gif:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/animated-gif-1.3.0.aar/cd8a4983659775e1cc3bef731e9177a1/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:animated-gif:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/animated-gif-1.3.0.aar/cd8a4983659775e1cc3bef731e9177a1/AndroidManifest.xml:5:5-7:41
+MERGED from [id.zelory:compressor:2.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/compressor-2.1.0.aar/3d3fc99e1ddb1540ed24d1830566b6ac/AndroidManifest.xml:8:5-10:41
+MERGED from [id.zelory:compressor:2.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/compressor-2.1.0.aar/3d3fc99e1ddb1540ed24d1830566b6ac/AndroidManifest.xml:8:5-10:41
+MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/textlayoutbuilder-1.0.0.aar/e666c5b0e35566452cb0fa35597b13df/AndroidManifest.xml:14:5-16:41
+MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/textlayoutbuilder-1.0.0.aar/e666c5b0e35566452cb0fa35597b13df/AndroidManifest.xml:14:5-16:41
+MERGED from [com.facebook.fresco:fresco:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/fresco-1.3.0.aar/d19030077b6e94cfb169232c33692a6b/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/fresco-1.3.0.aar/d19030077b6e94cfb169232c33692a6b/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/imagepipeline-okhttp3-1.3.0.aar/8cc1ff8142b69cfbe5e554acf9bf1e22/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/imagepipeline-okhttp3-1.3.0.aar/8cc1ff8142b69cfbe5e554acf9bf1e22/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.soloader:soloader:0.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/870ea6b976b0d76d4b0349729f19cc13/AndroidManifest.xml:2:3-70
+MERGED from [com.facebook.soloader:soloader:0.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/870ea6b976b0d76d4b0349729f19cc13/AndroidManifest.xml:2:3-70
+MERGED from [com.facebook.fresco:animated-base:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/animated-base-1.3.0.aar/229c9d4f0be363b417dd5e9ed4ae6d1c/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:animated-base:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/animated-base-1.3.0.aar/229c9d4f0be363b417dd5e9ed4ae6d1c/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/imagepipeline-1.3.0.aar/6e23a1a651b100271f949e80bc02a8ab/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/imagepipeline-1.3.0.aar/6e23a1a651b100271f949e80bc02a8ab/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-1.3.0.aar/d94ec144833e3e9ee5c657d6f60528b1/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-1.3.0.aar/d94ec144833e3e9ee5c657d6f60528b1/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/drawee-1.3.0.aar/de667393647b297b0a93bda931107655/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/drawee-1.3.0.aar/de667393647b297b0a93bda931107655/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/fbcore-1.3.0.aar/c07cbfd3f363d40140a8d2e30e0a76b3/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:1.3.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/fbcore-1.3.0.aar/c07cbfd3f363d40140a8d2e30e0a76b3/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:support-fragment:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.0.aar/38f47ba22c9cfea383a07e70dc3f6e89/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.0.aar/38f47ba22c9cfea383a07e70dc3f6e89/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.1.0.aar/865828ea219da2712b22a004f1260a99/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.1.0.aar/865828ea219da2712b22a004f1260a99/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.0.aar/fc40e7291fb000b300327e2f6fe5b357/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.0.aar/fc40e7291fb000b300327e2f6fe5b357/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.0.aar/762c470efa3fd8bb239fe54643356c2b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.0.aar/762c470efa3fd8bb239fe54643356c2b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.1.0.aar/e087664bdefeea3f5916d5783282882d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.1.0.aar/e087664bdefeea3f5916d5783282882d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.0.aar/9e9fac14dfdd528e807029334b4bd06c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.0.aar/9e9fac14dfdd528e807029334b4bd06c/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/8464fa454c77d78de24b66978e48d7be/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/8464fa454c77d78de24b66978e48d7be/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/51cc9e24e8d5762b28ef01c0cda01fea/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/51cc9e24e8d5762b28ef01c0cda01fea/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/0ef27264690c1a437050537d0a78ea3c/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/0ef27264690c1a437050537d0a78ea3c/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/98415f6df7b35405f69c98df3641cc9c/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/98415f6df7b35405f69c98df3641cc9c/AndroidManifest.xml:20:5-44
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:20:5-22:41
+INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:20:5-22:41
+	android:targetSdkVersion
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:22:9-38
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:21:9-35
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml
+application
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:24:5-49:19
+MERGED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:12:5-27:19
+MERGED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:12:5-27:19
+MERGED from [:react-native-baidu-map] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/manifests/full/release/AndroidManifest.xml:11:5-17:19
+MERGED from [:react-native-baidu-map] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/manifests/full/release/AndroidManifest.xml:11:5-17:19
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:38:5-102:19
+MERGED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:38:5-102:19
+MERGED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:11:5-58:19
+MERGED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:11:5-58:19
+MERGED from [com.facebook.react:react-native:0.51.1] /Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/AndroidManifest.xml:13:5-20
+MERGED from [com.facebook.react:react-native:0.51.1] /Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/AndroidManifest.xml:13:5-20
+MERGED from [com.facebook.soloader:soloader:0.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/870ea6b976b0d76d4b0349729f19cc13/AndroidManifest.xml:3:3-17
+MERGED from [com.facebook.soloader:soloader:0.1.0] /Users/jk/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/870ea6b976b0d76d4b0349729f19cc13/AndroidManifest.xml:3:3-17
+MERGED from [org.webkit:android-jsc:r174650] /Users/jk/.gradle/caches/transforms-1/files-1.1/android-jsc-r174650.aar/62748de722fda19c4d27d7cea10419d8/AndroidManifest.xml:2:3-17
+MERGED from [org.webkit:android-jsc:r174650] /Users/jk/.gradle/caches/transforms-1/files-1.1/android-jsc-r174650.aar/62748de722fda19c4d27d7cea10419d8/AndroidManifest.xml:2:3-17
+	android:label
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:27:7-39
+	android:icon
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:28:7-41
+	android:allowBackup
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:26:7-33
+	android:theme
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:29:7-38
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:25:7-38
+meta-data#com.baidu.lbsapi.API_KEY
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:30:7-108
+	android:value
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:30:58-106
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:30:18-57
+activity#com.newretailmerchant.MainActivity
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:31:7-40:18
+	android:label
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:33:9-41
+	android:windowSoftInputMode
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:35:9-51
+	android:configChanges
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:34:9-79
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:32:9-37
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:36:9-39:25
+action#android.intent.action.MAIN
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:37:13-65
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:37:21-62
+category#android.intent.category.LAUNCHER
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:38:13-73
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:38:23-70
+activity#com.facebook.react.devsupport.DevSettingsActivity
+ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:48:7-84
+	android:name
+		ADDED from /Users/jk/Desktop/obj/newRetailMerchant/android/app/src/main/AndroidManifest.xml:48:17-81
+provider#android.support.v4.content.FileProvider
+ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:13:9-21:20
+	android:grantUriPermissions
+		ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:17:13-47
+	android:authorities
+		ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:15:13-60
+	android:exported
+		ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:16:13-37
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:14:13-67
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:18:13-20:58
+	android:resource
+		ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:20:17-55
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:19:17-67
+activity#com.yalantis.ucrop.UCropActivity
+ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:23:9-26:72
+	android:screenOrientation
+		ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:25:13-49
+	android:theme
+		ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:26:13-69
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/manifests/full/release/AndroidManifest.xml:24:13-60
+service#com.baidu.location.f
+ADDED from [:react-native-baidu-map] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/manifests/full/release/AndroidManifest.xml:12:9-16:19
+	android:process
+		ADDED from [:react-native-baidu-map] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/manifests/full/release/AndroidManifest.xml:15:13-38
+	android:enabled
+		ADDED from [:react-native-baidu-map] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/manifests/full/release/AndroidManifest.xml:14:13-35
+	android:name
+		ADDED from [:react-native-baidu-map] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-baidu-map/android/build/intermediates/manifests/full/release/AndroidManifest.xml:13:13-48
+permission#${applicationId}.permission.JPUSH_MESSAGE
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:11:5-13:47
+	android:protectionLevel
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:13:9-44
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:12:9-65
+permission#com.newretailmerchant.permission.JPUSH_MESSAGE
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:11:5-13:47
+	android:protectionLevel
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:13:9-44
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:12:9-65
+uses-permission#${applicationId}.permission.JPUSH_MESSAGE
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:16:5-81
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:16:22-78
+uses-permission#com.newretailmerchant.permission.JPUSH_MESSAGE
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:16:5-81
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:16:22-78
+uses-permission#android.permission.RECEIVE_USER_PRESENT
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:17:5-79
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:17:22-76
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:20:5-75
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:20:22-72
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:22:5-80
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:22:22-77
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:25:5-84
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:25:22-81
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:31:5-81
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:31:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:33:5-79
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:33:22-76
+uses-permission#android.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:34:5-89
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:34:22-86
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:35:5-79
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:35:22-76
+activity#cn.jpush.android.ui.PushActivity
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:41:9-52:20
+	android:exported
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:44:13-37
+	android:configChanges
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:43:13-63
+	android:theme
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:45:13-60
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:42:13-60
+intent-filter#${applicationId}+android.intent.category.DEFAULT+cn.jpush.android.ui.PushActivity
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:46:13-51:29
+intent-filter#android.intent.category.DEFAULT+cn.jpush.android.ui.PushActivity+com.newretailmerchant
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:46:13-51:29
+action#cn.jpush.android.ui.PushActivity
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:47:17-75
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:47:25-72
+category#android.intent.category.DEFAULT
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:49:17-76
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:49:27-73
+category#${applicationId}
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:50:17-61
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:50:27-58
+category#com.newretailmerchant
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:50:17-61
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:50:27-58
+activity#cn.jpush.android.ui.PopWinActivity
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:55:9-59:20
+	android:exported
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:57:13-37
+	android:theme
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:58:13-49
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:56:13-62
+service#cn.jpush.android.service.DownloadService
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:62:9-66:19
+	android:enabled
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:64:13-35
+	android:exported
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:65:13-37
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:63:13-68
+service#cn.jpush.android.service.DaemonService
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:69:9-78:19
+	android:enabled
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:71:13-35
+	android:exported
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:72:13-36
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:70:13-66
+intent-filter#${applicationId}+cn.jpush.android.intent.DaemonService
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:73:13-77:29
+intent-filter#cn.jpush.android.intent.DaemonService+com.newretailmerchant
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:73:13-77:29
+action#cn.jpush.android.intent.DaemonService
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:74:17-80
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:74:25-77
+receiver#cn.jpush.reactnativejpush.JPushModule$JPushReceiver
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:81:9-93:20
+	android:enabled
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:83:13-35
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:82:13-79
+intent-filter#${applicationId}+cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK+cn.jpush.android.intent.CONNECTION+cn.jpush.android.intent.MESSAGE_RECEIVED+cn.jpush.android.intent.NOTIFICATION_OPENED+cn.jpush.android.intent.NOTIFICATION_RECEIVED+cn.jpush.android.intent.REGISTRATION
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:84:13-92:29
+intent-filter#cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK+cn.jpush.android.intent.CONNECTION+cn.jpush.android.intent.MESSAGE_RECEIVED+cn.jpush.android.intent.NOTIFICATION_OPENED+cn.jpush.android.intent.NOTIFICATION_RECEIVED+cn.jpush.android.intent.REGISTRATION+com.newretailmerchant
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:84:13-92:29
+action#cn.jpush.android.intent.REGISTRATION
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:85:17-79
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:85:25-76
+action#cn.jpush.android.intent.MESSAGE_RECEIVED
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:86:17-83
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:86:25-80
+action#cn.jpush.android.intent.NOTIFICATION_RECEIVED
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:87:17-88
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:87:25-85
+action#cn.jpush.android.intent.NOTIFICATION_OPENED
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:88:17-86
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:88:25-83
+action#cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:89:17-91
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:89:25-88
+action#cn.jpush.android.intent.CONNECTION
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:90:17-77
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:90:25-74
+receiver#cn.jpush.reactnativejpush.JPushModule$MyJPushMessageReceiver
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:95:9-101:20
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:95:19-94
+intent-filter#${applicationId}+cn.jpush.android.intent.RECEIVE_MESSAGE
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:96:13-100:29
+intent-filter#cn.jpush.android.intent.RECEIVE_MESSAGE+com.newretailmerchant
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:96:13-100:29
+action#cn.jpush.android.intent.RECEIVE_MESSAGE
+ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:97:17-82
+	android:name
+		ADDED from [:jpush-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:97:25-79
+service#cn.jpush.android.service.PushService
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:16:9-26:19
+	android:enabled
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:18:13-35
+	android:exported
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:19:13-37
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:17:13-64
+intent-filter#cn.jpush.android.intent.PUSH_TIME+cn.jpush.android.intent.PushService+cn.jpush.android.intent.REGISTER+cn.jpush.android.intent.REPORT
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:20:13-25:29
+action#cn.jpush.android.intent.REGISTER
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:21:17-75
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:21:25-72
+action#cn.jpush.android.intent.REPORT
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:22:17-73
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:22:25-70
+action#cn.jpush.android.intent.PushService
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:23:17-78
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:23:25-75
+action#cn.jpush.android.intent.PUSH_TIME
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:24:17-76
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:24:25-73
+provider#cn.jpush.android.service.DataProvider
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:29:9-32:39
+	android:authorities
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:31:13-64
+	android:exported
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:32:13-36
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:30:13-65
+receiver#cn.jpush.android.service.PushReceiver
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:35:9-54:20
+	android:enabled
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:38:13-37
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:36:13-65
+intent-filter#${applicationId}+cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:39:13-42:29
+	android:priority
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:39:28-51
+intent-filter#cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY+com.newretailmerchant
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:39:13-42:29
+	android:priority
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:39:28-51
+action#cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:40:17-94
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:40:25-91
+intent-filter#android.intent.action.USER_PRESENT+android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:43:13-46:29
+action#android.intent.action.USER_PRESENT
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:44:17-77
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:44:25-74
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:45:17-79
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:45:25-76
+intent-filter#android.intent.action.PACKAGE_ADDED+android.intent.action.PACKAGE_REMOVED
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:48:13-53:29
+action#android.intent.action.PACKAGE_ADDED
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:49:17-78
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:49:25-75
+action#android.intent.action.PACKAGE_REMOVED
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:50:17-80
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:50:25-77
+data
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:52:17-50
+	android:scheme
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:52:23-47
+receiver#cn.jpush.android.service.AlarmReceiver
+ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:57:9-75
+	android:name
+		ADDED from [:jcore-react-native] /Users/jk/Desktop/obj/newRetailMerchant/node_modules/jcore-react-native/android/build/intermediates/manifests/full/release/AndroidManifest.xml:57:19-72

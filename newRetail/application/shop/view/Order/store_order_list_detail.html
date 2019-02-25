@@ -1,0 +1,71 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<div class="page-container">
+    <div class="text-c" style="margin-bottom: 5px">
+        <table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+            <thead>
+            <tr>
+                <th colspan="4"><div align="center">订单的基础信息</div></th>
+            </tr>
+            </thead>
+            <tr>
+                <td width="18%"><div align="right"><strong>订单编号：</strong></div></td>
+                <td width="32%">{$orderList.order_sn}</td>
+                <td width="18%"><div align="right"><strong>订单时间：</strong></div></td>
+                <td>{$orderList.create_time}</td>
+            </tr>
+            <tr>
+                <td width="18%"><div align="right"><strong>订单类型：</strong></div></td>
+                {if condition="$orderList.order_type eq 1"}
+                <td class="td-status" width="32%"><span class="label label-success radius">支付订单</span></td>
+                <td width="18%"><div align="right"><strong>优惠券：</strong></div></td>
+                <td>无</td>
+                {else}
+                <td class="td-status" width="32%"><span class="label label-success radius">商品订单</span></td>
+                <td width="18%"><div align="right"><strong>优惠券：</strong></div></td>
+                <td>{$orderList.voucher_name}</td>
+                {/if}
+            </tr>
+            <tr>
+                <td><div align="right"><strong>用户手机号：</strong></div></td>
+                <td>{$orderList.user_name}</td>
+                <td><div align="right"><strong>用户账号：</strong></div></td>
+                <td>{$orderList.mobile}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>订单金额：</strong></div></td>
+                <td>{$orderList.order_price}</td>
+                <td><div align="right"><strong>商家补贴：</strong></div></td>
+                <td>{$orderList.user_voucher_price}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>新零售补贴金额：</strong></div></td>
+                <td>{$orderList.discount_price}</td>
+                <td><div align="right"><strong>实付金额：</strong></div></td>
+                <td>{$orderList.buy_price}</td>
+            </tr>
+        </table>
+    </div>
+    <!-- 商品列表页面 start -->
+    <div class="text-c" style="margin-top: 20px">
+        <div>
+            <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;返回&nbsp;&nbsp;</button>
+        </div>
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

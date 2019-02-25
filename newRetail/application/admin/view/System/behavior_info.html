@@ -1,0 +1,165 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">获取方式名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$behavior.behavior_name}" placeholder="" id="behavior_name" name="behavior_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">获取方式说明：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$behavior.behavior_desc}" placeholder="" id="behavior_desc" name="behavior_desc">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">获取方式code (唯一编码)：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$behavior.behavior_code}" placeholder="" id="behavior_code" name="behavior_code"
+					   {if $behavior.behavior_code}disabled="disabled"{/if}>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">获得积分的频率：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="behavior_type">
+					<option value="1" {if $banner.behavior_type eq 1}selected{/if}>天</option>
+					<option value="2" {if $banner.behavior_type eq 2}selected{/if}>周</option>
+				</select>
+				</span>
+				<br>
+				<span style="color: red">
+					用户行为发生类型( 1:天 2:周) 和 用户行为发生的次数 连用
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">获得积分次数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$behavior.behavior_times}" placeholder="" id="behavior_times" name="behavior_times">
+				<br>
+				<span style="color: red">
+					每天最多获得积分的次数
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">每个店铺至多赠送积分次数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$behavior.order_times}" placeholder="" id="order_times" name="order_times">
+				<br>
+				<span style="color: red">
+					每个店铺最多赠送积分的次数
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">最多可执行店铺数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$behavior.store_times}" placeholder="" id="store_times" name="store_times">
+				<br>
+				<span style="color: red">
+					最多有几个店铺赠送积分
+				</span>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="behavior_id" id="behavior_id" value="{$behavior.behavior_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        var behavior_id = $("#behavior_id").val();
+        if(behavior_id){
+            $("#form-admin-add").validate({
+                rules:{
+                    reason_desc:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/System/behaviorEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('更新失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('更新成功!',{icon:1,time:2000});
+                                window.location.href="/admin/System/behaviorList";
+                            }else{
+                                layer.msg('更新失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                rules:{
+                    reason_desc:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/System/behaviorAdd" ,
+                        success: function(data){
+
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/admin/System/behaviorList";
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

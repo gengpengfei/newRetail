@@ -1,0 +1,88 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 系统管理
+    <span class="c-gray en">&gt;</span> 获取积分设置
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <table class="table table-border table-bordered table-bg" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9">获取积分设置</th>
+        </tr>
+        <tr class="text-c">
+            <!--<th width="25"><input type="checkbox" name="" value="0"></th>-->
+            <th width="50" onclick="sort('System/behaviorList','behavior_id')">序号</th>
+            <th width="100" onclick="sort('System/behaviorList','behavior_name')">获取方式名称</th>
+            <th width="100" onclick="sort('System/behaviorList','behavior_code')">获取方式code (唯一编码)</th>
+            <th width="100" onclick="sort('System/behaviorList','behavior_type')">获得积分的频率</th>
+            <th width="100" onclick="sort('System/behaviorList','behavior_times')">获得积分次数</th>
+            <th width="100" onclick="sort('System/behaviorList','order_times')">每个店铺至多赠送积分次数</th>
+            <th width="100" onclick="sort('System/behaviorList','store_times')">最多可执行店铺数</th>
+            <th width="150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="behavior" id="c"}
+        <tr class="text-c">
+            <td>{$c.behavior_id}</td>
+            <td>{$c.behavior_name}</td>
+            <td>{$c.behavior_code}</td>
+            <td>{$c.behavior_type}</td>
+            <td>{$c.behavior_times}</td>
+            <td>{$c.order_times}</td>
+            <td>{$c.store_times}</td>
+            <td class="td-manage">
+                {in name="behaviorEdit" value=$action_code_list}
+                <a title="编辑" href="/admin/System/behaviorEdit/behavior_id/{$c.behavior_id}" class="ml-5" style="text-decoration:none">
+                    <i class="Hui-iconfont">&#xe6df;</i>
+                </a>
+                {/in}
+                <!--{in name="behaviorDel" value=$action_code_list}
+                <a title="删除" href="javascript:;" onclick="admin_del(this,{$c.behavior_id})" class="ml-5" style="text-decoration:none">
+                    <i class="Hui-iconfont">&#xe6e2;</i>
+                </a>
+                {/in}-->
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    /*删除*/
+    function admin_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"/admin/System/behaviorDel",
+                data:{"behavior_id":id,"is_ajax":1},
+                type:"POST",
+                success: function(data){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:2000});
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
+</script>
+</body>
+</html>

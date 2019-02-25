@@ -1,0 +1,92 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">收货人：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$order.user_name}" placeholder="" id="user_name" name="user_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">订单留言：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$order.message}" placeholder="" id="message" name="message">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">收货地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$order.address_cont}" placeholder="" id="address_cont" name="address_cont">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">手机号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$order.address_mobile}" placeholder="" id="address_mobile" name="address_mobile">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="order_id" id="order_id" value="{$order.order_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#form-admin-add").validate({
+            rules:{
+                address_mobile:{
+                    required:true,
+                    minlength:11,
+                    maxlength:11
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                $(form).ajaxSubmit({
+                    type: 'post',
+                    url: "/admin/IntegralShop/collectGoods" ,
+                    success: function(data){
+                        if(data.code == 0){
+                            layer.msg('编辑失败,'+data.msg,{icon:2,time:2000});
+                        }else if(data.code == 1){
+                            layer.msg('编辑成功!',{icon:1,time:2000});
+                            window.location.href="/admin/IntegralShop/orderDetail?order_id="+data.data;
+                        }else{
+                            layer.msg('编辑失败',{icon:4,time:2000});
+                        }
+                    },
+                    error: function(XmlHttpRequest, textStatus, errorThrown){
+                        layer.msg('error!',{icon:1,time:2000});
+                    }
+                });
+            }
+        });
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

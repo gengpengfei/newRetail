@@ -1,0 +1,107 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择行业：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width: 50%">
+					<select class="select" name="nav_id" id="nav_id">
+						<option value="" selected>请选择行业</option>
+						{volist name='navList' id='f'}
+							<option value="{$f.nav_id}">{$f.nav_name}</option>
+						{/volist}
+					</select>
+				</span>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择分类：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width: 50%">
+                    <select class="select" name="category_id" id="category_id">
+                    </select>
+				</span>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+		$("#form-admin-add").validate({
+			rules:{
+                category_id:{
+                    required:true
+                }
+			},
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				$(form).ajaxSubmit({
+					type: 'post',
+					url: "/admin/Promotion/nearCategoryAdd" ,
+					success: function(data){
+						if(data.code == 0){
+							layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+						}else if(data.code == 1){
+							layer.msg('添加成功!',{icon:1,time:2000});
+							window.location.href="/admin/Promotion/nearCategoryList";
+						}else{
+							layer.msg('添加失败',{icon:4,time:2000});
+						}
+					},
+					error: function(XmlHttpRequest, textStatus, errorThrown){
+						layer.msg('error!',{icon:1,time:2000});
+					}
+				});
+			}
+		});
+
+        $("#nav_id").change(function () {
+            var nav_id=$(this).val();
+            $.ajax({
+                url:"/admin/Store/getCat",
+                data:{"nav_id":nav_id},
+                type:"POST",
+                success:function(data){
+                    data = data.data;
+                    if(data.length>0){
+                        var option  = '';
+                        for ( var i in data) {
+                            option += '<option value="' + data[i].category_id + '">'
+                                + data[i].category_name + '</option>';
+                        }
+                    }else {
+                        option = '<option value="" selected>暂无分类</option>';
+                    }
+                    $("#category_id").html(option);
+                }
+            })
+
+        })
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

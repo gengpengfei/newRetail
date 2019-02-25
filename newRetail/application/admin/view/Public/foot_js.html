@@ -1,0 +1,116 @@
+<script type="text/javascript" src="/admin_file/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script>
+    function sort(action,now_sort_by){
+        var datemin = $("#datemin").val();
+        var datemax = $("#datemax").val();
+        var keywords = $("#keywords").val();
+        var proshow = $("#proshow").val();
+        var orderBy = $("#orderBy").val();
+        var orderByUpOrDown = $("#orderByUpOrDown").val();
+        var show_count = $("#show_count").val();
+        var logtype = $('#logtype option:selected') .val();
+        var issale = $("#issale").val();
+        var navshow = $("#navshow").val();
+        var categoryshow = $("#categoryshow").val();
+        var has_img = $("#has_img").val();
+        var audit_state = $("#audit_state").val();
+        if(now_sort_by == orderBy){
+            if(orderByUpOrDown == 'Desc'){
+                orderByUpOrDown = 'Asc';
+            }else{
+                orderByUpOrDown = 'Desc';
+            }
+        }else{
+            orderByUpOrDown = 'Desc';
+        }
+
+        var go_href = "/admin/"+action+"/orderBy/"+now_sort_by+"/orderByUpOrDown/"+orderByUpOrDown;
+        if(datemin != ''){
+            go_href += "/datemin/" + datemin;
+        }
+        if(datemax != ''){
+            go_href += "/datemax/" + datemax;
+        }
+        if(keywords != ''){
+            go_href += "/keywords/" + keywords;
+        }
+        if(logtype != '' && logtype != '0') {
+            go_href += "/logtype/" + logtype;
+        }
+        if(proshow != ''){
+            go_href += "/proshow/" + proshow;
+        }
+        if(issale != ''){
+            go_href += "/issale/" + issale;
+        }
+        if(navshow != ''){
+            go_href += "/navshow/" + navshow;
+        }
+        if(categoryshow != ''){
+            go_href += "/categoryshow/" + categoryshow;
+        }
+        if(has_img != ''){
+            go_href += "/has_img/" + has_img;
+        }
+        if(audit_state != ''){
+            go_href += "/audit_state/" + audit_state;
+        }
+        go_href += "/show_count/" + show_count;
+        window.location.href = go_href;
+    }
+
+    function changeCount(action,show_count){
+        var datemin = $("#datemin").val();
+        var datemax = $("#datemax").val();
+        var keywords = $("#keywords").val();
+        var proshow = $("#proshow").val();
+        var orderBy = $("#orderBy").val();
+        var orderByUpOrDown = $("#orderByUpOrDown").val();
+        var logtype = $('#logtype option:selected') .val();
+        var issale = $("#issale").val();
+        var navshow = $("#navshow").val();
+        var categoryshow = $("#categoryshow").val();
+        var has_img = $("#has_img").val();
+        var audit_state = $("#audit_state").val();
+        if(show_count <= 0){
+            layer.msg('请输入正确的数字!',{icon:1,time:2000});
+        }
+        var go_href = "/admin/"+action+"/orderBy/"+orderBy+"/orderByUpOrDown/"+orderByUpOrDown;
+        if(datemin != ''){
+            go_href += "/datemin/" + datemin;
+        }
+        if(datemax != ''){
+            go_href += "/datemax/" + datemax;
+        }
+        if(keywords != ''){
+            go_href += "/keywords/" + keywords;
+        }
+        if(logtype != '' && logtype != '0') {
+            go_href += "/logtype/" + logtype;
+        }
+        if(proshow != ''){
+            go_href += "/proshow/" + proshow;
+        }
+        if(issale != ''){
+            go_href += "/issale/" + issale;
+        }
+        if(navshow != ''){
+            go_href += "/navshow/" + navshow;
+        }
+        if(categoryshow != ''){
+            go_href += "/categoryshow/" + categoryshow;
+        }
+        if(has_img != ''){
+            go_href += "/has_img/" + has_img;
+        }
+        if(audit_state != ''){
+            go_href += "/audit_state/" + audit_state;
+        }
+        go_href += "/show_count/" + show_count;
+        window.location.href = go_href;
+    }
+
+</script>

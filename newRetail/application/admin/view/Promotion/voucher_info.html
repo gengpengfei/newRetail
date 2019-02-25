@@ -1,0 +1,113 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+    <form>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">优惠券名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.voucher_name}</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">图片：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div><img src="{$voucher_info.voucher_img}" height="100px",width="100px"></div>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">店铺名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.store_name}</span>
+            </div>
+        </div>
+
+        <div class="row cl" {if condition="$voucher_info.voucher_type eq '0'"}style="display: none"{/if}>
+            <label class="form-label col-xs-4 col-sm-2">轮播图：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {if $bannerImage}
+                {volist name="bannerImage" id="f"}
+                <img src="{$f}" height="90px" width="120px">
+                {/volist}
+                {/if}
+            </div>
+        </div>
+
+        <div class="row cl" id="voucher_amount" {if condition="$voucher_info.voucher_type eq '0'"}style="display: none"{/if}>
+        <label class="form-label col-xs-4 col-sm-2">原价金额：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+            <span>{$voucher_info.voucher_amount}</span>
+        </div>
+
+
+        <div class="row cl" id="voucher_price" {if condition="$voucher_info.voucher_type eq '0'"}style="display: none"{/if}>
+            <label class="form-label col-xs-4 col-sm-2">售卖金额：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.voucher_price}</span>
+            </div>
+        </div>
+
+        <div class="row cl" id="min_amount" {if condition="$voucher_info.voucher_type eq '1'"}style="display: none"{/if}>
+            <label class="form-label col-xs-4 col-sm-2">订单满X元：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.min_amount}</span>
+            </div>
+        </div>
+
+        <div class="row cl" id="voucher_amount_desc" {if condition="$voucher_info.voucher_type eq '1'"}style="display: none"{/if}>
+            <label class="form-label col-xs-4 col-sm-2">优惠金额(元)/折扣(%)：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.use_method_info}</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">发放开始时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.sell_start_date}</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">发放结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.sell_end_date}</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">开始使用时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.use_start_date}</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">使用结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.use_end_date}</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">详细内容：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span>{$voucher_info.voucher_info}</span>
+            </div>
+        </div>
+
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+
+<script type="text/javascript">
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

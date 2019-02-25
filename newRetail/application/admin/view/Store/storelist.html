@@ -1,0 +1,293 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" href="/admin_file/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<style>
+    .voucher_ul li{
+        display:inline;
+        margin-right: 30px;
+    }
+</style>
+<body class="pos-r">
+<div>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 店铺管理 <span class="c-gray en">&gt;</span> 店铺列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="text-c" style="height:50px;text-align: center">
+            <ul class="voucher_ul">
+                <li>审核通过总数:{$passnum}</li>
+                <li>待审核总数:{$waitnum}</li>
+                <li>总使用红包金额:{$storecoupons}</li>
+                <li>总积分:{$storescore}</li>
+            </ul>
+        </div>
+        <form action="/admin/Store/storelist" method="get">
+            <div class="text-c">
+                行业:
+                <span class="select-box inline">
+                    <select name="navshow" class="select" id="navshow">
+                        <option value="0">请选择</option>
+                        {volist name='navlist' id='f'}
+                            <option value="{$f.nav_id}">{$f.nav_name}</option>
+                        {/volist}
+                    </select>
+                </span>
+                分类:
+                <span class="select-box inline">
+                    <select name="categoryshow" class="select" id="categoryshow">
+                        <option value="0">请选择</option>
+                        {volist name='categorylist' id='f'}
+                            <option value="{$f.category_id}">{$f.category_name}</option>
+                        {/volist}
+                    </select>
+                </span>
+                <input type="text" name="keywords" id="keywords" placeholder=" 店铺名称/说明/关键字" style="width:250px" class="input-text" value="{$where.keywords}" >
+                <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜店铺 </button>
+            </div>
+        </form>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <a class="btn btn-primary radius" href="/admin/Store/storeadd"><i class="Hui-iconfont">&#xe600;</i>新增店铺</a>
+            </span>
+            <span class="r">共有数据：<strong>{$pronum}</strong> 条</span>
+        </div>
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="60" onclick="sort('Store/storelist','store_id')" >ID</th>
+                    <th width="100" onclick="sort('Store/storelist','store_name')">店铺名称</th>
+                    <th width="100" onclick="sort('Store/storelist','nav_name')">所属行业</th>
+                    <th width="80" onclick="sort('Store/storelist','store_type')">认证/非认证</th>
+                    <th width="180">店铺说明</th>
+                    <th width="60" onclick="sort('Store/storelist','store_credit')">店铺信誉积分</th>
+                    <th width="60">营业/歇业</th>
+                    <th width="100">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="storelist" id="f"}
+                <tr class="text-c va-m">
+                    <td>{$f.store_id}</td>
+                    <td>{$f.store_name}</td>
+                    <td>{$f.nav_name}</td>
+                    <td>{if condition="$f.store_type eq '0'"}非认证{else /}认证{/if}</td>
+                    <td>{$f.store_desc}</td>
+                    <td>{$f.store_credit}</td>
+                    <td class="td-status">
+                        {if condition="$f.disabled eq 1"}
+                        <a style="text-decoration:none" onClick="store_stop(this,{$f.store_id})" class="disabled" href="javascript:;" title="歇业">
+                            <span class="label label-success radius">营业中</span>
+                        </a>
+                        {else/}
+                        <a style="text-decoration:none" onClick="store_start(this,{$f.store_id})" class="disabled" href="javascript:;" title="营业">
+                            <span class="label label-default radius">歇业</span>
+                        </a>
+                        {/if}
+
+                    </td>
+                    <td class="td-manage">
+                        {if condition="$f.is_recomm eq 1"}
+                        <a style="text-decoration:none" onClick="recomm_stop(this,{$f.store_id})" class="is_recomm" href="javascript:;" title="取消推荐">
+                            <i class="Hui-iconfont">&#xe648;</i>
+                        </a>
+                        {else/}
+                        <a style="text-decoration:none" onClick="recomm_start(this,{$f.store_id})" class="is_recomm" href="javascript:;" title="推荐">
+                            <i class="Hui-iconfont">&#xe649;</i>
+                        </a>
+                        {/if}
+                        <a style="text-decoration:none" class="ml-5"  href="/admin/Store/storeedit/storeid/{$f.store_id}/is_pass/1" title="编辑店铺信息">
+                            <i class="Hui-iconfont">&#xe6df;</i>
+                        </a>
+                        <!--<a style="text-decoration:none" class="ml-5" href="/admin/Store/storecreditlog/store_id/{$f.store_id}" title="查看信誉积分日志">
+                            <i class="Hui-iconfont">&#xe623;</i>
+                        </a>-->
+                        <a style="text-decoration:none" class="ml-5" href="/admin/Store/voucherlist/store_id/{$f.store_id}" title="优惠券列表">
+                            <i class="Hui-iconfont">&#xe6ca;</i>
+                        </a>
+
+                        <a style="text-decoration:none" class="ml-5" href="/admin/Store/productlist/store_id/{$f.store_id}" title="查看店铺商品">
+                            <i class="Hui-iconfont">&#xe627;</i>
+                        </a>
+                        {if condition="$f.is_close eq 1"}
+                        <a style="text-decoration:none" class="is_close" href="javascript:;" title="不可取消">
+                            <i class="Hui-iconfont">&#xe6e6;</i>
+                        </a>
+                        {else/}
+                        <a style="text-decoration:none" onClick="close_start(this,{$f.store_id})" class="is_close" href="javascript:;" title="强制关店">
+                            <i class="Hui-iconfont">&#xe726;</i>
+                        </a>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <div style="margin-top: 10px;padding-left: 5px;padding-right: 5px;">
+                每页显示
+                <input type="number" id="show_count" onchange="changeCount('Store/storelist',$(this).val())" class="input-text" style="width: 50px;margin-left: 5px;margin-right: 5px;" value="{$show_count}">条
+            </div>
+        </div>
+        <div class="pages">{$page}</div>
+        <input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+        <input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+
+<script type="text/javascript" src="/admin_file/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    function store_stop(obj,id){
+        layer.confirm('确认要歇业吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeedit",
+                data:{"storeid":id,"disabled":0,"is_ajax":1,'is_pass':1},
+                type:"POST",
+                success:function(data){
+                    console.log(data);
+                    if(data.code){
+                        var html = '<a onClick="store_start(this,'+id+')" href="javascript:;" title="开店" class="disabled" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>';
+                        $(obj).parents("tr").find(".td-manage").prepend(html);
+                        $(obj).remove();
+                        layer.msg('已歇业!',{icon: 6,time:2000});
+                    }else{
+                        layer.msg('操作失败!',{icon: 5,time:2000});
+                    }
+
+                }
+            })
+
+        });
+    }
+
+    function store_start(obj,id){
+        layer.confirm('确认要营业吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeedit",
+                data:{"storeid":id,"disabled":1,"is_ajax":1,'is_pass':1},
+                type:"POST",
+                success:function(data){
+                    console.log(data);
+                    if(data.code == 1){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a onClick="store_stop(this,'+id+')" href="javascript:;" class="disabled" title="关店" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+                        $(obj).remove();
+                        layer.msg('已营业!', {icon: 6,time:2000});
+                    }else{
+                        layer.msg('操作失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+
+    function recomm_stop(obj,id){
+        layer.confirm('确认要取消推荐吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeedit",
+                data:{"storeid":id,"is_recomm":0,"is_ajax":1,'is_pass':1},
+                type:"POST",
+                success:function(data){
+                    if(data.code){
+                        var html = '<a onClick="recomm_start(this,'+id+')" href="javascript:;" title="推荐" class="is_recomm" style="text-decoration:none"><i class="Hui-iconfont">&#xe649;</i></a>';
+                        $(obj).parents("tr").find(".td-manage").prepend(html);
+                        $(obj).remove();
+                        layer.msg('已取消推荐!',{icon: 6,time:2000});
+                    }else{
+                        layer.msg('取消推荐失败!',{icon: 5,time:2000});
+                    }
+
+                }
+            })
+
+        });
+    }
+
+    function recomm_start(obj,id){
+        layer.confirm('确认要推荐吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeedit",
+                data:{"storeid":id,"is_recomm":1,"is_ajax":1,'is_pass':1},
+                type:"POST",
+                success:function(data){
+                    if(data.code == 1){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a onClick="recomm_stop(this,'+id+')" href="javascript:;" class="" title="取消推荐" style="text-decoration:none"><i class="Hui-iconfont">&#xe648;</i></a>');
+                        $(obj).remove();
+                        layer.msg('已推荐!', {icon: 6,time:2000});
+                    }else{
+                        layer.msg('推荐失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+
+    function close_stop(obj,id){
+        layer.confirm('确认要取消强制关店吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeedit",
+                data:{"storeid":id,"is_close":0,"is_ajax":1,'is_pass':1},
+                type:"POST",
+                success:function(data){
+                    if(data.code){
+                        var html = '<a onClick="close_start(this,'+id+')" href="javascript:;" title="强制关店" class="is_close" style="text-decoration:none"><i class="Hui-iconfont">&#xe726;</i></a>';
+                        $(obj).parents("tr").find(".td-manage").prepend(html);
+                        $(obj).remove();
+                        layer.msg('已取消强制关店!',{icon: 6,time:2000});
+                    }else{
+                        layer.msg('取消强制关店失败!',{icon: 5,time:2000});
+                    }
+
+                }
+            })
+
+        });
+    }
+
+    function close_start(obj,id){
+        layer.confirm('确认要强制关店吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeedit",
+                data:{"storeid":id,"is_close":1,"disabled":0,"is_ajax":1,'is_pass':1},
+                type:"POST",
+                success:function(data){
+                    if(data.code == 1){
+                       /* $(obj).parents("tr").find(".td-manage").prepend('<a onClick="close_stop(this,'+id+')" href="javascript:;" class="" title="取消强制关店" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e6;</i></a>');
+                        $(obj).remove();*/
+                        layer.msg('已强制关店!', {icon: 6,time:2000});
+                        location.reload();
+                    }else{
+                        layer.msg('强制关店失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+    /*搜多框值返回*/
+    $("#navshow").val('{$where.navshow}').attr("selected",true);
+    $("#categoryshow").val('{$where.categoryshow}').attr("selected",true);
+</script>
+</body>
+</html>

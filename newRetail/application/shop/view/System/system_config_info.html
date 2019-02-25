@@ -1,0 +1,87 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<style>
+	.clearfix:after{content:"\20";display:block;height:0;clear:both;visibility:hidden}.clearfix{zoom:1}
+	.tabBar {border-bottom: 2px solid #999}
+	.tabBar span {background-color: #e8e8e8;cursor: pointer;display: inline-block;float: left;font-weight: bold;height: 30px;line-height: 30px;padding: 0 15px}
+	.tabBar span.current{background-color: #999;color: #fff}
+	.tabCon {display: none}
+	.form-horizontal .form-label {
+		margin-top: 3px;
+		cursor: text;
+		text-align: right;
+		width: 25%;
+	}
+</style>
+
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div id="tab_demo" class="HuiTab">
+			<div class="tabBar clearfix">
+				{volist name="system_config_top" id="top"}
+				<span>{$top.desc}</span>
+				{/volist}
+			</div>
+			{volist name="system_config_list" id="top_list"}
+			<div class="tabCon">
+				{volist name="top_list.children" id="child"}
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3">{$child.desc}：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="{$child.value}" placeholder="" id="{$child.code}" name="{$child.code}">
+					</div>
+				</div>
+				{/volist}
+			</div>
+			{/volist}
+
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0")
+    });
+    jQuery.Huitab =function(tabBar,tabCon,class_name,tabEvent,i){
+        var $tab_menu=$(tabBar);
+        // 初始化操作
+        $tab_menu.removeClass(class_name);
+        $(tabBar).eq(i).addClass(class_name);
+        $(tabCon).hide();
+        $(tabCon).eq(i).show();
+
+        $tab_menu.bind(tabEvent,function(){
+            $tab_menu.removeClass(class_name);
+            $(this).addClass(class_name);
+            var index=$tab_menu.index(this);
+            $(tabCon).hide();
+            $(tabCon).eq(index).show()})}
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

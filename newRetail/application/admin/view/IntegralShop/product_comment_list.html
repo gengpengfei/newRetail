@@ -1,0 +1,218 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 积分商城管理
+    <span class="c-gray en">&gt;</span> 商品评价列表
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <form action="/admin/IntegralShop/productCommentList" method="get">
+        <div class="text-c">
+            是否带图评价:
+            <span class="select-box inline">
+                <select name="has_img" class="select" id="has_img" value="{$where.has_img}">
+                    <option value="0" >请选择</option>
+                    <option value="1" {if $where.has_img === 0}selected{/if}>否</option>
+                    <option value="2" {if $where.has_img === 1}selected{/if}>是</option>
+                </select>
+            </span>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入商品名称" id="keywords" name="keywords" value="{$where.keywords}">
+            <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜商品</button>
+        </div>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        {in name="productDel" value=$action_code_list}
+        <span class="l" style="margin-left: 5px;">
+            <a href="javascript:del_query()" class="btn btn-danger radius">
+                <i class="Hui-iconfont">&#xe6e2;</i>批量删除
+            </a>
+        </span>
+        {/in}
+    </div>
+    <table class="table table-border table-bordered table-bg">
+        <thead>
+        <tr>
+            <th scope="col" colspan="12">商品评价列表</th>
+        </tr>
+        <tr class="text-c">
+            <th width="25"><input type="checkbox" name="" value="0"></th>
+            <th width="10" onclick="sort('IntegralShop/productCommentList','id')">序号</th>
+            <th width="50" onclick="sort('IntegralShop/productCommentList','pro_name')">商品名</th>
+            <th width="50" onclick="sort('IntegralShop/productCommentList','user_name')">用户名</th>
+            <th width="150" onclick="sort('IntegralShop/productCommentList','comment_cont')">评价内容</th>
+            <th width="50" onclick="sort('IntegralShop/productCommentList','pro_comment')">商品评价</th>
+            <th width="50" onclick="sort('IntegralShop/productCommentList','pack_comment')">商品包装评价</th>
+            <th width="50" onclick="sort('IntegralShop/productCommentList','waiter_comment')">配送员服务评价</th>
+            <th width="50" onclick="sort('IntegralShop/productCommentList','speed_comment')">送货速度</th>
+            <th width="50" onclick="sort('IntegralShop/productCommentList','chase_comment')">追加评论</th>
+            <th width="100">评价图片</th>
+            <th width="50">是否通过审核</th>
+            <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="product_list" id="c"}
+        <tr class="text-c">
+            <!--<td><input type="checkbox" value="1" name=""></td>-->
+            <td><input type="checkbox" value="{$c.id}" name="id"></td>
+            <td>{$c.id}</td>
+            <td>{$c.pro_name}</td>
+            <td>{$c.user_name}</td>
+            <td>{$c.comment_cont}</td>
+            <td>{$c.pro_comment}</td>
+            <td>{$c.pack_comment}</td>
+            <td>{$c.waiter_comment}</td>
+            <td>{$c.speed_comment}</td>
+            <td>{$c.chase_comment}</td>
+            <td>{if $c.comment_img}<img src="{$c.comment_img[0]}" style="width: 120px;height: 90px">{/if}</td>
+            {if condition="$c.disabled eq 1"}
+            <td class="td-status"><span class="label label-success radius">通过</span></td>
+            {elseif condition="$c.disabled eq 0"}
+            <td class="td-status"><span class="label label-default radius">未审核</span></td>
+            {else"}
+            <td class="td-status"><span class="label label-danger radius">拒绝</span></td>
+            {/if}
+            <td class="td-manage">
+                {if condition="$c.disabled eq 0"}
+                <a style="text-decoration:none" onClick="comment_stop(this,{$c.id})" href="javascript:;" title="拒绝">
+                    <i class="Hui-iconfont">&#xe631;</i>
+                </a>
+                <a style="text-decoration:none" onClick="comment_start(this,{$c.id})" href="javascript:;" title="通过">
+                    <i class="Hui-iconfont">&#xe615;</i>
+                </a>
+                {elseif condition="$c.disabled eq 1"}
+                <a style="text-decoration:none" onClick="comment_stop(this,{$c.id})" href="javascript:;" title="拒绝">
+                    <i class="Hui-iconfont">&#xe631;</i>
+                </a>
+                {else}
+                <a style="text-decoration:none" onClick="comment_start(this,{$c.id})" href="javascript:;" title="通过">
+                    <i class="Hui-iconfont">&#xe615;</i>
+                </a>
+                {/if}
+                {in name="productDel" value=$action_code_list}
+                <a title="删除" href="javascript:;" onclick="admin_del(this,{$c.id})" class="ml-5" style="text-decoration:none">
+                    <i class="Hui-iconfont">&#xe6e2;</i>
+                </a>
+                {/in}
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+    function comment_stop(obj,id){
+        layer.confirm('确认要拒绝吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/IntegralShop/productCommentDisabled",
+                data:{"id":id,"disabled":2,"is_ajax":1},
+                type:"POST",
+                success:function(data){
+                    if(data.code){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="comment_start(this,{$c.id})" href="javascript:;" title="通过"><i class="Hui-iconfont">&#xe615;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">拒绝</span>');
+                        $(obj).remove();
+                        layer.msg('审核拒绝!',{icon: 5,time:2000});
+                    }else{
+                        layer.msg(data.msg+'!',{icon: 5,time:2000});
+                    }
+
+                }
+            })
+
+        });
+    }
+
+    function comment_start(obj,id){
+        layer.confirm('确认要通过吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/IntegralShop/productCommentDisabled",
+                data:{"id":id,"disabled":1,"is_ajax":1},
+                type:"POST",
+                success:function(data){
+                    if(data.code){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="comment_stop(this,{$c.id})" href="javascript:;" title="拒绝"><i class="Hui-iconfont">&#xe631;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">通过</span>');
+                        $(obj).remove();
+                        layer.msg('审核通过!', {icon: 6,time:2000});
+                    }else{
+                        layer.msg(data.msg+'!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+
+
+
+    /*广告-删除*/
+    function admin_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"/admin/IntegralShop/productCommentDel",
+                data:{"id":id,"is_ajax":1},
+                type:"POST",
+                success: function(data){
+                    if (data.code == 1) {
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:2000});
+                    }else {
+                        layer.msg('删除失败!',{icon:2,time:2000});
+                    }
+                }
+            });
+        });
+    }
+    /*
+    * icon:
+    * 1：√ 2：× 3：？ 4：锁 5：哭脸 6：笑脸
+    * */
+
+    /* 批量删除*/
+    function del_query(){
+        var chk_value =[];
+        $('input[name="id"]:checked').each(function(){
+            chk_value.push($(this).val());
+        });
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"/admin/IntegralShop/productCommentDel",
+                data:{"id":chk_value},
+                type:"POST",
+                success: function(data){
+                    if (data.code == 1) {
+                        layer.msg('已删除!',{icon:1,time:2000});
+                        history.go();
+                    }else {
+                        layer.msg('删除失败!',{icon:2,time:2000});
+                    }
+
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                }
+            })
+        });
+    }
+</script>
+</body>
+</html>

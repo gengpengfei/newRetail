@@ -1,0 +1,196 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">选择限制类型：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="limit_id">
+                    {volist name="rewardLimit" id="limit"}
+					<option value="{$limit.id}" {if $rewardRule.limit_id == $limit.id}selected{/if}>最低消费{$limit.min_amount}，每天{$limit.limit_order}单</option>
+					{/volist}
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">规则名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$rewardRule.reward_name}" id="reward_name" name="reward_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">规则说明：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$rewardRule.reward_desc}" id="reward_desc" name="reward_desc">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">规则适用范围：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="reward_range" id="reward_range">
+					<option value="0" {if $rewardRule.reward_range eq 0}selected{/if}>按积分</option>
+					<option value="1" {if $rewardRule.reward_range eq 1}selected{/if}>按优惠券</option>
+					<option value="2" {if $rewardRule.reward_range eq 2}selected{/if}>按金额</option>
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl" id="rule_type" {if $rewardRule.reward_range eq 1}style="display: none"{/if}>
+			<label class="form-label col-xs-4 col-sm-2">规则类型：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="reward_type" id="reward_type">
+					<option value="0" {if $rewardRule.reward_type eq 0}selected{/if}>不奖励</option>
+					<option value="1" {if $rewardRule.reward_type eq 1}selected{/if}>固定奖励（固定金额或积分）</option>
+					<option value="2" {if $rewardRule.reward_type eq 2}selected{/if}>订单金额百分比</option>
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl" id="coupons" {if $rewardRule.reward_range neq 1}style="display: none"{/if}>
+			<label class="form-label col-xs-4 col-sm-2">选择优惠券：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="coupons_id" id="coupons_id">
+                    {volist name="coupons" id="c"}
+					<option value="{$c.coupons_id}" {if $rewardRule.reward_info == $c.coupons_id}selected{/if}>{$c.coupons_name}</option>
+					{/volist}
+				</select>
+				</span>
+			</div>
+		</div>
+
+		<div class="row cl" id="reward" {if $rewardRule.reward_range eq 1}style="display: none"{/if}>
+			<label class="form-label col-xs-4 col-sm-2">奖励详情：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$rewardRule.reward_info}" id="reward_info" name="reward_info">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">开始时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$rewardRule.start_time}" id="start_time" name="start_time">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">结束时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$rewardRule.end_time}" id="end_time" name="end_time">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="id" id="id" value="{$rewardRule.id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#reward_range").change(function () {
+            ad_type();
+        });
+        ad_type();
+        $("#reward_type").change(function () {
+            reward_type();
+        });
+        reward_type();
+        var id = $("#id").val();
+        if(id){
+            $("#form-admin-add").validate({
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/User/rewardRuleEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('编辑失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('编辑成功!',{icon:1,time:2000});
+                                window.location.href="/admin/User/rewardRule";
+                            }else{
+                                layer.msg('编辑失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/User/rewardRuleAdd" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/admin/User/rewardRule";
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+    function ad_type() {
+        var reward_range = $("#reward_range").val();
+        if(parseInt(reward_range) == 0 || parseInt(reward_range) == 2){
+            $('#coupons').hide();
+            $('#reward').show();
+            $('#rule_type').show();
+        }else if(parseInt(reward_range) == 1){
+            $('#coupons').show();
+            $('#reward').hide();
+            $('#rule_type').hide();
+        }
+    }
+    function reward_type() {
+        var reward_type = $("#reward_type").val();
+        if(parseInt(reward_type) == 0){
+            $('#coupons').hide();
+            $('#reward').hide();
+        }else if(parseInt(reward_type) == 1 || parseInt(reward_type) == 2){
+            $('#reward').show();
+        }
+    }
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

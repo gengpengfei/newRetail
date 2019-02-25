@@ -1,0 +1,58 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 系统管理
+    <span class="c-gray en">&gt;</span> 用户行为日志列表
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <form action="/admin/System/behaviorLogList" method="get">
+        <div class="text-c">
+            <input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="keywords" name="keywords" value="{$where.keywords}">
+            <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户行为日志</button>
+        </div>
+    </form>
+    <table class="table table-border table-bordered table-bg" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9">筛选条件列表</th>
+        </tr>
+        <tr class="text-c">
+            <!--<th width="25"><input type="checkbox" name="" value="0"></th>-->
+            <th width="150" onclick="sort('System/behaviorLogList','id')">序号</th>
+            <th width="150" onclick="sort('System/behaviorLogList','user_name')">用户名</th>
+            <th width="150" onclick="sort('System/behaviorLogList','behavior_desc')">说明</th>
+            <th width="150" onclick="sort('System/behaviorLogList','behavior_code')">code</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="behaviorLog" id="c"}
+        <tr class="text-c">
+            <td>{$c.id}</td>
+            <td>{$c.user_name}</td>
+            <td>{$c.behavior_desc}</td>
+            <td>{$c.behavior_code}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

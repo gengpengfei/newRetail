@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+   <body>
+           <p id="demo">sfkklfklfklflksfkl</p>
+
+           <script>
+              function myFunc(){
+                  x=document.getElementById("demo");
+                  x.innerHTML="Hello JavaScript";
+              }
+           </script>
+
+           <button s>
+              
+           </button>
+   </body>
+</html>

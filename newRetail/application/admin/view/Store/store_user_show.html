@@ -1,0 +1,225 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<style>
+	.text-r{
+		width: 145px;
+	}
+	.table{
+		float: left;
+		width: 49%;
+	}
+</style>
+<link href="/admin_file/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<body>
+<div class="cl pd-20" style=" background-color:#5bacb6">
+	<dl style="color:#fff">
+		<dt>
+			<span class="f-18">店铺名:{$storeinfo.store_name}</span>
+			{if $ispass eq '1'}<span class="pl-10 f-12">店铺信誉积分：{$storeinfo.store_credit}</span>{/if}
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">店铺说明：{$storeinfo.store_desc}</dd>
+	</dl>
+</div>
+<div class="pd-20">
+	<table class="table">
+		<tbody>
+		<tr>
+			<th class="text-r" width="80">行业：</th>
+			<td>{$navname.nav_name}</td>
+		</tr>
+		<tr>
+			<th class="text-r">分类：</th>
+			<td>{$categorystr}</td>
+		</tr>
+		<tr>
+			<th class="text-r">客服电话：</th>
+			<td>{$storeinfo.store_phone}</td>
+		</tr>
+		<tr>
+			<th class="text-r">店铺关键字：</th>
+			<td>{$storeinfo.store_keywords}</td>
+		</tr>
+		<tr>
+			<th class="text-r">店铺地址：</th>
+			<td>{$storeinfo.store_address}</td>
+		</tr>
+		<tr>
+			<th class="text-r">是否支持预定：</th>
+			{if condition="$storeinfo.is_reserve eq 1"}
+			<td>是</td>
+			{else}
+			<td>否</td>
+			{/if}
+		</tr>
+		<tr>
+			<th class="text-r">是否推荐：</th>
+			{if condition="$storeinfo.is_recomm eq 1"}
+			<td>推荐</td>
+			{else}
+			<td>未推荐</td>
+			{/if}
+		</tr>
+		<tr>
+			<th class="text-r">是否强制关闭店铺：</th>
+			{if condition="$storeinfo.is_close eq 1"}
+			<td>是</td>
+			{else}
+			<td>否</td>
+			{/if}
+		</tr>
+		<tr>
+			<th class="text-r">是否显示商家信息：</th>
+			{if condition="$storeinfo.is_store_info eq 1"}
+			<td>是</td>
+			{else}
+			<td>否</td>
+			{/if}
+		</tr>
+		<tr>
+			<th class="text-r">商家信息：</th>
+			<td>{$storeinfo.store_info}</td>
+		</tr>
+		<tr>
+			<th class="text-r">店铺图片：</th>
+			<td>
+				<a href="{$storeinfo.store_img}" data-lightbox="gallery" data-title="店铺图片">
+					<img src="{$storeinfo.store_img}" style="max-width: 400px;max-height: 200px" />
+				</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	{if $ispass eq '1'}
+	<table class="table">
+		<tbody>
+		<tr>
+			<th class="text-r" width="80">总订单：</th>
+			<td>{$reportinfo.total_order}</td>
+		</tr>
+		<tr>
+			<th class="text-r">总订单金额：</th>
+			<td>{$reportinfo.total_order_price}</td>
+		</tr>
+		<tr>
+			<th class="text-r">有效订单：</th>
+			<td>{$reportinfo.valid_order}</td>
+		</tr>
+		<tr>
+			<th class="text-r">有效订单金额：</th>
+			<td>{$reportinfo.valid_order_price}</td>
+		</tr>
+		<tr>
+			<th class="text-r">下单用户数量：</th>
+			<td>{$reportinfo.order_user_num}</td>
+		</tr>
+		<tr>
+			<th class="text-r">评论总数：</th>
+			<td>{$reportinfo.comment_total}</td>
+		</tr>
+		<tr>
+			<th class="text-r">平均评分数：</th>
+			<td>{$reportinfo.comment_num}</td>
+		</tr>
+		<tr>
+			<th class="text-r">店铺积分：</th>
+			<td>{$storeinfo.store_score}</td>
+		</tr>
+		<tr>
+			<th class="text-r">红包金额：</th>
+			<td>{$reportinfo.coupons_price}</td>
+		</tr>
+		<tr>
+			<th class="text-r">店铺热度：</th>
+			<td>{$storeinfo.store_hot}</td>
+		</tr>
+		</tbody>
+	</table>
+	{/if}
+	{if $storeinfo.store_type eq '1'}
+	<table class="table" style="margin-top: 20px;border-top: 1px solid #ccc;float: none;width: 100%">
+		<tbody>
+		<tr>
+			<th class="text-r">审核电话：</th>
+			<td>{$storeauditinfo.audit_mobile}</td>
+		</tr>
+		<tr>
+			<th class="text-r">银行卡开户行：</th>
+			<td>{$storeauditinfo.audit_bank}</td>
+		</tr>
+		<tr>
+			<th class="text-r">银行卡号：</th>
+			<td>{$storeauditinfo.audit_bank_card}</td>
+		</tr>
+		<tr>
+			<th class="text-r">身份证号：</th>
+			<td>{$storeauditinfo.ID_number}</td>
+		</tr>
+		<tr>
+			<th class="text-r">身份证正面：</th>
+			<td>
+				<a href="{$storeauditinfo.identity_face_original}" data-lightbox="gallery" data-title="身份证正面">
+					<img src="{$storeauditinfo.audit_identity_face.0}" />
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<th class="text-r">身份证反面：</th>
+			<td>
+				<a href="{$storeauditinfo.identity_coin_original}" data-lightbox="gallery" data-title="身份证反面">
+					<img src="{$storeauditinfo.audit_identity_coin.0}" />
+				</a>
+			</td>
+		</tr>
+		{if $storeauditinfo.is_license eq 1}
+		<tr>
+			<th class="text-r">营业执照名称：</th>
+			<td>{$storeauditinfo.business_license_name}</td>
+		</tr>
+		<tr>
+			<th class="text-r">营业执照编号：</th>
+			<td>{$storeauditinfo.business_license_number}</td>
+		</tr>
+		<tr>
+			<th class="text-r">营业执照类型：</th>
+			<td>{$storeauditinfo.business_license_type}</td>
+		</tr>
+		<tr>
+			<th class="text-r">营业执照有效期：</th>
+			<td>{$storeauditinfo.business_license_time}</td>
+		</tr>
+		<tr>
+			<th class="text-r">营业执照：</th>
+			<td>
+				<a href="{$storeauditinfo.license_original}" data-lightbox="gallery" data-title="营业执照">
+					<img src="{$storeauditinfo.audit_license.0}" />
+				</a>
+			</td>
+		</tr>
+		{/if}
+		<tr>
+			<th class="text-r">审核状态：</th>
+			{if condition="$storeinfo.audit_state eq 0"}
+			<td>未审核</td>
+			{elseif condition="$storeinfo.audit_state eq 1"}
+			<td>通过</td>
+			{else}
+			<td>拒绝</td>
+			{/if}
+		</tr>
+		</tbody>
+	</table>
+	{/if}
+</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/admin_file/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+</script>
+</body>
+</html>

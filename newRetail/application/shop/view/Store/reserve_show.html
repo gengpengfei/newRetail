@@ -1,0 +1,128 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<style>
+	.text-r{
+		width: 145px;
+	}
+	.table{
+		float: left;
+		width: 49%;
+	}
+</style>
+<link href="/admin_file/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<body>
+<div class="cl pd-20" style=" background-color:#5bacb6">
+	<dl style="color:#fff">
+		<dt>
+			<span class="f-18">店铺名:{$reserveInfo.store_name}</span>
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">店铺说明：{$reserveInfo.store_desc}</dd>
+	</dl>
+</div>
+<div class="pd-20">
+	<table class="table">
+		<tbody>
+		<tr>
+			<th class="text-r" width="80">用户名：</th>
+			<td>{$reserveInfo.user_name}</td>
+		</tr>
+		<tr>
+			<th class="text-r">称呼：</th>
+			<td>{$reserveInfo.name}</td>
+		</tr>
+		<tr>
+			<th class="text-r">性别：</th>
+			{if condition="$reserveInfo.sex eq 1"}
+			<td>女</td>
+			{else}
+			<td>男</td>
+			{/if}
+		</tr>
+		<tr>
+			<th class="text-r">手机号：</th>
+			<td>{$reserveInfo.mobile}</td>
+		</tr>
+		<tr>
+			<th class="text-r">人数：</th>
+			<td>{$reserveInfo.number}</td>
+		</tr>
+		<tr>
+			<th class="text-r">备注：</th>
+			<td>{$reserveInfo.remark}</td>
+		</tr>
+		<tr>
+			<th class="text-r">开始时间：</th>
+			<td>{$reserveInfo.reserve_time}</td>
+		</tr>
+		{if $reserveInfo.reserve_state == 'R04'}
+		<tr>
+			<th class="text-r">取消原因：</th>
+			<td>{$reserveInfo.cancel_reason}</td>
+		</tr>
+		{/if}
+		{if $reserveInfo.reserve_state == 'R02' || $reserveInfo.reserve_state == 'R03'}
+		<tr>
+			<th class="text-r">预约状态：</th>
+			{if $reserveInfo.reserve_state == 'R02'}
+			<td>预约成功</td>
+			{else}
+			<td>预约失败</td>
+			{/if}
+		</tr>
+		<tr>
+			<th class="text-r">店铺回复：</th>
+			<td>{$reserveInfo.store_back}</td>
+		</tr>
+		{/if}
+		</tbody>
+	</table>
+	{if $reserveInfo.reserve_state == 'R01'}
+	<form action="/shop/Store/reserveShow"  method="post"  enctype="multipart/form-data" >
+		<table class="table" style="margin-top: 40px;border-top: 1px solid #ccc;float: none;width: 100%">
+			<tbody>
+			<tr>
+				<th class="text-r">审核：</th>
+				<td>
+					<input type="radio" name="reserve_state" value="R02" {if $reserveInfo.reserve_state == 'R02'}checked{/if}>通过
+					<input type="radio" name="reserve_state" value="R03" {if $reserveInfo.reserve_state == 'R03'}checked{/if}>拒绝
+				</td>
+			</tr>
+			<tr>
+			<th class="text-r">店铺回复：</th>
+			<td>
+				<textarea name="store_back" class="textarea">{$reserveInfo.store_back}</textarea>
+			</td>
+			</tr>
+
+			<tr>
+				<th class="text-r"></th>
+				<td>
+					<div class="row cl">
+						<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+						<input type="hidden" name="reserve_id" id="reserve_id" value="{$reserveInfo.id}">
+						<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+							<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+							<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			</tbody>
+		</table>
+	</form>
+	{/if}
+</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/admin_file/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+</script>
+</body>
+</html>

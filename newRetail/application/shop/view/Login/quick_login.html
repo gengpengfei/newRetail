@@ -1,0 +1,107 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<link href="/admin_file/static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+<style>
+  .row {
+    width:100%;
+  }
+  .header {
+    top: 0;
+    height: 60px;
+    background: #426374 url(/admin_file/static/h-ui.admin/images/shoplogo.png) no-repeat 0 center;
+  }
+
+</style>
+
+<body>
+<input type="hidden" id="TenantId" name="TenantId" value="" />
+<div class="header"></div>
+<div class="loginWraper">
+  <div id="loginform" class="loginBox">
+      <div class="row cl">
+        <label class="form-label col-xs-3" style="text-align: right"><i class="Hui-iconfont">&#xe60d;</i></label>
+        <div class="formControls col-xs-8">
+          <input id="mobile" name="mobile" type="text" placeholder="账户" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-xs-3"  style="text-align: right"><i class="Hui-iconfont">&#xe60e;</i></label>
+        <div class="formControls col-xs-8">
+          <input class="input-text size-L" id="code" name="code" type="text" placeholder="手机验证码" value="" style="width:65%;">
+          <span style="display: inline-block;border-radius:5px;padding:8px 15px;width: 20%;border: 1px solid #dbdbdb;text-align: center;"><a id="moBtn" onclick="sendMsgCode()" style="display: block">发送验证码</a><a id="secondShow" href="javascript:;"></a></span>
+
+        </div>
+      </div>
+      <div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+          <input name="" type="button" onclick="login()" class="btn btn-success radius size-L" style="width:175px" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <input name="" type="reset" class="btn btn-default radius size-L" style="width:175px" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+        </div>
+      </div>
+      <div class="row cl">
+          <div class="formControls col-xs-8 col-xs-offset-3" style="text-align: center">
+              <a style="display: inline-block;width:49%" href="/shop/Login/Index">点击 <span style="color:#ffffff">我要开店</span></a>
+              <a style="display: inline-block;width:49%" href="/shop/Login/Index">使用账号密码登录</a>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="footer">Copyright 你的公司名称 by H-ui.admin v3.1</div>
+<script type="text/javascript" src="/admin_file/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/layer/2.4/layer.js"></script>
+<script>
+  function login() {
+      var mobile = $("#mobile").val();
+      var code = $('#code').val();
+      if(code.length===0){
+          layer.msg('手机验证码不能为空',{icon: 5,time:2000});
+      }
+      console.log(mobile);
+      $.ajax({
+          url:"/shop/Login/quickLogin",
+          data:{"mobile":mobile,'code':code,"code_type":1,"is_ajax":1},
+          type:"POST",
+          success:function(data){
+              if(data.code=='1'){
+                  window.location.href="/shop/Index/index"
+              }else{
+                  layer.msg(data.msg,{icon: 5,time:2000});
+              }
+          }
+      })
+  }
+    var countdown=60;  // 时长 s
+    // 获取验证码按钮点击事件
+    function sendMsgCode() {
+        var mobile = $("#mobile").val();
+        if(mobile.length<11){
+            layer.msg('请输入正确的手机号!',{icon: 5,time:2000});
+            return;
+        }
+        $.ajax({
+            url:"/shop/Login/sendMobileCode",
+            data:{"mobile":mobile,"code_type":1,"is_ajax":1},
+            type:"POST",
+            success:function(data){
+                if(data.code){
+                    $("#secondShow").css('display','block');
+                    $("#moBtn").css('display','none');
+                    $("#secondShow").html('('+countdown+'s)');
+                    var timer = setInterval(function () {
+                        if (countdown == 0) {
+                            clearInterval(timer);
+                            $("#secondShow").css('display','none');
+                            $("#moBtn").css('display','block');
+                            countdown = 60;
+                        }
+                        $("#secondShow").html('('+(countdown-1)+'s)');
+                        countdown--;
+                    }, 1000);
+                }
+            }
+        })
+    };
+</script>
+</body>
+</html>

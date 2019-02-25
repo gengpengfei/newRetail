@@ -1,0 +1,572 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<!--引入地图包，地图包网址的ak属性是你在百度地图开放平台上申请的秘钥-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=jGYs9OhR0POh1Rt0oQg4Fg5mD4f1fkuH"></script>
+<body>
+<article class="page-container">
+    <form {if $is_kind eq 1}action="/admin/Store/storeedit/storeid/{$storeinfo.store_id}/is_pass/{$is_pass}"{else}action="/admin/Store/storeadd"{/if} method="post" class="form form-horizontal" id="form-pro-add" enctype="multipart/form-data" >
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>店铺名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$storeinfo.store_name}" name="store_name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">上传店铺图片：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="file" name="store_img" onchange="changImg(event)" />
+                <div><img id="myImg" src="{$storeinfo.store_img}" height="100px",width="100px"></div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">上传轮播图：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="file" id="myFile" name="myFile[]" multiple="multiple" /><br><br><br>
+                {if $bannerImage}
+                {volist name="bannerImage" id="f"}
+                <img src="{$f}" height="90px" width="120px">
+                {/volist}
+                {/if}
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择行业：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="nav_id" id="nav_id">
+					<option value="" selected>请选择行业</option>
+                    {volist name='navlist' id='f'}
+                        <option value="{$f.nav_id}">{$f.nav_name}</option>
+                    {/volist}
+				</select>
+				</span> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择分类：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width: 50%">
+                    <select class="select" name="category_l1" id="category_l1">
+                        {volist name='categorylist' id='f'}
+                            <option value="{$f.category_id}">{$f.category_name}</option>
+                        {/volist}
+                    </select>
+                    <!--<select class="select" name="category_l2" style="width: 32%" id="category_l2">
+                        <option value="" selected>请选择二级分类</option>
+                        {volist name='categorylist2' id='f'}
+                            <option value="{$f.category_id}">{$f.category_name}</option>
+                        {/volist}
+                    </select>
+                    <select class="select" name="category_l3" style="width: 32%" id="category_l3">
+                        <option value="" selected>请选择三级分类</option>
+                        {volist name='categorylist3' id='f'}
+                            <option value="{$f.category_id}">{$f.category_name}</option>
+                        {/volist}
+                    </select>-->
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">关键词( , 号隔开)：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$storeinfo.store_keywords}" name="store_keywords">
+            </div>
+        </div>
+        {if $is_update eq 1 && $storeinfo.store_type eq '1' && $storeinfo.audit_state eq 1}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">店铺主电话：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {$storeAuditInfo.audit_mobile}
+            </div>
+        </div>
+        {/if}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所在地区：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width: 50%">
+                        <select class="select" name="province" style="width: 32%" id="province">
+                            <option value="" selected>请选择省</option>
+                            {volist name='provincelist' id='f'}
+                                <option value="{$f.region_id}">{$f.name}</option>
+                            {/volist}
+                        </select>
+                        <select class="select" name="city" style="width: 32%" id="city">
+                            <option value="" selected>请选择市</option>
+                            {volist name='citylist' id='f'}
+                                <option value="{$f.region_id}">{$f.name}</option>
+                            {/volist}
+                        </select>
+                        <select class="select" name="district" style="width: 32%" id="district">
+                            <option value="" selected>请选择区县</option>
+                            {volist name='districtlist' id='f'}
+                                <option value="{$f.region_id}">{$f.name}</option>
+                            {/volist}
+                        </select>
+                    </span>
+            </div>
+        </div>
+        <div class="row cl" id="voucher_price">
+            <label class="form-label col-xs-4 col-sm-2">店铺地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$storeinfo.store_address}" name="store_address" id="store_address">
+            </div>
+        </div>
+        <div style="margin-left: 17%; width: 600px; height: 300px; border: 1px solid gray; margin-bottom: 20px;margin-top: 20px" id="allmap"></div>
+        <input type="hidden" value="" id="latlng" name="latlng">
+
+        {if $is_update eq 1 && $storeinfo.store_type eq '1' && $storeinfo.audit_state eq 1}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">身份证号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {$storeAuditInfo.ID_number}
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">身份证正面：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <img src="{$storeAuditInfo.audit_identity_face.0}" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">身份证反面：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <img src="{$storeAuditInfo.audit_identity_coin.0}" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">银行卡开户行：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {$storeAuditInfo.audit_bank}
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">银行卡号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {$storeAuditInfo.audit_bank_card}
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">是否有营业执照</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {if $storeAuditInfo.is_license eq 1}
+                营业执照
+                {else}
+                正在办理
+                {/if}
+            </div>
+        </div>
+        {if $storeAuditInfo.is_license eq 1}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">营业执照照片：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <img src="{$storeAuditInfo.audit_license.0}" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">营业执照名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {$storeAuditInfo.business_license_name}
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">营业执照编号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {$storeAuditInfo.business_license_number}
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">营业执照类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {$storeAuditInfo.business_license_type}
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">营业执照有效期：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {$storeAuditInfo.business_license_time}
+            </div>
+        </div>
+        {/if}
+        {if $storeAuditInfo.is_license eq 0}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">临时证件：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <img src="{$storeAuditInfo.temp_license.0}" />
+            </div>
+        </div>
+        {/if}
+
+        {/if}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">是否支持预约：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="radio" name="is_reserve" value="1" {if $storeinfo.is_reserve eq 1}checked{/if}>是
+                <input type="radio" name="is_reserve" value="0" {if $storeinfo.is_reserve eq 0}checked{/if}>否
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">是否推荐：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="radio" name="is_recomm" value="1" {if $storeinfo.is_recomm eq 1}checked{/if}>是
+                <input type="radio" name="is_recomm" value="0" {if $storeinfo.is_recomm eq 0}checked{/if}>否
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">是否显示商家信息：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="radio" class="is_store_info" name="is_store_info" value="1" {if $storeinfo.is_store_info eq 1}checked{/if}>是
+                <input type="radio" class="is_store_info" name="is_store_info" value="0" {if $storeinfo.is_store_info eq 0}checked{/if}>否
+            </div>
+        </div>
+
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">商家信息</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="hidden" value="{$storeinfo.store_info}" id="store_info" name="store_info">
+                <script id="editor" type="text/plain" style="width:100%;height:450px;"></script>
+                </div>
+                </div>
+
+        <!--<div class="row cl">-->
+            <!--<label class="form-label col-xs-4 col-sm-2">店铺说明：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-9">-->
+                <!--<textarea name="store_desc" class="textarea">{$storeinfo.store_desc}</textarea>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">客服电话：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$storeinfo.store_phone}" name="store_phone">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">开店/关店：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="radio" name="disabled" value="1" {if $storeinfo.disabled eq 1}checked{/if}>开店
+                <input type="radio" name="disabled" value="0" {if $storeinfo.disabled eq 0}checked{/if}>关店
+            </div>
+        </div>
+        {if $is_update eq 1}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">店铺原信用分：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$storeinfo.store_credit}" name="credit_init" disabled>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">店铺现信用分：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" name="credit_now">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">信用变动说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="credit_desc" class="textarea"></textarea>
+            </div>
+        </div>
+        {/if}
+        {if $is_update eq 1 && $storeinfo.store_type eq '1'}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">审核状态：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {if condition="$storeinfo.audit_state eq 0"}
+                未审核
+                {elseif condition="$storeinfo.audit_state eq 1"}
+                通过
+                {else}
+                拒绝
+                {/if}
+            </div>
+        </div>
+        {/if}
+
+    <input type="hidden" name="is_ajax" id="is_ajax" value="1">
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="button" onclick="check()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/admin_file/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript">
+    {if $is_kind eq 1}
+        addressInfo('{$storeinfo.store_address}');
+    {/if}
+    function check(){
+        var myFile = document.getElementById('myFile').files.length;
+        if(myFile>8){
+            layer.msg('轮播图最多只能上传8张',{icon:2,time:2000});
+            return false;
+        }
+        $('#form-pro-add').submit();
+    }
+
+    var ue = UE.getEditor('editor',{initialFrameWidth:'50%',toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
+        'bold', 'forecolor', 'insertorderedlist', 'insertunorderedlist', '|', 'paragraph', 'justifyleft',
+        'justifycenter', 'justifyright', 'justifyjustify', '|', 'simpleupload', 'emotion', '|','horizontal', 'date', 'time','preview']] });
+    //对编辑器的操作最好在编辑器ready之后再做
+    var store_info = $("#store_info").val();
+    ue.ready(function() {
+        //设置编辑器的内容
+        ue.setContent(store_info);
+    });
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function(action) {
+        if (action == 'uploadimage') {
+            return '/Admin/Upload/uploadImg';
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    };
+
+    $(function(){
+        $("#form-pro-add").validate({
+            rules:{
+                store_name:{
+                    required:true
+                },
+                nav_id:{
+                    required:true
+                },
+                category_l1:{
+                    required:true
+                },
+                district:{
+                    required:true,
+                },
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid"
+        });
+    });
+
+    //上传图片本地显示图片
+    function changImg(e){
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                $("#myImg").attr("src",e.target.result);
+            }
+        }
+    }
+
+    //百度地图API功能
+    var map = new BMap.Map("allmap",{enableMapClick:false});//创建百度地图实例，这里的allmap是地图容器的id
+    var point = new BMap.Point(116.405285, 39.904989);//创建一个点对象，这里的参数是地图上的经纬度
+    map.centerAndZoom(point, 12);//这里是将地图的中心移动到我们刚才创建的点；这里的12是地图的缩放界别；数值越大，地图看的越细
+    map.addControl(new BMap.NavigationControl());//设置地图平移缩放控件，PC端默认位于地图左上方type控件外观,anchor控件的停靠位置,offset偏移的位置
+    //map.enableScrollWheelZoom(true);//开启鼠标滚轮缩放
+    //map.addControl(new BMap.ScaleControl());//比例尺寸控件
+    //map.addControl(new BMap.OverviewMapControl());//缩略地图控件
+    //map.addControl(new BMap.MapTypeControl());//设置地图类型控件,type控件样式,mapTypes控件展示的地图类型，默认为普通图、卫星图、卫星加路网混合图和三维图
+    //map.addControl(new BMap.CopyrightControl());//公司信息尺寸控件
+    (function onloadmap(){
+        //设置标注的经纬度
+        var point = $("#latlng").val().split(',');
+        var points = new BMap.Point(point[0],point[1]);
+        var marker = new BMap.Marker(points);
+        map.clearOverlays();
+        map.addOverlay(marker);//添加一个覆盖物(标注在地图上)
+        map.centerAndZoom(points,16);
+        tuozuai(marker);
+    })();
+
+    function xuanzhedizhi(address,num){
+        // 创建地址解析器实例
+        var myGeo = new BMap.Geocoder();
+        // 将地址解析结果显示在地图上,并调整地图视野
+        myGeo.getPoint(address, function(point){
+            if (point) {
+                document.getElementById("latlng").value = point.lat+","+point.lng;
+                //设置标注的经纬度
+                var pointNum = 12+num*1;
+                var marker = new BMap.Marker(point);
+                map.clearOverlays();//清楚原来的覆盖物
+                map.addOverlay(marker);//添加一个覆盖物(标注在地图上)
+                map.centerAndZoom(point,pointNum);
+                tuozuai(marker);
+            }
+        }, address);
+    }
+
+    function tuozuai(marker) {
+        marker.enableDragging();//为marker添加拖拽事件
+        // 创建地理编码实例
+        var gc = new BMap.Geocoder();
+        //--添加事件监听函数
+        marker.addEventListener("dragend",
+            function label(e) {
+                //// 根据坐标得到地址描述
+                gc.getLocation(e.point,
+                    function (rs) {
+                        showLocationInfo(e.point, rs);
+                    });
+            }
+        );
+        function showLocationInfo(pt, rs) {
+            var opts = {
+                width: 160,
+                height: 80,
+                title: "当前位置"
+            };
+            var addComp = rs.addressComponents;
+            document.getElementById("latlng").value = pt.lat+","+pt.lng;
+            var addr = "当前位置：" + addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber + "<br/>";
+            var addstr=addComp.province+addComp.city+addComp.district+addComp.district+addComp.streetNumber;
+            $("#store_address").val(addstr);
+            var infoWindow = new BMap.InfoWindow(addr, opts);
+            marker.openInfoWindow(infoWindow);
+        }
+    }
+
+    function addressInfo(address) {
+        xuanzhedizhi(address,1);
+    }
+
+    //分类三级联动
+/*    $("#category_l1").change(function () {
+        var categoryid=$(this).val();
+        $("#category_l2").html('<option value="" selected>请选择二级分类</option>');
+        $("#category_l3").html('<option value="" selected>请选择三级分类</option>');
+        $.ajax({
+            url:"/admin/Store/getcategory",
+            data:{"categoryid":categoryid},
+            type:"POST",
+            success:function(data){
+                $("#addDate").html('');
+                if(data.length>0){
+                    var html = '<option value="" selected>请选择二级分类</option>';
+                    $(data).each(function (i,e) {
+                        html += '<option value="'+e["category_id"]+'">'+e["category_name"]+'</option>'
+                    })
+                    $("#category_l2").html(html);
+                }
+            }
+        })
+
+    })
+    $("#category_l2").change(function () {
+        var categoryid=$(this).val();
+        $.ajax({
+            url:"/admin/Store/getcategory",
+            data:{"categoryid":categoryid},
+            type:"POST",
+            success:function(data){
+                if(data.length>0){
+                    var html = '<option value="" selected>请选择三级分类</option>';
+                    $(data).each(function (i,e) {
+                        html += '<option value="'+e["category_id"]+'">'+e["category_name"]+'</option>'
+                    })
+                    $("#category_l3").html(html);
+                }
+            }
+        })
+
+    })*/
+    $("#nav_id").change(function () {
+        var nav_id=$(this).val();
+        $.ajax({
+            url:"/admin/Store/getCat",
+            data:{"nav_id":nav_id},
+            type:"POST",
+            success:function(data){
+                data = data.data;
+                if(data.length>0){
+                    var option  = '';
+                    for ( var i in data) {
+                        option += '<option value="' + data[i].category_id + '">'
+                            + data[i].category_name + '</option>';
+                    }
+                }else {
+                    option = '<option value="" selected>暂无分类</option>';
+                }
+                $("#category_l1").html(option);
+            }
+        })
+
+    })
+    //地区三级联动
+    $("#province").change(function () {
+        var regionid=$(this).val();
+        $.ajax({
+            url:"/admin/Store/getregion",
+            data:{"regionid":regionid},
+            type:"POST",
+            success:function(data){
+                if(data.length>0){
+                    var html = '<option value="" selected>请选择市</option>';
+                    $(data).each(function (i,e) {
+                        html += '<option value="'+e["region_id"]+'">'+e["name"]+'</option>'
+                    })
+                    $("#city").html(html);
+                    $("#district").html('<option value="" selected>请选择区县</option>');
+                }
+            }
+        })
+
+    })
+    $("#city").change(function () {
+        var regionid=$(this).val();
+        $.ajax({
+            url:"/admin/Store/getregion",
+            data:{"regionid":regionid},
+            type:"POST",
+            success:function(data){
+                if(data.length>0){
+                    var html = '<option value="" selected>请选择区县</option>';
+                    $(data).each(function (i,e) {
+                        html += '<option value="'+e["region_id"]+'">'+e["name"]+'</option>'
+                    })
+                    $("#district").html(html);
+                }
+            }
+        })
+
+    })
+    //拼接地址
+    $("#district").change(function () {
+        var province=$('#province').find("option:selected").text();
+        var city=$('#city').find("option:selected").text();
+        var district=$('#district').find("option:selected").text();
+        var addstr=province+city+district;
+        $("#store_address").val(addstr);
+        addressInfo(addstr);
+    });
+    $("#store_address").blur(function () {
+        var address=$(this).val();
+        addressInfo(address);
+    })
+
+    //修改时 获取选取的值
+    $("#nav_id").val('{$storeinfo.nav_id}').attr("selected",true);
+    $("#category_l1").val('{$storeinfo.category_l1}').attr("selected",true);
+    $("#category_l2").val('{$storeinfo.category_l2}').attr("selected",true);
+    $("#category_l3").val('{$storeinfo.category_l3}').attr("selected",true);
+    $("#province").val('{$storeinfo.province}').attr("selected",true);
+    $("#city").val('{$storeinfo.city}').attr("selected",true);
+    $("#district").val('{$storeinfo.district}').attr("selected",true);
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

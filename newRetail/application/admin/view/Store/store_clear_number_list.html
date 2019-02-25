@@ -1,0 +1,108 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 店铺管理
+    <span class="c-gray en">&gt;</span> 账单列表
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <form action="/admin/Store/storeClear" method="get">
+        <div class="text-c">
+            结算状态:
+            <span class="select-box inline">
+                <select name="pay_state" class="select" id="pay_state" value="{$where.pay_state}">
+                    <option value="0" >请选择</option>
+                    <option value="1" {if $where.pay_state == 1}selected{/if}>未打款</option>
+                    <option value="2" {if $where.pay_state == 2}selected{/if}>已打款</option>
+                </select>
+            </span>
+            <input type="text" class="input-text" style="width:250px" placeholder="店铺名或店铺主名" id="keywords" name="keywords" value="{$where.keywords}">
+            <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜订单</button>
+        </div>
+    </form>
+    <table class="table table-border table-bordered table-bg" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <th scope="col" colspan="10">提现列表</th>
+        </tr>
+        <tr class="text-c">
+            <th width="10" onclick="sort('Store/storeClear','store_id')">序号</th>
+            <th width="50" onclick="sort('Store/storeClear','store_name')">店铺名</th>
+            <th width="50" onclick="sort('Store/storeClear','user_name')">店铺主名</th>
+            <th width="100" onclick="sort('Store/storeClear','audit_bank')">开户行</th>
+            <th width="100" onclick="sort('Store/storeClear','audit_bank_card')">银行卡号</th>
+            <th width="50" onclick="sort('Store/storeClear','pay_price')">店铺结算金额</th>
+            <th width="50" onclick="sort('Store/storeClear','clear_start_time')">结算的开始时间</th>
+            <th width="50" onclick="sort('Store/storeClear','clear_end_time')">结算结束时间</th>
+            <th width="50" onclick="sort('Store/storeClear','pay_state')">结算状态</th>
+            <th width="50">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="storeClearList" id="c"}
+        <tr class="text-c">
+            <td>{$c.store_id}</td>
+            <td>{$c.store_name}</td>
+            <td>{$c.user_name}</td>
+            <td>{$c.audit_bank}</td>
+            <td>{$c.audit_bank_card}</td>
+            <td>{$c.pay_price}</td>
+            <td>{$c.clear_start_time}</td>
+            <td>{$c.clear_end_time}</td>
+            {if condition="$c.pay_state eq 0"}
+            <td class="td-status"><span class="label label-success radius">未打款</span></td>
+            {else}
+            <td class="td-status"><span class="label label-success radius">已打款</span></td>
+            {/if}
+            <td class="td-manage">
+                {if condition="$c.pay_state eq 0"}
+                <a style="text-decoration:none" onClick="storeClear(this,{$c.store_id})" class="disabled" href="javascript:;" title="结算">
+                    <i class="Hui-iconfont">&#xe63a;</i>
+                </a>
+                {else}
+                <span class="label label-success radius">已打款</span>
+                {/if}
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    function storeClear(obj,store_id){
+        layer.confirm('确认要打款吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeClearAct",
+                data:{"store_id":store_id,"pay_state":1   },
+                type:"POST",
+                success:function(data){
+                    if(data.code == 1){
+                        layer.msg('已打款!', {icon: 6,time:2000});
+                        window.location.reload();
+                    }else{
+                        layer.msg('打款失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+</script>
+</body>
+</html>

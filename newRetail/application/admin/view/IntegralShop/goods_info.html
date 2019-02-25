@@ -1,0 +1,155 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"></label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" style="width:250px" placeholder="输入商品名" id="pro_name" name="pro_name">
+				<button type="button" class="btn btn-success" onClick="getProduct()"><i class="Hui-iconfont">&#xe665;</i> 搜商品</button>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">选择商品：</label>
+			<div class="formControls col-xs-8 col-sm-9" > <span class="select-box" style="width: 50%">
+				<select class="select" name="product_id" id="product_id">
+					<option value=" " >请选择商品</option>
+                    {volist name="product_list" id="product"}
+					<option value="{$product.product_id}" {if $activityInfo.product_id == $product.product_id}selected{/if} >{$product.pro_name}</option>
+					{/volist}
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">排序：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$activityInfo.sort_order}" placeholder="" id="sort_order" name="sort_order">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="id" id="id" value="{$activityInfo.id}">
+				<input type="hidden" name="activity_list_id" id="activity_list_id" value="{$activity_list_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        var activity_list_id = $("#activity_list_id").val();
+        var id = $("#id").val();
+        if(id){
+            $("#form-admin-add").validate({
+                rules:{
+                    position_name:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/IntegralShop/goodsEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('更新失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('更新成功!',{icon:1,time:2000});
+                                window.location.href="/admin/IntegralShop/goodsList/activity_list_id/" +data.data;
+                            }else{
+                                layer.msg('更新失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                rules:{
+                    position_name:{
+                        required:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/IntegralShop/goodsAdd" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/admin/IntegralShop/goodsList/activity_list_id/" +data.data;
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+
+    });
+
+    function getProduct(){
+        var pro_name = $("#pro_name").val();
+        $.ajax({
+            type: "POST",
+            url: '/Admin/IntegralShop/getProduct',
+            data: {
+                pro_name: pro_name
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == '1') {
+                    data = data.data;
+                    if(data.length>0){
+                        var option  = '';
+                        for ( var i in data) {
+                            option += '<option value="' + data[i].product_id + '">'
+                                + data[i].pro_name + '</option>';
+                        }
+                        $("#product_id").html(option);
+                    }
+
+                }
+            }
+        });
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

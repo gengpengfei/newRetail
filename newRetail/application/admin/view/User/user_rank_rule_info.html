@@ -1,0 +1,274 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">规则说明：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$userRankRule.rule_desc}" placeholder="" id="rule_desc" name="rule_desc" disabled='disabled'>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">规则code：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$userRankRule.rule_code}" placeholder="" id="rule_code" name="rule_code" disabled='disabled'>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">规则信息：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				{volist name="userRank" id="rankInfo"}
+				<table id="rule-table">
+					<tr>
+						<td>
+							等级
+							<input type="text" class="input-text" style="width: 20%" value="{$rankInfo.rank_name}" disabled>
+							<input type="hidden" name="rank_id[]" id="rank_id" value="{$rankInfo.rank_id}">
+							等级数量
+							<input type="text" class="input-text" style="width: 20%" value="{$rankInfo.info}" name="info[]" {if $rankInfo.rank_id eq 1}readonly{/if}>
+							<!--<a href="javascript:;" onclick="addLadder(this)"><strong>[+]</strong></a>-->
+						</td>
+					</tr>
+					<tr style="height: 10px"></tr>
+				</table>
+				{/volist}
+				<span style="color: red">*等级数量表示，达到会员等级所需要的（总订单数，线下订单数，到指定店铺消费数等 ）的数量</span>
+			</div>
+		</div>
+		{if $userRankRule.rule_code == 'store_order_times'}
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>绑定店铺：</label>
+			<input type="hidden" value="" placeholder="" name="store_id" id="store_id">
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" style="width: 250px" value="" placeholder="输入名称/说明/关键字" id="seachData"> <input class="btn btn-primary radius" type="button" value="搜索" id="button">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span></label>
+			<div class="formControls col-xs-3 col-sm-3">
+				<table class="table table-border table-bordered table-bg">
+					<thead class="text-c">
+					<tr><th width="150">店铺名</th><th>选中</th></tr>
+					</thead>
+					<tbody class="text-c" id="searchRes">
+
+					</tbody>
+				</table>
+			</div>
+			<div class="formControls col-xs-1 col-sm-1" style="margin-left:3%">
+				<input class="btn btn-primary radius" type="button" value=">>" id="add">
+				<p></p>
+				<input class="btn btn-primary radius" type="button" value="<<" id="del">
+			</div>
+			<div class="formControls col-xs-3 col-sm-3">
+				<table class="table table-border table-bordered table-bg">
+					<thead class="text-c">
+					<tr><th width="150">店铺名</th><th>选中</th></tr>
+					</thead>
+					<tbody class="text-c" id="addDate">
+					{volist name='storeList' id='f'}
+					<tr><th>{$f.name}</th><td><input type="checkbox" value="{$f.id}"></td></tr>
+					{/volist}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{/if}
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">开始时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$userRankRule.start_time}" id="start_time" name="start_time">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">结束时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$userRankRule.end_time}" id="end_time" name="end_time">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="rank_rule_id" id="rank_rule_id" value="{$userRankRule.rank_rule_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        var rank_rule_id = $("#rank_rule_id").val();
+        if(rank_rule_id){
+            $("#form-admin-add").validate({
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    var val = '';
+                    $("#addDate input").each(function (i,e) {
+                        val += $(e).val()+',';
+                    })
+                    var aa = val.substring(0,val.length-1);
+                    $("#store_id").val(aa);
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/User/userRankRuleEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('编辑失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('编辑成功!',{icon:1,time:2000});
+                                window.location.href="/admin/User/userRankRule";
+                            }else{
+                                layer.msg('编辑失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    var val = '';
+                    $("#addDate input").each(function (i,e) {
+                        val += $(e).val()+',';
+                    })
+                    var aa = val.substring(0,val.length-1);
+                    $("#store_id").val(aa);
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/User/userRankRuleAdd" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/admin/User/userRankRule";
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+
+        var button = document.getElementById("button");
+        var seachData = document.getElementById("seachData");
+        var searchRes = document.getElementById("searchRes");
+        var addDate = document.getElementById("addDate");
+        button.onclick=function () {
+            var val = seachData.value;
+            $.ajax('/Admin/System/searchAdd', {
+                method: 'POST',
+                data:{keyWord:val},
+                dataType:'json'
+            }).done(function( res) {
+                if(res.length>0){
+                    var html = '';
+                    $(res).each(function (i,e) {
+                        html += '<tr ><th>'+e['name']+'</th><td><input type="checkbox" value="'+e['id']+'"></td></tr>'
+                    })
+                    $(searchRes).html(html);
+                }else{
+                    var html = '';
+                    $(searchRes).html(html);
+                }
+            });
+        }
+        var add = document.getElementById("add");
+        add.onclick = function () {
+            var input = $("#searchRes input:checked");
+            if(input.length===0){
+                return false;
+            }
+            var addInput = $("#addDate input");
+            input.each(function (i,e) {
+                if(addInput.length>0){
+                    addInput.each(function (x,y) {
+                        if($(y).val() == $(e).val()){
+                            $(e).parents("tr").remove();
+                            return false;
+                        }else{
+                            var tr = $(e).parents("tr");
+                            $(addDate).append(tr);
+                        }
+                    });
+                }else{
+                    var tr = $(e).parents("tr");
+                    $(addDate).append(tr);
+                }
+            })
+        }
+        var del = document.getElementById("del");
+        del.onclick = function () {
+            var input = $("#addDate input:checked");
+            if(input.length===0){
+                return false;
+            }
+            var tr = input.parents("tr");
+            tr.remove();
+        }
+
+    });
+
+    /**
+     * 新增一个价格阶梯
+     */
+    function addLadder(obj, rank, number)
+    {
+        var tr = $(obj).parent().parent().parent(),
+        	trs = $(obj).parent()
+
+        tr.after(tr.clone());
+        $(obj).remove();
+        var html= "<a href='javascript:;' onclick='removeLadder(this)'><strong>[-]</strong></a>";
+        trs.append(html);
+    }
+
+    /**
+     * 删除一个价格阶梯
+     */
+    function removeLadder(obj)
+    {
+        var i = obj.parentNode.parentNode.rowIndex;
+        document.getElementById('rule-table').deleteRow(i);
+    }
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

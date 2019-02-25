@@ -1,0 +1,215 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 店铺管理
+    <span class="c-gray en">&gt;</span> 店铺评价列表
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <form action="/shop/Store/storecommentlist" method="get">
+        <div class="text-c">
+            是否带图评价:
+            <span class="select-box inline">
+                <select name="has_img" class="select" id="has_img">
+                    <option value="0" >请选择</option>
+                    <option value="1" >否</option>
+                    <option value="2" >是</option>
+                </select>
+            </span>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="keywords" name="keywords" value="{$where.keywords}">
+            <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜店铺</button>
+        </div>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        {in name="productDel" value=$action_code_list}
+        <span class="l" style="margin-left: 5px;">
+            <a href="javascript:del_query()" class="btn btn-danger radius">
+                <i class="Hui-iconfont">&#xe6e2;</i>批量删除
+            </a>
+        </span>
+        {/in}
+    </div>
+    <table class="table table-border table-bordered table-bg">
+        <thead>
+        <tr class="text-c">
+            <th width="10"><input type="checkbox" name="" value="0"></th>
+            <th width="20" onclick="sort('Store/storecommentlist','store_comment_id')">序号</th>
+
+            <th width="80" onclick="sort('Store/storecommentlist','user_name')">用户名</th>
+            <th width="25" onclick="sort('Store/storecommentlist','order_id')">订单id</th>
+            <th width="100" onclick="sort('Store/storecommentlist','comment_cont')">评价内容</th>
+            <th width="10" onclick="sort('Store/storecommentlist','comment_num')">总体评分</th>
+
+            <th width="100" >评论图片</th>
+            <th width="50">是否通过审核</th>
+            <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="commentlist" id="c"}
+        <tr class="text-c">
+            <td><input type="checkbox" value="{$c.store_comment_id}" name="id"></td>
+            <td>{$c.store_comment_id}</td>
+
+            <td>{$c.user_name}</td>
+            <td>{$c.order_id}</td>
+            <td>{$c.comment_cont}</td>
+            <td>{$c.comment_num}</td>
+
+            <td>{if $c.comment_img}<img src="{$c.comment_img}" style="width: 120px;height: 90px">{/if}</td>
+            {if condition="$c.disabled eq 1"}
+            <td class="td-status"><span class="label label-success radius">通过</span></td>
+            {elseif condition="$c.disabled eq 0"}
+            <td class="td-status"><span class="label label-default radius">未审核</span></td>
+            {else"}
+            <td class="td-status"><span class="label label-danger radius">拒绝</span></td>
+            {/if}
+            <td class="td-manage">
+                {if condition="$c.disabled eq 0"}
+                <a style="text-decoration:none" onClick="admin_stop(this,{$c.store_comment_id})" href="javascript:;" title="拒绝">
+                    <i class="Hui-iconfont">&#xe631;</i>
+                </a>
+                <a style="text-decoration:none" onClick="admin_start(this,{$c.store_comment_id})" href="javascript:;" title="通过">
+                    <i class="Hui-iconfont">&#xe615;</i>
+                </a>
+                {elseif condition="$c.disabled eq 1"}
+                <a style="text-decoration:none" onClick="admin_stop(this,{$c.store_comment_id})" href="javascript:;" title="拒绝">
+                    <i class="Hui-iconfont">&#xe631;</i>
+                </a>
+                {else}
+                <a style="text-decoration:none" onClick="admin_start(this,{$c.store_comment_id})" href="javascript:;" title="启用">
+                    <i class="Hui-iconfont">&#xe615;</i>
+                </a>
+                {/if}
+                {in name="productDel" value=$action_code_list}
+                <a title="删除" href="javascript:;" onclick="admin_del(this,{$c.store_comment_id})" class="ml-5" style="text-decoration:none">
+                    <i class="Hui-iconfont">&#xe6e2;</i>
+                </a>
+                {/in}
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div style="margin-top: 10px;padding-left: 5px;padding-right: 5px;">
+        每页显示
+        <input type="number" id="show_count" onchange="changeCount('Store/storecommentlist',$(this).val())" class="input-text" style="width: 50px;margin-left: 5px;margin-right: 5px;" value="{$show_count}">条
+    </div>
+</div>
+<div class="pages">{$page}</div>
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+    /*广告-停用*/
+    function admin_stop(obj,id){
+        layer.confirm('确认要拒绝吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeCommentEdit",
+                data:{"store_comment_id":id,"disabled":2,"is_ajax":1},
+                type:"POST",
+                success:function(data){
+                    if(data){
+                        layer.msg('已拒绝!',{icon: 6,time:2000});
+                        location.reload();
+                    }else{
+                        layer.msg('拒绝失败!',{icon: 5,time:2000});
+                    }
+
+                }
+            })
+
+        });
+    }
+
+    /*广告-启用*/
+    function admin_start(obj,id){
+        layer.confirm('确认要通过吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeCommentEdit",
+                data:{"store_comment_id":id,"disabled":1,"is_ajax":1},
+                type:"POST",
+                success:function(data){
+                    if(data){
+                        layer.msg('已通过!', {icon: 6,time:2000});
+                        location.reload();
+                    }else{
+                        layer.msg('通过失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+
+
+    /*广告-删除*/
+    function admin_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"/shop/Store/storecommentdel",
+                data:{"id":id},
+                type:"POST",
+                success: function(data){
+                    console.log(data);
+                    if (data.code == 1) {
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:2000});
+                    }else {
+                        layer.msg('删除失败!',{icon:2,time:2000});
+                    }
+                }
+            });
+        });
+    }
+    /*
+    * icon:
+    * 1：√ 2：× 3：？ 4：锁 5：哭脸 6：笑脸
+    * */
+
+    /* 批量删除*/
+    function del_query(){
+        var chk_value =[];
+        $('input[name="id"]:checked').each(function(){
+            chk_value.push($(this).val());
+        });
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"/shop/Store/storecommentdel",
+                data:{"id":chk_value},
+                type:"POST",
+                success: function(data){
+                    console.log(data);
+                    if (data.code == 1) {
+                        layer.msg('已删除!',{icon:1,time:2000});
+                        history.go();
+                    }else {
+                        layer.msg('删除失败!',{icon:2,time:2000});
+                    }
+
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                }
+            })
+        });
+    }
+    /*是否图片评论*/
+    $("#has_img").val('{$where.has_img}').attr("selected",true);
+</script>
+</body>
+</html>

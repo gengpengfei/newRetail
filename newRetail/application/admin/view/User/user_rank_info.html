@@ -1,0 +1,134 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">等级名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$userRank.rank_name}" placeholder="" id="rank_name" name="rank_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">等级图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" name="rank_img" value="{$userRank.rank_img}">
+				{if $userRank.rank_img}
+				<img src="{$userRank.rank_img}" height="90px" width="120px">
+				{/if}
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">级别：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$userRank.rank_num}" placeholder="" id="rank_num" name="rank_num">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">是否推荐：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" name="is_recommend" value="1" {if $userRank.is_recommend eq 1}checked{/if}>是
+				<input type="radio" name="is_recommend" value="0" {if $userRank.is_recommend eq 0}checked{/if}>否
+			 </div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="rank_id" id="rank_id" value="{$userRank.rank_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        var rank_id = $("#rank_id").val();
+        if(rank_id){
+            $("#form-admin-add").validate({
+                rules:{
+                    user_name:{
+                        required:true,
+                        minlength:5,
+                        maxlength:16
+                    },
+                    nickname:{
+                        minlength:2,
+                        maxlength:16
+                    },
+
+
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/User/userRankEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('编辑失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('编辑成功!',{icon:1,time:2000});
+                                window.location.href="/admin/User/userRank";
+                            }else{
+                                layer.msg('编辑失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/User/userRankAdd" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/admin/User/userRank";
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

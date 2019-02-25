@@ -1,0 +1,87 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 积分商城管理
+    <span class="c-gray en">&gt;</span> 退货列表
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <form action="/admin/IntegralShop/refundList" method="get">
+        <div class="text-c">
+            退货状态:
+            <span class="select-box inline">
+                <select name="refund_state" class="select" id="refund_state" value="{$where.refund_state}">
+                    <option value="0" >请选择</option>
+                    <option value="W01" {if $where.refund_state === W01}selected{/if}>退款申请中</option>
+                    <option value="W02" {if $where.refund_state === W02}selected{/if}>待买家退货</option>
+                    <option value="W03" {if $where.refund_state === W03}selected{/if}>待卖家收货</option>
+                    <option value="W04" {if $where.refund_state === W04}selected{/if}>待退款</option>
+                    <option value="W05" {if $where.refund_state === W05}selected{/if}>退款完成</option>
+                    <option value="W06" {if $where.refund_state === W06}selected{/if}>退款关闭</option>
+                </select>
+            </span>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入订单号" id="order_sn" name="order_sn" value="{$where.order_sn}">
+            <input type="text" class="input-text" style="width:250px" placeholder="收货人" id="user_name" name="user_name" value="{$where.user_name}">
+            <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜订单</button>
+        </div>
+    </form>
+    <table class="table table-border table-bordered table-bg" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9">订单列表</th>
+        </tr>
+        <tr class="text-c">
+            <!--<th width="25"><input type="checkbox" name="" value="0"></th>-->
+            <th width="150" onclick="sort('IntegralShop/orderList','order_sn')">订单号</th>
+            <th width="150" onclick="sort('IntegralShop/orderList','pro_name')">退货商品</th>
+            <th width="150" onclick="sort('IntegralShop/orderList','refund_time')">申请时间</th>
+            <th width="50" onclick="sort('IntegralShop/orderList','refund_price')">退款积分</th>
+            <th width="50" onclick="sort('IntegralShop/orderList','user_info')">收货人</th>
+            <th width="50" onclick="sort('IntegralShop/orderList','user_name')">申请人</th>
+            <th width="100" onclick="sort('IntegralShop/orderList','status')">退款状态</th>
+            <th width="50">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="order_list" id="c"}
+        <tr class="text-c">
+            <!--<td><input type="checkbox" value="{$c.order_id}" name="order_id"></td>-->
+            <td>{$c.order_sn}</td>
+            <td>{$c.pro_name}</td>
+            <td>{$c.refund_time}</td>
+            <td>{$c.refund_price}</td>
+            <td>{$c.user_info}</td>
+            <td>{$c.user_name}</td>
+            <td>{$c.status}</td>
+            <td class="td-manage">
+                {in name="orderEdit" value=$action_code_list}
+                <a title="查看" href="/admin/IntegralShop/refundDetail/refund_id/{$c.id}" class="ml-5" style="text-decoration:none">
+                    <i style="font-size: 12px;font-family: Arial, Verdana, Sans-Serif;font-style: normal">查看</i>
+                </a>
+                {/in}
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 平台管理
+    <span class="c-gray en">&gt;</span> 系统推送
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        {in name="systemPushAdd" value=$action_code_list}
+        <span class="l">
+				<a href="/admin/System/systemPushAdd" class="btn btn-primary radius">
+					<i class="Hui-iconfont">&#xe600;</i> 添加系统推送
+				</a>
+			</span>
+        {/in}
+    </div>
+    <table class="table table-border table-bordered table-bg" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9">系统推送列表</th>
+        </tr>
+        <tr class="text-c">
+            <th width="20" onclick="sort('System/systemPush','id')">序号</th>
+            <th width="100" onclick="sort('System/systemPush','store_name')">店铺</th>
+            <th width="150" onclick="sort('System/systemPush','message_cont')">消息内容</th>
+            <th width="100" onclick="sort('System/systemPush','title')">标题</th>
+            <th width="150" onclick="sort('System/systemPush','data')">推送内容</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="storePushMessageList" id="c"}
+        <tr class="text-c">
+            <td>{$c.id}</td>
+            <td>{$c.store_name}</td>
+            <td>{$c.message_cont}</td>
+            <td>{$c.title}</td>
+            <td>{$c.data}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

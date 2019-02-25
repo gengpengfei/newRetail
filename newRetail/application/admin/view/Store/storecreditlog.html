@@ -1,0 +1,57 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" href="/admin_file/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<body class="pos-r">
+<div>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 店铺管理 <span class="c-gray en">&gt;</span> 店铺列表<span class="c-gray en">&gt;</span> 信誉积分日志 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="60" >id</th>
+                    <th width="60" >原信用积分</th>
+                    <th width="60" >现信用积分</th>
+                    <th width="400">信用变动说明</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="creditloglist" id="f"}
+                <tr class="text-c va-m">
+                    <td>{$f.id}</td>
+                    <td>{$f.credit_init}</td>
+                    <td>{$f.credit_now}</td>
+                    <td>{$f.credit_desc}</td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <div style="margin-top: 10px;padding-left: 5px;padding-right: 5px;">
+                每页显示
+                <input type="number" id="show_count" onchange="changeCount('Store/storecreditlog/store_id/{$store_id}',$(this).val())" class="input-text" style="width: 50px;margin-left: 5px;margin-right: 5px;" value="{$show_count}">条
+            </div>
+        </div>
+        <div class="pages">{$page}</div>
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+
+<script type="text/javascript" src="/admin_file/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+</body>
+</html>

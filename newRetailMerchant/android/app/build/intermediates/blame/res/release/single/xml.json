@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/xml/provider_paths.xml",
+        "source": "/Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-image-crop-picker/android/build/intermediates/bundles/release/res/xml/provider_paths.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/xml/preferences.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/res/xml/preferences.xml"
+    }
+]

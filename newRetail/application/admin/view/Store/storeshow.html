@@ -1,0 +1,206 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<style>
+	.text-r{
+		width: 145px;
+	}
+	.table{
+		float: left;
+		width: 49%;
+	}
+</style>
+<link href="/admin_file/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<body>
+<div class="cl pd-20" style=" background-color:#5bacb6">
+	<dl style="color:#fff">
+		<dt>
+			<span class="f-18">店铺名:{$storeinfo.store_name}</span>
+			{if $ispass eq '1'}<span class="pl-10 f-12">店铺信誉积分：{$storeinfo.store_credit}</span>{/if}
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">店铺说明：{$storeinfo.store_desc}</dd>
+	</dl>
+</div>
+<div class="pd-20">
+	<table class="table">
+		<tbody>
+			<tr>
+				<th class="text-r" width="80">行业：</th>
+				<td>{$navname.nav_name}</td>
+			</tr>
+			<tr>
+				<th class="text-r">分类：</th>
+				<td>{$categorystr}</td>
+			</tr>
+			<tr>
+				<th class="text-r">客服电话：</th>
+				<td>{$storeinfo.store_phone}</td>
+			</tr>
+			<tr>
+				<th class="text-r">店铺地址：</th>
+				<td>{$storeinfo.store_address}</td>
+			</tr>
+
+		</tbody>
+	</table>
+	{if $storeAuditInfo}
+	<table class="table" style="margin-top: 20px;border-top: 1px solid #ccc;float: none;width: 100%">
+		<tbody>
+			<tr>
+				<th class="text-r">审核电话：</th>
+				<td>{$storeAuditInfo.audit_mobile}</td>
+			</tr>
+			<tr>
+				<th class="text-r">银行卡开户行：</th>
+				<td>{$storeAuditInfo.audit_bank}</td>
+			</tr>
+			<tr>
+				<th class="text-r">银行卡号：</th>
+				<td>{$storeAuditInfo.audit_bank_card}</td>
+			</tr>
+			<tr>
+				<th class="text-r">身份证正面：</th>
+				<td>
+						<a href="{$storeAuditInfo.identity_face_original}" data-lightbox="gallery" data-title="身份证正面">
+							<img src="{$storeAuditInfo.audit_identity_face.0}" />
+						</a>
+				</td>
+			</tr>
+			<tr>
+				<th class="text-r">身份证反面：</th>
+				<td>
+					<a href="{$storeAuditInfo.identity_coin_original}" data-lightbox="gallery" data-title="身份证反面">
+						<img src="{$storeAuditInfo.audit_identity_coin.0}" />
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<th class="text-r">身份证号：</th>
+				<td>{$storeAuditInfo.ID_number}</td>
+			</tr>
+
+			{if $storeAuditInfo.is_license eq 1}
+			<tr >
+				<th class="text-r">法人姓名：</th>
+				<td>{$storeAuditInfo.real_name}</td>
+			</tr>
+			<tr>
+				<th class="text-r">营业执照名称：</th>
+				<td>{$storeAuditInfo.business_license_name}</td>
+			</tr>
+			<tr>
+			<th class="text-r">营业执照编号：</th>
+			<td>{$storeAuditInfo.business_license_number}</td>
+			</tr>
+			<tr>
+			<th class="text-r">营业执照类型：</th>
+			<td>{$storeAuditInfo.business_license_type}</td>
+			</tr>
+			<tr>
+				<th class="text-r">营业执照：</th>
+				<td>
+					<a href="{$storeAuditInfo.license_original}" data-lightbox="gallery" data-title="营业执照">
+						<img src="{$storeAuditInfo.audit_license.0}" />
+					</a>
+				</td>
+			</tr>
+			<tr>
+			<th class="text-r">营业执照有效期：</th>
+			<td>{$storeAuditInfo.business_license_time}</td>
+			</tr>
+			{/if}
+
+		</tbody>
+	</table>
+	{/if}
+	{if $ispass eq '2'}
+	<form action="/admin/Store/storeshow/store_id/{$storeinfo.store_id}/is_pass/{$ispass}"  method="post"  enctype="multipart/form-data" >
+		<table class="table" style="margin-top: 40px;border-top: 1px solid #ccc;float: none;width: 100%">
+			<tbody>
+			<tr>
+				<th class="text-r">审核：</th>
+				<td>
+					<input value="{$storeAuditInfo.admin_id}" name="admin_id" type="hidden"/>
+					<input onclick="hide_default()" type="radio" name="audit_state" value="1" {if $storeinfo.audit_state eq 1}checked{/if}>通过
+					<input onclick="show_default()" type="radio" name="audit_state" value="2" {if $storeinfo.audit_state eq 2}checked{/if}>拒绝
+				</td>
+			</tr>
+			<tr id="default" {if $storeinfo.audit_state neq 2}style="display: none"{/if}>
+				<th class="text-r">拒绝原因：</th>
+				<td>
+					<textarea name="audit_reason" class="textarea">{$storeAuditInfo.audit_reason}</textarea>
+				</td>
+			</tr>
+
+			<tr id="contract" {if $storeinfo.audit_state neq 1}style="display: none"{/if}>
+			<th class="text-r">合同生效时间：</th>
+			<td>
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$storeAuditInfo.contract_time}" id="contract_time" name="contract_time">
+			</td>
+			</tr>
+
+			<tr id="contractEnd" {if $storeinfo.audit_state neq 1}style="display: none"{/if}>
+			<th class="text-r">合同到期时间：</th>
+			<td>
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$storeAuditInfo.contract_end_time}" id="contract_end_time" name="contract_end_time">
+			</td>
+			</tr>
+
+			<tr id="number" {if $storeinfo.audit_state neq 1}style="display: none"{/if}>
+			<th class="text-r">合同号：</th>
+			<td>
+				<input type="text" class="input-text" value="{$storeAuditInfo.contract_number}" id="contract_number" name="contract_number">
+			</td>
+			</tr>
+
+			<tr id="image" {if $storeinfo.audit_state neq 1}style="display: none"{/if}>
+			<th class="text-r">合同文件：</th>
+			<td>
+				<input type="file" name="myfile">
+			</td>
+			</tr>
+
+			<tr>
+				<th class="text-r"></th>
+				<td>
+					<div class="row cl">
+						<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+						<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+							<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+							<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			</tbody>
+		</table>
+	</form>
+	{/if}
+</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/admin_file/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+    function hide_default(){
+        $("#default").hide();
+        $("#contract").show();
+        $("#contractEnd").show();
+        $("#number").show();
+        $("#image").show();
+    }
+    function show_default(){
+        $("#default").show();
+        $("#contract").hide();
+        $("#contractEnd").hide();
+        $("#number").hide();
+        $("#image").hide();
+    }
+</script>
+</body>
+</html>

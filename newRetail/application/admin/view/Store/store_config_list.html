@@ -1,0 +1,106 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span> 店铺管理
+	<span class="c-gray en">&gt;</span> 店铺人气值配置
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+		<i class="Hui-iconfont">&#xe68f;</i>
+	</a>
+</nav>
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		{in name="storeHotConfigAdd" value=$action_code_list}
+		<span class="l">
+				<a href="/admin/Store/storeHotConfigAdd" class="btn btn-primary radius">
+					<i class="Hui-iconfont">&#xe600;</i> 添加店铺人气配置
+				</a>
+			</span>
+		{/in}
+	</div>
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+		<tr>
+			<th scope="col" colspan="11">店铺人气值配置(每个行业下占比总和等于100%)</th>
+		</tr>
+		<tr class="text-c">
+			<th width="40" onclick="sort('User/storeHotConfig','id')">ID</th>
+			<th width="150" onclick="sort('User/storeHotConfig','nav_name')">行业</th>
+			<th width="150" onclick="sort('User/storeHotConfig','browse_num')">店铺访问量占比</th>
+			<th width="150" onclick="sort('User/storeHotConfig','valid_order')">线上订单占比</th>
+			<th width="100" onclick="sort('User/storeHotConfig','offline_order')">线下订单占比</th>
+			<th width="150">店铺访问量基准</th>
+			<th width="150">线上订单基准</th>
+			<th width="100">线下订单基准</th>
+			<th width="250">操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		{volist name="storeConfig" id="c"}
+			<tr class="text-c">
+				<td>{$c.id}</td>
+				<td>{$c.nav_name}</td>
+				<td>{$c.browse_num}%</td>
+				<td>{$c.valid_order}%</td>
+				<td>{$c.offline_order}%</td>
+				<td>{$c.browse_num_max}</td>
+				<td>{$c.valid_order_max}</td>
+				<td>{$c.offline_order_max}</td>
+				<td class="td-manage">
+					{in name="storeHotConfigEdit" value=$action_code_list}
+						<a title="编辑" href="/admin/Store/storeHotConfigEdit/id/{$c.id}" class="ml-5" style="text-decoration:none">
+							<i class="Hui-iconfont">&#xe6df;</i>
+						</a>
+					{/in}
+					{in name="storeHotConfigDel" value=$action_code_list}
+						<a title="删除" href="javascript:;" onclick="admin_del(this,{$c.id})" class="ml-5" style="text-decoration:none">
+							<i class="Hui-iconfont">&#xe6e2;</i>
+						</a>
+					{/in}
+				</td>
+			</tr>
+		{/volist}
+		</tbody>
+	</table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+/*等级-删除*/
+function admin_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+            url:"/admin/Store/storeHotConfigDel",
+            data:{"id":id,"is_ajax":1},
+            type:"POST",
+			success: function(data){
+                if(data.code == 1){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:2000});
+                }else{
+                    layer.msg(data.msg,{icon:2,time:2000});
+                }
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+
+</script>
+</body>
+</html>

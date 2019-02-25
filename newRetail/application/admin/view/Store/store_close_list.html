@@ -1,0 +1,106 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" href="/admin_file/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<body class="pos-r">
+<div>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 店铺管理 <span class="c-gray en">&gt;</span> 店铺关店列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <form action="/admin/Store/storeCloseList" method="get">
+            <div class="text-c">
+                行业:
+                <span class="select-box inline">
+                    <select name="navshow" class="select" id="navshow">
+                        <option value="0">请选择</option>
+                        {volist name='navlist' id='f'}
+                            <option value="{$f.nav_id}">{$f.nav_name}</option>
+                        {/volist}
+                    </select>
+                </span>
+                分类:
+                <span class="select-box inline">
+                    <select name="categoryshow" class="select" id="categoryshow">
+                        <option value="0">请选择</option>
+                        {volist name='categorylist' id='f'}
+                            <option value="{$f.category_id}">{$f.category_name}</option>
+                        {/volist}
+                    </select>
+                </span>
+                审核状态:
+                <span class="select-box inline">
+                    <select name="close_state" class="select" id="close_state">
+                        <option value="0">请选择</option>
+                        <option value="1">待审核</option>
+                        <option value="2">通过</option>
+                        <option value="3">拒绝</option>
+                        <option value="4">取消</option>
+                    </select>
+                </span>
+                <input type="text" name="keywords" id="keywords" placeholder=" 店铺名称" style="width:250px" class="input-text" value="{$where.keywords}" >
+                <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜店铺 </button>
+            </div>
+        </form>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="r">共有数据：<strong>{$pronum}</strong> 条</span>
+        </div>
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="60" onclick="sort('Store/storeCloseList','store_id')" >ID</th>
+                    <th width="100" onclick="sort('Store/storeCloseList','store_name')">店铺名称</th>
+                    <th width="100" onclick="sort('Store/storeCloseList','nav_name')">所属行业</th>
+                    <th width="180">店铺说明</th>
+                    <th width="80" onclick="sort('Store/storeCloseList','close_state')">审核状态</th>
+                    <th width="100">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="storelist" id="f"}
+                <tr class="text-c va-m">
+                    <td>{$f.store_id}</td>
+                    <td>{$f.store_name}</td>
+                    <td>{$f.nav_name}</td>
+                    <td>{$f.store_desc}</td>
+                    <td>{if condition="$f.close_state eq '0'"}未审核{elseif condition="$f.close_state eq '1'"}通过{elseif condition="$f.close_state eq '2'"}拒绝{else/}取消{/if}</td>
+                    <td class="td-manage">
+                        <a style="text-decoration:none" class="ml-5" href="/admin/Store/storeCloseShow/id/{$f.id}" title="查看信息及审核">
+                            <i class="Hui-iconfont">&#xe725;</i>
+                        </a>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+        </div>
+        <div class="pages">{$page}</div>
+        <input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+        <input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+
+<script type="text/javascript" src="/admin_file/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    /*搜多框值返回*/
+    $("#navshow").val('{$where.navshow}').attr("selected",true);
+    $("#categoryshow").val('{$where.categoryshow}').attr("selected",true);
+    $("#close_state").val('{$where.close_state}').attr("selected",true);
+</script>
+</body>
+</html>

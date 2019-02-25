@@ -1,0 +1,143 @@
+---------------------------------------------------------------
+[ 2018-09-03T09:55:11+08:00 ] 0.0.0.0 GET /api/user/userRewardInfo?user_id=95
+[ info ] localhost/api/user/userRewardInfo?user_id=95 [运行时间：0.592301s][吞吐率：1.69req/s] [内存消耗：2,962.01kb] [文件加载：63]
+[ info ] [ LANG ] /Users/jk/Desktop/obj/newRetail/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'userRewardInfo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'cookie' => 'Hm_lvt_080836300300be57b7f34f4b3e97d911=1535594170',
+  'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'connection' => 'keep-alive',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '95',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->userRewardInfo[ /Users/jk/Desktop/obj/newRetail/application/api/controller/User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.022917s ] mysql:host=101.132.19.224;port=3306;dbname=app_db;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `new_users` [ RunTime:0.013312s ]
+[ sql ] [ SQL ] SELECT * FROM `new_users` WHERE  `user_id` = 95  AND `disabled` = 1 LIMIT 1 [ RunTime:0.013877s ]
+---------------------------------------------------------------
+[ 2018-09-03T09:55:34+08:00 ] 0.0.0.0 GET /api/user/userRewardInfo?user_id=95
+[ info ] localhost/api/user/userRewardInfo?user_id=95 [运行时间：0.181260s][吞吐率：5.52req/s] [内存消耗：3,003.82kb] [文件加载：65]
+[ info ] [ LANG ] /Users/jk/Desktop/obj/newRetail/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'userRewardInfo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'cookie' => 'Hm_lvt_080836300300be57b7f34f4b3e97d911=1535594170',
+  'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'connection' => 'keep-alive',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '95',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->userRewardInfo[ /Users/jk/Desktop/obj/newRetail/application/api/controller/User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.021914s ] mysql:host=101.132.19.224;port=3306;dbname=app_db;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `new_users` [ RunTime:0.014211s ]
+[ sql ] [ SQL ] SELECT * FROM `new_users` WHERE  `user_id` = 95  AND `disabled` = 1 LIMIT 1 [ RunTime:0.015275s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `new_user_reward` [ RunTime:0.016757s ]
+[ sql ] [ SQL ] SELECT * FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=2 ) [ RunTime:0.014061s ]
+[ sql ] [ SQL ] SELECT SUM(user_reward_info) AS tp_sum FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=2 ) LIMIT 1 [ RunTime:0.013825s ]
+[ sql ] [ SQL ] SELECT * FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=0 ) [ RunTime:0.013212s ]
+[ sql ] [ SQL ] SELECT SUM(user_reward_info) AS tp_sum FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=0 ) LIMIT 1 [ RunTime:0.013947s ]
+---------------------------------------------------------------
+[ 2018-09-03T09:56:17+08:00 ] 0.0.0.0 GET /api/user/userRewardInfo?user_id=95
+[ info ] localhost/api/user/userRewardInfo?user_id=95 [运行时间：0.179544s][吞吐率：5.57req/s] [内存消耗：3,007.38kb] [文件加载：65]
+[ info ] [ LANG ] /Users/jk/Desktop/obj/newRetail/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'userRewardInfo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'cookie' => 'Hm_lvt_080836300300be57b7f34f4b3e97d911=1535594170',
+  'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'connection' => 'keep-alive',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '95',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->userRewardInfo[ /Users/jk/Desktop/obj/newRetail/application/api/controller/User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.023728s ] mysql:host=101.132.19.224;port=3306;dbname=app_db;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `new_users` [ RunTime:0.015347s ]
+[ sql ] [ SQL ] SELECT * FROM `new_users` WHERE  `user_id` = 95  AND `disabled` = 1 LIMIT 1 [ RunTime:0.013507s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `new_user_reward` [ RunTime:0.013936s ]
+[ sql ] [ SQL ] SELECT * FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=2 ) [ RunTime:0.015484s ]
+[ sql ] [ SQL ] SELECT SUM(user_reward_info) AS tp_sum FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=2 ) LIMIT 1 [ RunTime:0.015141s ]
+[ sql ] [ SQL ] SELECT * FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=0 ) [ RunTime:0.020729s ]
+[ sql ] [ SQL ] SELECT SUM(user_reward_info) AS tp_sum FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=0 ) LIMIT 1 [ RunTime:0.020778s ]
+---------------------------------------------------------------
+[ 2018-09-03T09:56:40+08:00 ] 0.0.0.0 GET /api/user/userRewardInfo?user_id=95
+[ info ] localhost/api/user/userRewardInfo?user_id=95 [运行时间：0.691634s][吞吐率：1.45req/s] [内存消耗：3,007.44kb] [文件加载：65]
+[ info ] [ LANG ] /Users/jk/Desktop/obj/newRetail/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'userRewardInfo',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'cookie' => 'Hm_lvt_080836300300be57b7f34f4b3e97d911=1535594170',
+  'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'connection' => 'keep-alive',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '95',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->userRewardInfo[ /Users/jk/Desktop/obj/newRetail/application/api/controller/User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.023473s ] mysql:host=101.132.19.224;port=3306;dbname=app_db;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `new_users` [ RunTime:0.013926s ]
+[ sql ] [ SQL ] SELECT * FROM `new_users` WHERE  `user_id` = 95  AND `disabled` = 1 LIMIT 1 [ RunTime:0.021812s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `new_user_reward` [ RunTime:0.018009s ]
+[ sql ] [ SQL ] SELECT * FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=2 ) [ RunTime:0.012923s ]
+[ sql ] [ SQL ] SELECT SUM(user_reward_info) AS tp_sum FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=2 ) LIMIT 1 [ RunTime:0.018971s ]
+[ sql ] [ SQL ] SELECT * FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=0 ) [ RunTime:0.018454s ]
+[ sql ] [ SQL ] SELECT SUM(user_reward_info) AS tp_sum FROM `new_user_reward` WHERE  (  user_id=95 and user_reward_type=0 ) LIMIT 1 [ RunTime:0.018123s ]

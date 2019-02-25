@@ -1,0 +1,168 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+    <form action="/admin/System/couponsTint/coupons_id/{$coupons_id}" method="post" class="form form-horizontal" id="form-admin-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择限制类型：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="attr_rule_id" id="attr_rule_id">
+					<option value="" selected>请选择</option>
+					<option value="0">分类</option>
+                    <option value="1">店铺</option>
+				</select>
+				</span> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>绑定店铺id：</label>
+            <input type="hidden" value="" placeholder="" name="stintid" id="stintid">
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" style="width: 250px" value="" placeholder="输入名称/说明/关键字" id="seachData"> <input class="btn btn-primary radius" type="button" value="搜索" id="button">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span></label>
+            <div class="formControls col-xs-3 col-sm-3">
+                <table class="table table-border table-bordered table-bg">
+                    <thead class="text-c">
+                    <tr><th width="45%">店铺名/分类名</th><th>选中</th></tr>
+                    </thead>
+                    <tbody class="text-c" id="searchRes">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="formControls col-xs-1 col-sm-1" style="margin-left:3%">
+                <input class="btn btn-primary radius" type="button" value=">>" id="add">
+                <p></p>
+                <input class="btn btn-primary radius" type="button" value="<<" id="del">
+            </div>
+            <div class="formControls col-xs-3 col-sm-3">
+                <table class="table table-border table-bordered table-bg">
+                    <thead class="text-c">
+                    <tr><th width="45%">店铺名/分类名</th><th>选中</th></tr>
+                    </thead>
+                    <tbody class="text-c" id="addDate">
+                         {volist name='scopelist' id='f'}
+                            <tr><th>{$f.name}</th><td><input type="checkbox" value="{$f.id}"></td></tr>
+                         {/volist}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input type="hidden" name="is_ajax" id="is_ajax" value="1">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;返回&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $("#form-admin-add").validate({
+        rules:{
+            attr_rule_id:{
+                required:true
+            }
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            var val = '';
+            if($("#addDate input").length == 0){
+                layer.msg('至少绑定一个商品!',{icon: 5,time:2000});
+                return false;
+            }
+            $("#addDate input").each(function (i,e) {
+                val += $(e).val()+',';
+            })
+            var aa = val.substring(0,val.length-1);
+            $("#stintid").val(aa);
+            form.submit();
+        }
+    });
+    /*选中的规则*/
+    $("#attr_rule_id").val('{$couponsinfo.use_scope}').attr("selected",true);
+    $("#attr_rule_id").change(function () {
+        $("#addDate").html('');
+    })
+    var button = document.getElementById("button");
+    var seachData = document.getElementById("seachData");
+    var searchRes = document.getElementById("searchRes");
+    var addDate = document.getElementById("addDate");
+    button.onclick=function () {
+        var val = seachData.value;
+        var stint=$("#attr_rule_id").val();
+        if(stint==0){
+            var stintkind=1;
+        }else if(stint==1){
+            var stintkind=2;
+        }
+        $.ajax('/Admin/System/searchAddTint', {
+            method: 'POST',
+            data:{keyWord:val,stintkind:stintkind},
+            dataType:'json'
+        }).done(function( res) {
+            if(res.length>0){
+                var html = '';
+                $(res).each(function (i,e) {
+                    html += '<tr ><th>'+e['name']+'</th><td><input type="checkbox" value="'+e['id']+'"></td></tr>'
+                })
+                $(searchRes).html(html);
+            }else{
+                var html = '';
+                $(searchRes).html(html);
+            }
+        });
+    }
+    var add = document.getElementById("add");
+    add.onclick = function () {
+        var input = $("#searchRes input:checked");
+        if(input.length===0){
+            return false;
+        }
+        var addInput = $("#addDate input");
+        input.each(function (i,e) {
+            if(addInput.length>0){
+                addInput.each(function (x,y) {
+                    if($(y).val() == $(e).val()){
+                        $(e).parents("tr").remove();
+                        return false;
+                    }else{
+                        var tr = $(e).parents("tr");
+                        $(addDate).append(tr);
+                    }
+                });
+            }else{
+                var tr = $(e).parents("tr");
+                $(addDate).append(tr);
+            }
+        })
+    }
+    var del = document.getElementById("del");
+    del.onclick = function () {
+        var input = $("#addDate input:checked");
+        if(input.length===0){
+            return false;
+        }
+        var tr = input.parents("tr");
+        tr.remove();
+    }
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

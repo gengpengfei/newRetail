@@ -1,0 +1,410 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+    <form action="/admin/Store/voucheradd" method="post" id="form" class="form form-horizontal" id="form-pro-add" enctype="multipart/form-data">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>优惠券名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" name="voucher_name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">上传主图：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="file" name="voucher_img" onchange="changImg(event)" />
+                <div><img id="myImg" src="" height="100px",width="100px"></div>
+            </div>
+        </div>
+        {if $store_id}
+        {else}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"></label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" style="width:250px" placeholder="输入店铺名" id="store_name" name="store_name">
+                <button type="button" class="btn btn-success" onClick="store()"><i class="Hui-iconfont">&#xe665;</i> 搜店铺</button>
+            </div>
+        </div>
+        {/if}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择店铺：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+                {if $store_id}
+                <input type="hidden" class="input-text" value="{$storelist.0.store_id}" name="store_id">
+                {$storelist.0.store_name}
+                {else}
+				<select class="select" name="store_id" id="store_id">
+					<option value="" selected>请选择店铺</option>
+                    {volist name="storelist" id="f"}
+					<option value="{$f.store_id}">{$f.store_name}</option>
+                    {/volist}
+				</select>
+                {/if}
+				</span> </div>
+        </div>
+        <!--<div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">优惠券说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" name="voucher_desc">
+            </div>
+        </div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否售卖：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="voucher_type" id="voucher_type">
+                    <option value="">请选择</option>
+					<option value="0">否</option>
+					<option value="1">是</option>
+				</select>
+				</span> </div>
+        </div>
+        <div class="row cl" id="voucher_banner_img" style="display: none">
+            <label class="form-label col-xs-4 col-sm-2">上传轮播图：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="file" id="myFile" name="myFile[]" multiple="multiple" /><br><br><br>
+            </div>
+        </div>
+        <div class="row cl" id="voucher_amount" style="display: none">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>原价金额：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" name="voucher_amount">
+            </div>
+        </div>
+        <div class="row cl" id="voucher_price" style="display: none">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>售卖金额：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" name="voucher_price">
+            </div>
+        </div>
+        <div class="row cl" id="voucher_price_desc" style="display: none">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>使用方式：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="use_method" id="use_method">
+                    <option value="">请选择</option>
+					<option value="0">满减</option>
+					<option value="1">满折</option>
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl" id="min_amount" style="display: none">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>订单满X元：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" name="min_amount">
+            </div>
+        </div>
+        <div class="row cl" id="voucher_amount_desc" style="display: none">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>优惠金额(元)/折扣(%)：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" name="use_method_info">
+            </div>
+        </div>
+        <div class="row cl" id="is_pay_used" style="display: none">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否自动使用：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="is_pay_used">
+                    <option value="">请选择</option>
+					<option value="0">否</option>
+					<option value="1">是</option>
+				</select>
+				</span> </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>发放开始时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" name="sell_start_date" id="sell_start_date">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>发放结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" name="sell_end_date" id="sell_end_date">
+            </div>
+        </div>
+        <!--<div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">当天使用时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" name="use_time">
+            </div>
+        </div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开始使用时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" value="" name="use_start_date" id="use_start_date">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>使用结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd' })" class="input-text Wdate" name="use_end_date" id="use_end_date">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>限购/领数量：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" name="limit_time">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>库存：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="1" name="voucher_stock">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>警告库存：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="0" name="warn_stock">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">详细内容：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <script id="editor" type="text/plain" style="width:100%;height:450px;"></script>
+            </div>
+        </div>
+                <input id="voucher_info" name="voucher_info" type="hidden">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">购买须知：</label>
+            {volist name="voucherAttrRule" id="attr"}
+            <label class="form-label col-xs-4 col-sm-2"></label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="hidden" name="attr_rule_id[]" value="{$attr.attr_rule_id}" class="input-text" >
+                <span>{$attr.attr_name} : </span><br>
+                <input type="text" name="attr_value[]" class="input-text" >
+            </div>
+            {/volist}
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否精选：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="is_push" id="is_push">
+                    <option value="">请选择</option>
+					<option value="0">否</option>
+					<option value="1">是</option>
+				</select>
+				</span> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否有效：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+                <select class="select" name="disabled">
+                    <option value="">请选择</option>
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+                </span>
+            </div>
+        </div>
+        <input type="hidden" name="is_ajax" id="is_ajax" value="1">
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="button" onClick=" check() " value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+
+<script type="text/javascript" src="/admin_file/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/admin_file/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript">
+    $(function(){
+
+        var ue = UE.getEditor('editor',{initialFrameWidth:'50%',toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'bold', 'forecolor', 'insertorderedlist', 'insertunorderedlist', '|', 'paragraph', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'simpleupload', 'emotion', '|','horizontal', 'date', 'time','preview']] });
+        //对编辑器的操作最好在编辑器ready之后再做
+        var voucher_info = $("#voucher_info").val();
+        ue.ready(function() {
+            //设置编辑器的内容
+            ue.setContent(voucher_info);
+        });
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        UE.Editor.prototype.getActionUrl = function(action) {
+            if (action == 'uploadimage') {
+                return '/Admin/Upload/uploadImg';
+            } else {
+                return this._bkGetActionUrl.call(this, action);
+            }
+        };
+
+            $("#form-pro-add").validate({
+                rules:{
+                    voucher_name:{
+                        required:true
+                    },
+                    store_id:{
+                        required:true
+                    },
+                    voucher_type:{
+                        required:true
+                    },
+                    voucher_price:{
+                        required:true,
+                        number: true
+                    },
+                    voucher_amount:{
+                        required:true,
+                        number: true
+                    },
+                    use_method:{
+                        required:true
+                    },
+                    use_method_info:{
+                        required:true
+                    },
+                    is_pay_used:{
+                        required:true
+                    },
+                    min_amount:{
+                        required:true,
+                        number: true
+                    },
+                    sell_start_date:{
+                        required:true
+                    },
+                    sell_end_date:{
+                        required:true
+                    },
+                    use_start_date:{
+                        required:true
+                    },
+                    use_end_date:{
+                        required:true
+                    },
+                    limit_time:{
+                        required:true,
+                        number: true,
+                        max:99
+                    },
+                    voucher_stock:{
+                        required:true,
+                        number: true,
+                        min:1
+                    },
+                    warn_stock:{
+                        required:true,
+                        number: true,
+                        min:0
+                    },
+                    disabled:{
+                        required:true
+                    },
+                    is_push:{
+                        required:true
+                    },
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    var is_sub=1;
+                    var sell_start_time=$('#sell_start_date').val()
+                    var sell_end_time=$('#sell_end_date').val();
+                    if (sell_end_time<=sell_start_time){
+                        layer.msg('请正确选择售卖时间!',{icon: 5,time:2000});
+                        is_sub=2;
+                    }
+                    var use_start_date=$('#use_start_date').val()
+                    var use_end_date=$('#use_end_date').val();
+                    if (use_end_date<=use_start_date){
+                        layer.msg('请正确选择使用时间!',{icon: 5,time:2000});
+                        is_sub=2;
+                    }
+                    if(is_sub==1){
+                        form.submit();
+                    }
+                }
+            });
+    });
+
+    function check(){
+        var myFile = document.getElementById('myFile').files.length;
+        if(myFile>8){
+            layer.msg('轮播图最多只能上传8张',{icon:2,time:2000});
+            return false;
+        }
+        $('#form').submit();
+    }
+
+    //上传图片本地显示图片
+    function changImg(e){
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                $("#myImg").attr("src",e.target.result);
+            }
+        }
+    }
+
+    function store(){
+        var store_name = $("#store_name").val();
+        $.ajax({
+            type: "POST",
+            url: '/Admin/Store/getStore',
+            data: {
+                store_name: store_name
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == '1') {
+                    data = data.data;
+                    if(data.length>0){
+                        var option  = '';
+                        for ( var i in data) {
+                            option += '<option value="' + data[i].store_id + '">'
+                                + data[i].store_name + '</option>';
+                        }
+                        $("#store_id").html(option);
+                    }
+
+                }
+            }
+        });
+    }
+
+    //通过优惠券类型显示输入框
+    $("#voucher_type").change(function () {
+        var voucher_type=$(this).val();
+        if(parseInt(voucher_type)==0){
+            $('#voucher_price_desc').show();
+            $('#voucher_amount_desc').show();
+            $('#is_pay_used').show();
+            $('#min_amount').show();
+            $('#voucher_price').hide();
+            $('#voucher_amount').hide();
+            $('#voucher_banner_img').hide();
+        }else if(parseInt(voucher_type)==1){
+            $('#voucher_price_desc').hide();
+            $('#voucher_amount_desc').hide();
+            $('#is_pay_used').hide();
+            $('#min_amount').hide();
+            $('#voucher_price').show();
+            $('#voucher_amount').show();
+            $('#voucher_banner_img').show();
+        }
+    })
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

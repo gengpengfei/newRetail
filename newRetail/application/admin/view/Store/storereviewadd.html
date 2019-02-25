@@ -1,0 +1,123 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<style>
+    .addimg,.removeimg{
+        width: 40px;
+        height: 40px;
+        background: #5eb95e;
+        border-color: #5eb95e;
+        color: #ffffff;
+        line-height: 40px;
+        font-size: 25px;
+    }
+    .showimg{
+        height:200px;
+        width:400px
+    }
+    .imgdiv{
+        margin: 10px 0 10px 0;
+    }
+</style>
+<body>
+<article class="page-container">
+    <form method="post" action="/admin/Store/storereviewadd/storeid/{$store_id}" class="form form-horizontal" id="form-pro-add" enctype="multipart/form-data" >
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>审核人姓名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$storeinfo.audit_name}" name="audit_name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>审核电话：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" name="audit_mobile" value="{$storeinfo.audit_mobile}">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">身份证正面：</label>
+            <div class="formControls col-xs-8 col-sm-9" id="upload">
+                <div>
+                    <input class="uploadimg" type="file" name="nav_img[]" accept="image/*" />
+                    <div class="imgdiv"><img id="myImg1" num="1" src=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">身份证反面：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div>
+                    <input class="uploadimg" type="file" name="nav_img[]" accept="image/*" />
+                    <div class="imgdiv"><img id="myImg2" num="2" src=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">营业执照：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div>
+                    <input class="uploadimg" type="file" name="nav_img[]" accept="image/*" />
+                    <div class="imgdiv"><img id="myImg3" num="3" src=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#form-pro-add").validate({
+            rules:{
+                audit_name:{
+                    required:true
+                },
+                audit_mobile:{
+                    required:true
+                },
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                form.submit();
+            }
+        });
+    });
+
+
+    $(document).on("change",".uploadimg",function(e){
+        var num=$(this).next().children().attr('num');
+        console.log(num);
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                $("#myImg"+num).attr("src",e.target.result);
+                $("#myImg"+num).addClass('showimg');
+            }
+        }
+    })
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

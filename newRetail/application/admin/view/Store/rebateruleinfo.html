@@ -1,0 +1,266 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+    <form {if $istype neq '2'} action="/admin/Store/rebateruleadd" {else /} action="/admin/Store/rebateruleedit/id/{$id}"{/if} method="post" class="form form-horizontal" id="form-admin-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>规则名字：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$rebateruleinfo.rule_name}" name="rule_name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">规则说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="rule_desc" class="textarea">{$rebateruleinfo.rule_desc}</textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>规则类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width: 50%">
+                    <select class="select" name="rule_type" id="rule_type">
+                        <option value="">请选择</option>
+                        <option value="0">不赠送</option>
+                        <option value="1">固定</option>
+                        <option value="2">金额百分比</option>
+                    </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl rule_info" style="display: none">
+            <label class="form-label col-xs-4 col-sm-2">补贴详情(元/%)：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$rebateruleinfo.rule_info}" name="rule_info">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>适用范围：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="rule_range" id="rule_range">
+					<option value="" selected>请选择</option>
+					<option value="0">行业</option>
+                    <option value="1">分类</option>
+                    <option value="2">信用分</option>
+                    <option value="3">店铺</option>
+				</select>
+				</span> </div>
+        </div>
+        <div class="row cl choseinfo" style="display:none">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>范围详情：</label>
+            <input type="hidden" value="" placeholder="" name="stintid" id="stintid">
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" style="width: 250px" value="" placeholder="输入信息" id="seachData"> <input class="btn btn-primary radius" type="button" value="搜索" id="button">
+            </div>
+        </div>
+        <div class="row cl choseinfo" style="display:none">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span></label>
+            <div class="formControls col-xs-3 col-sm-3">
+                <table class="table table-border table-bordered table-bg">
+                    <thead class="text-c">
+                    <tr><th width="45%">名称</th><th>选中</th></tr>
+                    </thead>
+                    <tbody class="text-c" id="searchRes">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="formControls col-xs-1 col-sm-1" style="margin-left:3%">
+                <input class="btn btn-primary radius" type="button" value=">>" id="add">
+                <p></p>
+                <input class="btn btn-primary radius" type="button" value="<<" id="del">
+            </div>
+            <div class="formControls col-xs-3 col-sm-3">
+                <table class="table table-border table-bordered table-bg">
+                    <thead class="text-c">
+                    <tr><th width="45%">名称</th><th>选中</th></tr>
+                    </thead>
+                    <tbody class="text-c" id="addDate">
+                         {volist name='scopelist' id='f'}
+                            <tr><th>{$f.name}</th><td><input type="checkbox" value="{$f.id}"></td></tr>
+                         {/volist}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row cl writeinfo" style="display:none">
+            <label class="form-label col-xs-4 col-sm-2">积分范围(从小到大)：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$creditarr.0}" name="min_credit" id="min_credit" style="width: 24.5%">
+                -
+                <input type="text" class="input-text" value="{$creditarr.1}" name="max_credit" id="max_credit" style="width: 24.5%">
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input type="hidden" name="is_ajax" id="is_ajax" value="1">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;返回&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    {if $istype eq '2'}
+        {if $rebateruleinfo.rule_range eq '2'}
+        $(".writeinfo").show();
+        {else /}
+           $(".choseinfo").show();
+        {/if}
+        {if $rebateruleinfo.rule_type neq '0'}
+        $(".rule_info").show();
+        {/if}
+    {/if}
+    $("#form-admin-add").validate({
+        rules:{
+            rule_name:{
+                required:true
+            },
+            rule_type:{
+                required:true
+            },
+            rule_range:{
+                required:true
+            },
+            min_credit:{
+                required:true,
+                number:true
+            },
+            max_credit:{
+                required:true,
+                number:true
+            }
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            var min_credit=$("#min_credit").val();
+            var max_credit=$("#max_credit").val();
+            if (parseInt(min_credit)>parseInt(max_credit)){
+                layer.msg('请正确填写积分范围!',{icon: 5,time:2000});
+                return false;
+            }
+            var val = '';
+            var i=$("#rule_range").val();
+            if($("#addDate input").length == 0&&i!=2){
+                layer.msg('至少绑定一个商品!',{icon: 5,time:2000});
+                return false;
+            }
+            $("#addDate input").each(function (i,e) {
+                val += $(e).val()+',';
+            })
+            var aa = val.substring(0,val.length-1);
+            $("#stintid").val(aa);
+            form.submit();
+        }
+    });
+
+    $("#rule_type").change(function () {
+        var i=$(this).val();
+        if (i==1||i==2){
+            $(".rule_info").show();
+        }else if(i==0){
+            $(".rule_info").hide();
+        }
+    });
+
+    $("#rule_range").change(function () {
+        var i=$(this).val();
+        if (i==0||i==1||i==3){
+            $(".choseinfo").show();
+            $(".writeinfo").hide();
+        }else if(i==2){
+            $(".writeinfo").show();
+            $(".choseinfo").hide();
+        }
+    });
+
+    /*选中的规则*/
+    $("#rule_type").val('{$rebateruleinfo.rule_type}').attr("selected",true);
+    $("#rule_range").val('{$rebateruleinfo.rule_range}').attr("selected",true);
+    $("#rule_range").change(function () {
+        $("#addDate").html('');
+    })
+    var button = document.getElementById("button");
+    var seachData = document.getElementById("seachData");
+    var searchRes = document.getElementById("searchRes");
+    var addDate = document.getElementById("addDate");
+    button.onclick=function () {
+        var val = seachData.value;
+        var stint=$("#rule_range").val();
+        if(stint==0){
+            var stintkind=3;
+        }else if(stint==1){
+            var stintkind=4;
+        }else if(stint==3){
+            var stintkind=2;
+        }
+        console.log(stintkind);
+        $.ajax('/Admin/Store/searchaddtint', {
+            method: 'POST',
+            data:{keyWord:val,stintkind:stintkind},
+            dataType:'json'
+        }).done(function( res) {
+            console.log(res);
+            if(res.length>0){
+                var html = '';
+                $(res).each(function (i,e) {
+                    html += '<tr ><th>'+e['name']+'</th><td><input type="checkbox" value="'+e['id']+'"></td></tr>'
+                })
+                $(searchRes).html(html);
+            }else{
+                var html = '';
+                $(searchRes).html(html);
+            }
+        });
+    }
+    var add = document.getElementById("add");
+    add.onclick = function () {
+        var input = $("#searchRes input:checked");
+        if(input.length===0){
+            return false;
+        }
+        var addInput = $("#addDate input");
+        input.each(function (i,e) {
+            if(addInput.length>0){
+                addInput.each(function (x,y) {
+                    if($(y).val() == $(e).val()){
+                        $(e).parents("tr").remove();
+                        return false;
+                    }else{
+                        var tr = $(e).parents("tr");
+                        $(addDate).append(tr);
+                    }
+                });
+            }else{
+                var tr = $(e).parents("tr");
+                $(addDate).append(tr);
+            }
+        })
+    }
+    var del = document.getElementById("del");
+    del.onclick = function () {
+        var input = $("#addDate input:checked");
+        if(input.length===0){
+            return false;
+        }
+        var tr = input.parents("tr");
+        tr.remove();
+    }
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

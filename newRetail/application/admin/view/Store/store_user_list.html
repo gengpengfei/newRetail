@@ -1,0 +1,145 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="/admin_file/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" href="/admin_file/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<body class="pos-r">
+<div>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 店铺管理 <span class="c-gray en">&gt;</span> 店铺主列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+
+        <form action="/admin/Store/storeUserList" method="get">
+            <div class="text-c">
+                <input type="text" name="keywords" id="keywords" placeholder="店铺主名称" style="width:250px" class="input-text" value="{$where.keywords}" >
+                <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索 </button>
+            </div>
+        </form>
+
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="r">共有数据：<strong>{$pronum}</strong> 条</span>
+        </div>
+
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="60" onclick="sort('Store/storeUserList','admin_id')" >ID</th>
+                    <th width="100" onclick="sort('Store/storeUserList','user_name')">名称</th>
+                    <th width="180" onclick="sort('Store/storeUserList','mobile')">电话</th>
+                    <th width="100" onclick="sort('Store/storeUserList','store_name')">持有店铺</th>
+                    <th width="100" onclick="sort('Store/storeUserList','disabled')">是否开启</th>
+                    <th width="100">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="storeAdminList" id="f"}
+                <tr class="text-c va-m">
+                    <td>{$f.admin_id}</td>
+                    <td>{$f.user_name}</td>
+                    <td>{$f.mobile}</td>
+                    <td>{$f.store_name}</td>
+                    {if condition="$f.disabled eq 1"}
+                    <td class="td-status"><span class="label label-success radius">已启用</span></td>
+                    {else}
+                    <td class="td-status"><span class="label label-default radius">已禁用</span></td>
+                    {/if}
+                    <td class="td-manage">
+                        {if condition="$f.disabled eq 1"}
+                        <a style="text-decoration:none" onClick="admin_stop(this,{$f.admin_id})" href="javascript:;" title="停用">
+                            <i class="Hui-iconfont">&#xe631;</i>
+                        </a>
+                        {else}
+                        <a style="text-decoration:none" onClick="admin_start(this,{$f.admin_id})" href="javascript:;" title="启用">
+                            <i class="Hui-iconfont">&#xe615;</i>
+                        </a>
+                        {/if}
+                        <a style="text-decoration:none" class="ml-5" href="/admin/Store/storeUserShow/store_id/{$f.store_id}" title="查看信息">
+                            <i class="Hui-iconfont">&#xe725;</i>
+                        </a>
+                        <a title="查看业务员" href="/admin/Store/storeUserMember/store_id/{$f.store_id}/admin_id/{$f.admin_id}" class="ml-5" style="text-decoration:none">
+                            <i class="Hui-iconfont">&#xe62b;</i>
+                        </a>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <div style="margin-top: 10px;padding-left: 5px;padding-right: 5px;">
+                每页显示
+                <input type="number" id="show_count" onchange="changeCount('Store/storeUserList',$(this).val())" class="input-text" style="width: 50px;margin-left: 5px;margin-right: 5px;" value="{$show_count}">条
+            </div>
+        </div>
+        <div class="pages">{$page}</div>
+        <input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+        <input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+
+<script type="text/javascript" src="/admin_file/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin_file/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    /*搜多框值返回*/
+    $("#audit_state").val('{$where.audit_state}').attr("selected",true);
+    /*-停用*/
+    function admin_stop(obj,id){
+        layer.confirm('确认要禁用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeUserEdit",
+                data:{"admin_id":id,"disabled":0,"is_ajax":1},
+                type:"POST",
+                success:function(data){
+                    if(data){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,'+id+')" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+                        $(obj).remove();
+                        layer.msg('已停用!',{icon: 6,time:2000});
+                    }else{
+                        layer.msg('停用失败!',{icon: 5,time:2000});
+                    }
+
+                }
+            })
+
+        });
+    }
+
+    /*-启用*/
+    function admin_start(obj,id){
+        layer.confirm('确认要启用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/Store/storeUserEdit",
+                data:{"admin_id":id,"disabled":1,"is_ajax":1},
+                type:"POST",
+                success:function(data){
+                    if(data){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,'+id+')" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+                        $(obj).remove();
+                        layer.msg('已启用!', {icon: 6,time:2000});
+                    }else{
+                        layer.msg('启用失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+</script>
+</body>
+</html>

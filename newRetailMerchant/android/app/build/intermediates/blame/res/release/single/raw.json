@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/raw/beep.wav",
+        "source": "/Users/jk/Desktop/obj/newRetailMerchant/node_modules/react-native-smart-barcode/android/build/intermediates/bundles/release/res/raw/beep.wav"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/raw/keep.xml",
+        "source": "/Users/jk/Desktop/obj/newRetailMerchant/node_modules/jpush-react-native/android/build/intermediates/bundles/release/res/raw/keep.xml"
+    }
+]

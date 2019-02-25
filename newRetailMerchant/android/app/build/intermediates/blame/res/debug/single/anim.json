@@ -1,0 +1,82 @@
+[
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/ucrop_loader_circle_scale.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/anim/ucrop_loader_circle_scale.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_fade_out.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_slide_out_top.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_popup_exit.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_tooltip_exit.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_tooltip_exit.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_tooltip_enter.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_tooltip_enter.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/catalyst_fade_out.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/res/anim/catalyst_fade_out.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/ucrop_loader_circle_path.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/anim/ucrop_loader_circle_path.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_fade_in.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/catalyst_fade_in.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/res/anim/catalyst_fade_in.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/catalyst_push_up_out.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/res/anim/catalyst_push_up_out.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/catalyst_push_up_in.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/res/anim/catalyst_push_up_in.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/catalyst_slide_down.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/res/anim/catalyst_slide_down.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/catalyst_slide_up.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/react-native-0.51.1.aar/6452ccf7a3967f9e8c2ca9a5bca974a7/res/anim/catalyst_slide_up.xml"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/anim/abc_popup_enter.xml",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.0.aar/e82fa2f033176f4293252fad1899932a/res/anim/abc_popup_enter.xml"
+    }
+]

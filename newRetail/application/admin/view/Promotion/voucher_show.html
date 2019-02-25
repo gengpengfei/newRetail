@@ -1,0 +1,98 @@
+<!--html头-->
+{include file="Public/head_top" /}
+<style>
+	.text-r{
+		width: 145px;
+	}
+	.table{
+		float: left;
+		width: 49%;
+	}
+</style>
+<link href="/admin_file/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<body>
+<div class="cl pd-20" style=" background-color:#5bacb6">
+	<dl style="color:#fff">
+		<dt>
+			<span class="f-18">店铺名:{$voucher_info.store_name}</span>
+		</dt>
+	</dl>
+</div>
+<div class="pd-20">
+	<table class="table">
+		<tbody>
+			<tr>
+				<th class="text-r" width="80">优惠券名称：</th>
+				<td>{$voucher_info.voucher_name}</td>
+			</tr>
+			<tr>
+				<th class="text-r">原价金额：</th>
+				<td>{$voucher_info.voucher_amount}</td>
+			</tr>
+			<tr>
+				<th class="text-r">售卖金额：</th>
+				<td>{$voucher_info.voucher_price}</td>
+			</tr>
+			<tr>
+				<th class="text-r">订单满X元：</th>
+				<td>{$voucher_info.min_amount}</td>
+			</tr>
+			<tr>
+				<th class="text-r">优惠金额(元)/折扣(%)：</th>
+				<td>{$voucher_info.use_method_info}</td>
+			</tr>
+			<tr>
+				<th class="text-r">发放开始时间：</th>
+				<td>{$voucher_info.sell_start_date}</td>
+			</tr>
+			<tr>
+				<th class="text-r">发放结束时间：</th>
+				<td>{$voucher_info.sell_end_date}</td>
+			</tr>
+			<tr>
+				<th class="text-r">开始使用时间：</th>
+				<td>{$voucher_info.use_start_date}</td>
+			</tr>
+			<tr>
+				<th class="text-r">使用结束时间：</th>
+				<td>{$voucher_info.use_end_date}</td>
+			</tr>
+			<tr>
+				<th class="text-r">详细内容：</th>
+				<td>{$voucher_info.voucher_info}</td>
+			</tr>
+			<tr>
+				<th class="text-r">图片：</th>
+				<td>
+					<a href="{$voucher_info.voucher_img}" data-lightbox="gallery" data-title="身份证正面">
+						<img src="{$voucher_info.voucher_img}" />
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<th class="text-r">轮播图：</th>
+				<td>
+					{if $bannerImage}
+					{volist name="bannerImage" id="f"}
+					<img src="{$f}" height="90px" width="120px">
+					{/volist}
+					{/if}
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/admin_file/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+</script>
+</body>
+</html>

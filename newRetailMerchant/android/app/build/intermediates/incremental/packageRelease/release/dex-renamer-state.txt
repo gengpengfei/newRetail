@@ -1,0 +1,4 @@
+#Wed Aug 15 18:28:05 CST 2018
+base.0=/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/transforms/dex/release/0
+path.0=classes.dex
+renamed.0=classes.dex

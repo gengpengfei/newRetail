@@ -1,0 +1,18 @@
+
+<aside class="Hui-aside">
+    <div class="menu_dropdown bk_2">
+        {volist name="leftMenu" id="f"}
+            <dl id="menu-product">
+                <dt style="line-height: 40px;">
+                    <i class="Hui-iconfont" style="color: #666;width: 18px;">&#{$f.icone};</i> {$f.action_name}
+                <dd>
+                    <ul>
+                        {volist name="f.children" id="c"}
+                            <li><a data-href="/shop/{$f.action_code}/{$c.action_code}" data-title="{$c.action_name}" href="javascript:void(0)">{$c.action_name}</a></li>
+                        {/volist}
+                    </ul>
+                </dd>
+            </dl>
+        {/volist}
+    </div>
+</aside>

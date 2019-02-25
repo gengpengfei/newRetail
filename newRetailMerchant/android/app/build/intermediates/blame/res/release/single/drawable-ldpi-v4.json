@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/drawable-ldpi-v4/ucrop_ic_crop.png",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/drawable-ldpi-v4/ucrop_ic_crop.png"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/drawable-ldpi-v4/ucrop_ic_cross.png",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/drawable-ldpi-v4/ucrop_ic_cross.png"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/drawable-ldpi-v4/ucrop_ic_next.png",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/drawable-ldpi-v4/ucrop_ic_next.png"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/drawable-ldpi-v4/ucrop_ic_angle.png",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/drawable-ldpi-v4/ucrop_ic_angle.png"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/drawable-ldpi-v4/ucrop_ic_scale.png",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/drawable-ldpi-v4/ucrop_ic_scale.png"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/drawable-ldpi-v4/ucrop_ic_done.png",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/drawable-ldpi-v4/ucrop_ic_done.png"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/drawable-ldpi-v4/ucrop_ic_rotate.png",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/drawable-ldpi-v4/ucrop_ic_rotate.png"
+    },
+    {
+        "merged": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/release/drawable-ldpi-v4/ucrop_ic_reset.png",
+        "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/drawable-ldpi-v4/ucrop_ic_reset.png"
+    }
+]

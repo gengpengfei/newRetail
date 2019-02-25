@@ -1,0 +1,112 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<div class="cl pd-20" style=" background-color:#5bacb6">
+	<img class="avatar size-XL l" onerror="this.src='/admin_file/static/h-ui/images/ucnter/avatar-default.jpg'" src="{$user_info.head_img}">
+	<dl style="margin-left:80px; color:#fff">
+		<dt>
+			<span class="f-18">{$user_info.nick_name}</span>
+			<span class="pl-10 f-12">积分：{$user_info.user_score}</span>
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">
+			<button class="btn btn-default radius" type="button" onclick="rePayPassword({$user_info.user_id})">重置支付密码</button>
+		</dd>
+	</dl>
+</div>
+<div class="pd-20">
+	<table class="table">
+		<tbody>
+			<tr>
+				<th class="text-r" width="80">性别：</th>
+				{if condition="$user_info.sex eq 1"}
+				<td>男</td>
+				{else}
+				<td>男</td>
+				{/if}
+			</tr>
+			<tr>
+				<th class="text-r">手机：</th>
+				<td>{$user_info.mobile}</td>
+			</tr>
+			<tr>
+				<th class="text-r">邮箱：</th>
+				<td>{$user_info.email}</td>
+			</tr>
+			<tr>
+				<th class="text-r">生日：</th>
+				<td>{$user_info.birthday}</td>
+			</tr>
+			<tr>
+				<th class="text-r">注册时间：</th>
+				<td>{$user_info.create_time}</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="table" style="margin-top: 20px;border-top: 1px solid #ccc;">
+		<tbody>
+			<tr>
+				<th class="text-r" width="80">消费金额：</th>
+				<td>{$user_info.order_price}</td>
+			</tr>
+			<tr>
+				<th class="text-r">订单数量：</th>
+				<td>{$user_info.order_count}</td>
+			</tr>
+			<tr>
+				<th class="text-r">店铺评价：</th>
+				<td>{$user_info.store_comment}</td>
+			</tr>
+			<tr>
+				<th class="text-r">退款记录：</th>
+				<td>{$user_info.refund_count}</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="table" style="margin-top: 20px;border-top: 1px solid #ccc;">
+		{volist name="user_info.address_list" id="address"}
+		<tbody style="border: 1px solid #ccc;margin-top: 20px;margin-left:10px;width: 500px;border-radius: 3px;display: inline-block">
+			<tr>
+				<th class="text-r" width="80">收货人：</th>
+				<td>{$address.user_name}</td>
+			</tr>
+			<tr>
+				<th class="text-r" width="80">电话：</th>
+				<td>{$address.mobile}</td>
+			</tr>
+			<tr>
+				<th class="text-r" width="80">详细地址：</th>
+				<td>{$address.address_name}</td>
+			</tr>
+		</tbody>
+		{/volist}
+	</table>
+</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+	function rePayPassword(user_id) {
+        layer.confirm('确认要重置支付密码吗？事关用户资金,请慎重选择',function(){
+            $.ajax({
+                url:"/admin/User/userEdit",
+                data:{"user_id":user_id,"is_ajax":1,"rePayPassword":1},
+                type:"POST",
+                success: function(data){
+                    if(data.code == 1){
+                        layer.msg('支付密码已经重置为空!',{icon:1,time:2000});
+                    }else{
+                        layer.msg(data.msg,{icon:2,time:2000});
+                    }
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
+</script>
+</body>
+</html>

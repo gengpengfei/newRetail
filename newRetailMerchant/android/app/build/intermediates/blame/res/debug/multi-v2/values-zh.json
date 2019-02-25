@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh/values-zh.xml",
+            "map": [
+                {
+                    "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/values-zh/values-zh.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,109,163",
+                        "endColumns": "53,53,46",
+                        "endOffsets": "104,158,205"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/jk/Desktop/obj/newRetailMerchant/android/app/build/intermediates/res/merged/debug/values-zh/values-zh.xml",
+            "map": [
+                {
+                    "source": "/Users/jk/.gradle/caches/transforms-1/files-1.1/ucrop-2.2.2-native.aar/8390da05d5ce6956d4ab00ce54bfb38c/res/values-zh/values-zh.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,109,163",
+                        "endColumns": "53,53,46",
+                        "endOffsets": "104,158,205"
+                    }
+                }
+            ]
+        }
+    ]
+}

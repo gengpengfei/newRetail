@@ -1,0 +1,307 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<div class="page-container">
+<form id="form-admin-add" method="post" name="theForm">
+	<div class="text-c" style="margin-bottom: 5px">
+		<table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+			<thead>
+			<tr>
+				<th colspan="4"><div align="center">基本信息</div></th>
+			</tr>
+			</thead>
+			<tr>
+				<td width="18%"><div align="right"><strong>订单号：</strong></div></td>
+				<td width="34%">{$orderRefund.order_sn}</td>
+				<td width="15%"><div align="right"><strong>服务类型：</strong></div></td>
+				<td>{$orderRefund.refundStatus}
+				</td>
+			</tr>
+			<tr>
+				<td><div align="right"><strong>下单时间：</strong></div></td>
+				<td>{$orderRefund.order_time}</td>
+				<td><div align="right"><strong>退款方式：</strong></div></td>
+				<td>积分退款</td>
+			</tr>
+			<tr>
+				<td><div align="right"><strong>发货时间：</strong></div></td>
+				<td>{if $orderRefund.shipping_time}{$orderRefund.shipping_time}{/if}</td>
+				<td><div align="right"><strong>发货单号：</strong></div></td>
+				<td>{if $orderRefund.order_shipping_sn}{$orderRefund.order_shipping_sn}{/if}</td>
+			</tr>
+			<thead>
+			<tr>
+				<th colspan="4"><div align="center">退款/退货/返修信息</div>
+				</th>
+			</tr>
+			</thead>
+			<tr>
+				<td><div align="right"><strong>申请退货/维修时间：</strong></div></td>
+				<td>{$orderRefund.refund_time}</td>
+				<td><div align="right"><strong>申请人：</strong></div></td>
+				<td>{if $orderRefund.user_name}{$orderRefund.user_name}{/if}</td>
+			</tr>
+			<tr>
+				<td><div align="right"><strong>退货/维修原因：</strong></div></td>
+				<td>{$orderRefund.reason_desc}</td>
+				<td><div align="right"><strong>联系手机号</strong></div></td>
+				<td>{$orderRefund.address_mobile}</td>
+			</tr>
+			<tr>
+				<td><div align="right"><strong>用户退回商品所用快递：</strong></div></td>
+				<td>{$orderRefund.refund_shipping}</td>
+				<td><div align="right"><strong>退货单号</strong></div></td>
+				<td>{$orderRefund.shipping_sn}</td>
+			</tr>
+			<tr>
+				<td><div align="right"><strong>客户留言：</strong></div></td>
+				<td colspan="3">{$orderRefund.refund_desc}</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 商品列表页面 start -->
+	<div class="text-c" style="margin-bottom: 5px">
+		<table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+			<thead>
+			<tr>
+				<th colspan="7" scope="col" ><div align="center">退货/返修-商品信息</div></th>
+			</tr>
+			</thead>
+			<tr>
+				<td scope="col" width="30%"><div align="center"><strong>商品名称</strong></div></td>
+				<td scope="col"><div align="center"><strong>商品编号</strong></div></td>
+				<td scope="col"><div align="center"><strong>商品价格</strong></div></td>
+				<td scope="col"><div align="center"><strong>数量</strong></div></td>
+				<td scope="col"><div align="center"><strong>退款业务</strong></div></td>
+				<td scope="col"><div align="center"><strong>实付金额</strong></div></td>
+			</tr>
+			<tr>
+				<td>{$orderRefund.pro_name}</td>
+				<td>{$orderRefund.pro_code}</td>
+				<td>{$orderRefund.pro_score}</td>
+				<td>{$orderRefund.pro_num}</td>
+				<td>{$orderRefund.refundStatus}</td>
+				<td>{$orderRefund.all_score}</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 商品列表页面 end -->
+
+	<div class="text-c" style="margin-bottom: 5px">
+		<table cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+			<thead>
+			<tr>
+				<th colspan="6"><div align="center">操作信息</div></th>
+			</tr>
+			</thead>
+			<tr>
+				<td><div align="right"><strong>操作备注：</strong></div></td>
+				<td colspan="5">
+					<textarea id="action_note" name="action_note" cols="80" rows="3"></textarea>
+				</td>
+			</tr>
+			{if $orderRefund.is_refund_pro eq 1}
+			<tr>
+				<td><div align="right"><strong>退货地址：</strong></div></td>
+				<td colspan="5">
+					<input id="refund_address" name="refund_address" type="text" class="input-text">
+				</td>
+			</tr>
+			{/if}
+			<tr>
+				<td><div align="right"><strong>当前可执行操作：</strong> </div></td>
+				<input type="hidden" value="{$orderRefund.order_id}" name="order_id" id="order_id">
+				<input type="hidden" value="{$orderRefund.id}" name="refund_id" id="refund_id">
+				<!-- 一键发货begin 修改 by   -->
+				<td colspan="5">
+				{if $orderRefund.refund_state == 'W01'}
+					<button type="button" class="btn btn-success" onClick="admin_start({if $orderRefund.is_refund_pro == 1}'W02'{else}'W04'{/if})">通过申请</button>
+					<button type="button" class="btn btn-danger" onClick="admin_stop()">拒绝申请</button>
+				{/if}
+				{if $orderRefund.refund_state == 'W02'}
+				<span style="color: red">
+					待买家退货
+				</span>
+				{/if}
+				{if $orderRefund.refund_state == 'W03'}
+					<button type="button" class="btn btn-success" onClick="collect_goods()">收货确认</button>
+				{/if}
+				{if $orderRefund.refund_state == 'W04'}
+					<button type="button" class="btn btn-success" onClick="refund_start()">退款</button>
+					<button type="button" class="btn btn-danger" onClick="admin_stop()">拒绝</button>
+				{/if}
+				{if $orderRefund.refund_state == 'W05'}
+					<span style="color: red">
+						退款完成
+					</span>
+				{/if}
+				{if $orderRefund.refund_state == 'W06'}
+					<span>
+						管理员已拒绝此申请
+					</span>
+				{/if}
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="text-c" style="margin-bottom: 5px">
+		<table width="100%" border="0" cellpadding="5" cellspacing="1" class="table table-border table-bg table-bordered">
+			<thead>
+			<tr>
+				<th colspan="4"><div align="center">操作日志</div></th>
+			</tr>
+			</thead>
+			<tr>
+				<td scope="col" width="30%"><div align="center"><strong>操作者</strong></div></td>
+				<td scope="col"><div align="center"><strong>操作类型</strong></div></td>
+				<td scope="col"><div align="center"><strong>操作信息</strong></div></td>
+				<td scope="col"><div align="center"><strong>时间</strong></div></td>
+			</tr>
+			{volist name="orderLog" id="log"}
+			<tr>
+				<td>{$log.admin_nickname}</td>
+				<td>{$log.log_type}</td>
+				<td>{$log.content}</td>
+				<td>{$log.create_time}</td>
+			</tr>
+			{/volist}
+
+		</table>
+	</div>
+	<div class="text-c" style="margin-bottom: 5px">
+		<table width="100%" border="0" cellpadding="5" cellspacing="1" class="table table-border table-bg table-bordered">
+			<thead>
+			<tr>
+				<th colspan="3"><div align="center">操作留言</div></th>
+			</tr>
+			</thead>
+			<tr>
+				<td scope="col" width="30%"><div align="center"><strong>操作者</strong></div></td>
+				<td scope="col"><div align="center"><strong>操作信息</strong></div></td>
+				<td scope="col"><div align="center"><strong>时间</strong></div></td>
+			</tr>
+			{volist name="orderMessage" id="msg"}
+			<tr>
+				<td>{$msg.admin_nickname}</td>
+				<td>{$msg.order_message}</td>
+				<td>{$msg.create_time}</td>
+			</tr>
+			{/volist}
+
+		</table>
+	</div>
+</form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+
+	/*通过申请*/
+    function admin_start(refund_state){
+        var refund_id = $("#refund_id").val();
+        var order_id = $("#order_id").val();
+        var action_note = $("#action_note").val();
+        var refund_address = $("#refund_address").val();
+        layer.confirm('确认要通过申请吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/IntegralShop/refundEdit",
+                data:{"refund_id":refund_id,"refund_address":refund_address,"order_id":order_id,"action_note":action_note,"refund_state":refund_state},
+                type:"POST",
+                success:function(data){
+                    if(data){
+                        layer.msg('已通过!', {icon: 6,time:2000});
+                        location.reload();
+                    }else{
+                        layer.msg('操作失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+
+	/*拒绝申请*/
+    function admin_stop(){
+        var refund_id = $("#refund_id").val();
+        var order_id = $("#order_id").val();
+        var action_note = $("#action_note").val();
+        layer.confirm('确认要拒绝申请吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/IntegralShop/refundEdit",
+                data:{"refund_id":refund_id,"order_id":order_id,"action_note":action_note,"refund_state":"W06"},
+                type:"POST",
+                success:function(data){
+                    if(data){
+                        layer.msg('已拒绝!',{icon: 6,time:2000});
+                        location.reload();
+                    }else{
+                        layer.msg('操作失败!',{icon: 5,time:2000});
+                    }
+                }
+            })
+        });
+    }
+
+	/*收货确认*/
+    function collect_goods(){
+        var refund_id = $("#refund_id").val();
+        var order_id = $("#order_id").val();
+        var action_note = $("#action_note").val();
+        layer.confirm('确认要收货吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/IntegralShop/refundEdit",
+                data:{"refund_id":refund_id,"order_id":order_id,"action_note":action_note,"refund_state":"W04"},
+                type:"POST",
+                success:function(data){
+                    if(data){
+                        layer.msg('已通过!', {icon: 6,time:2000});
+                        location.reload();
+                    }else{
+                        layer.msg('操作失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+
+	/*退款*/
+    function refund_start(){
+        var refund_id = $("#refund_id").val();
+        var order_id = $("#order_id").val();
+        var action_note = $("#action_note").val();
+        layer.confirm('确认要退款吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.ajax({
+                url:"/admin/IntegralShop/refundEdit",
+                data:{"refund_id":refund_id,"order_id":order_id,"action_note":action_note,"refund_state":"W05"},
+                type:"POST",
+                success:function(data){
+                    if(data){
+                        layer.msg('已通过!', {icon: 6,time:2000});
+                        location.reload();
+                    }else{
+                        layer.msg('操作失败!', {icon: 5,time:2000});
+                    }
+                }
+            })
+
+        });
+    }
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

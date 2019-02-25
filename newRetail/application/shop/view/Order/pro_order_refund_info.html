@@ -1,0 +1,82 @@
+<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<link href="/admin_file/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<div class="page-container">
+    <div class="text-c" style="margin-bottom: 5px">
+        <table width="100%" cellpadding="3" cellspacing="1" class="table table-border table-bg table-bordered">
+            <thead>
+            <tr>
+                <th colspan="4"><div align="center">退款订单详情</div></th>
+            </tr>
+            </thead>
+            <tr>
+                <td width="18%"><div align="right"><strong>所属用户：</strong></div></td>
+                <td width="32%">{$userinfo.user_name}</td>
+                <td width="18%"><div align="right"><strong>用户手机号：</strong></div></td>
+                <td>{$userinfo.mobile}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>所属订单id：</strong></div></td>
+                <td>{$refundinfo.order_id}</td>
+                <td><div align="right"><strong>订单编号：</strong></div></td>
+                <td>{$refundinfo.order_sn}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>所属店铺id：</strong></div></td>
+                <td>{$refundinfo.store_id}</td>
+                <td><div align="right"><strong>所属店铺名：</strong></div></td>
+                <td>{$storeinfo.store_name}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>商品编号：</strong></div></td>
+                <td>{$refundinfo.voucher_sn}</td>
+                <td><div align="right"><strong>商品名称：</strong></div></td>
+                <td>{$refundinfo.voucher_name}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>实际支付金额：</strong></div></td>
+                <td>{$refundinfo.buy_price}</td>
+                <td><div align="right"><strong>退款金额：</strong></div></td>
+                <td>{$refundinfo.refund_price}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>退款原因：</strong></div></td>
+                <td>{$refundreasoninfo.reason_desc}</td>
+                <td><div align="right"><strong>退款留言：</strong></div></td>
+                <td>{$refundinfo.refund_desc}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>退款申请时间：</strong></div></td>
+                <td>{$refundinfo.refund_time}</td>
+                <td><div align="right"><strong>退款状态：</strong></div></td>
+                <td>{$refundstate}</td>
+            </tr>
+            <tr>
+                <td><div align="right"><strong>退款凭证：</strong></div></td>
+                <td>
+                    <a href="{$refund_img}" data-lightbox="gallery" data-title="退款凭证">
+                        <img style="max-width: 180px;max-height: 108px" src="{$refundinfo.refund_img}" />
+                    </a>
+                </td>
+                <td><div align="right"></div></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/admin_file/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

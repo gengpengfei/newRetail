@@ -1,0 +1,322 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">链接类型：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="ad_url_type" id="ad_url_type">
+					<option value="0" {if $banner.ad_url_type eq 0}selected{/if}>无连接</option>
+					<option value="1" {if $banner.ad_url_type eq 1}selected{/if}>店铺</option>
+					<option value="2" {if $banner.ad_url_type eq 2}selected{/if}>商品</option>
+					<option value="3" {if $banner.ad_url_type eq 3}selected{/if}>外部链接</option>
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl" id="store_search" style="display: none">
+			<label class="form-label col-xs-4 col-sm-2"></label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" style="width:250px" placeholder="输入商铺名" id="store_name" name="store_name">
+				<button type="button" class="btn btn-success" onClick="store()"><i class="Hui-iconfont">&#xe665;</i> 搜商铺</button>
+			</div>
+		</div>
+		<div class="row cl" id="goods_search" style="display: none">
+			<label class="form-label col-xs-4 col-sm-2"></label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" style="width:250px" placeholder="输入商品名" id="goods_name" name="goods_name">
+				<button type="button" class="btn btn-success" onClick="goods()"><i class="Hui-iconfont">&#xe665;</i> 搜商品</button>
+			</div>
+		</div>
+		<div class="row cl" id="store_ad_url" style="display: none">
+			<label class="form-label col-xs-4 col-sm-2">选择店铺：</label>
+			<div class="formControls col-xs-8 col-sm-9" > <span class="select-box" style="width: 50%">
+				<select class="select" name="store_ad" id="store_ad">
+					{if $banner.store_id}
+					<option value="{$banner.store_id}">{$banner.store_name}</option>
+					{/if}
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl" id="goods_ad_url" style="display: none">
+			<label class="form-label col-xs-4 col-sm-2">选择商品：</label>
+			<div class="formControls col-xs-8 col-sm-9" > <span class="select-box" style="width: 50%">
+				<select class="select" name="goods_ad" id="goods_ad">
+					{if $banner.goods_id}
+					<option value="{$banner.goods_id}">{$banner.goods_name}</option>
+					{/if}
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl" id="banner_ad_url" style="display: none">
+			<label class="form-label col-xs-4 col-sm-2">链接地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$banner.ad_url}" placeholder="" id="ad_url" name="ad_url">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">选择广告位：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 50%">
+				<select class="select" name="position_id">
+					<option value=" " >请选择广告位</option>
+                    {volist name="banner_Position_list" id="position"}
+					<option value="{$position.position_id}" {if $banner.position_id == $position.position_id}selected{/if}>{$position.position_desc}</option>
+                    {/volist}
+				</select>
+				</span>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">广告名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$banner.banner_name}" placeholder="" id="banner_name" name="banner_name">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">上传广告图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" name="image" value="{$banner.image}">
+				{if $banner.image}
+				<img src="{$banner.image}" height="90px" width="120px">
+				{/if}
+			</div>
+		</div>
+
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">是否有效：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" name="disabled" value="1" {if $banner.disabled eq 1}checked{/if}>是
+				<input type="radio" name="disabled" value="0" {if $banner.disabled eq 0}checked{/if}>否
+			 </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">排序：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$banner.sort_order}" placeholder="" id="sort_order" name="sort_order">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">开始时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$banner.start_time}" id="start_time" name="start_time">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">结束时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" value="{$banner.end_time}" id="end_time" name="end_time">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input type="hidden" name="banner_id" id="banner_id" value="{$banner.banner_id}">
+				<input type="hidden" name="is_ajax" id="is_ajax" value="1">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button onClick="window.history.back();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/admin_file/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#ad_url_type").change(function () {
+            ad_type();
+        });
+        ad_type();
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        var banner_id = $("#banner_id").val();
+        if(banner_id){
+            $("#form-admin-add").validate({
+                rules:{
+                    user_name:{
+                        required:true,
+                        minlength:5,
+                        maxlength:16
+                    },
+                    nickname:{
+                        minlength:2,
+                        maxlength:16
+                    },
+
+
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/Banner/bannerEdit" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('编辑失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('编辑成功!',{icon:1,time:2000});
+                                window.location.href="/admin/Banner/bannerList";
+                            }else{
+                                layer.msg('编辑失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }else{
+            $("#form-admin-add").validate({
+                rules:{
+                    user_name:{
+                        required:true,
+                        minlength:4,
+                        maxlength:16
+                    },
+                    nickname:{
+                        minlength:2,
+                        maxlength:16
+                    },
+                    password:{
+                        required:true,
+                        minlength:6,
+                        maxlength:16,
+                    },
+                    password_confirm:{
+                        required:true,
+                        minlength:2,
+                        maxlength:16,
+                        equalTo: "#password"
+                    },
+
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/admin/Banner/bannerAdd" ,
+                        success: function(data){
+                            if(data.code == 0){
+                                layer.msg('添加失败,'+data.msg,{icon:2,time:2000});
+                            }else if(data.code == 1){
+                                layer.msg('添加成功!',{icon:1,time:2000});
+                                window.location.href="/admin/Banner/bannerList";
+                            }else{
+                                layer.msg('添加失败',{icon:4,time:2000});
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+    function store(){
+        var store_name = $("#store_name").val();
+        $.ajax({
+            type: "POST",
+            url: '/Admin/Banner/getStore',
+            data: {
+                store_name: store_name
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == '1') {
+                    data = data.data;
+                    if(data.length>0){
+                        var option  = '<option value="">请选择店铺</option>';
+                        for ( var i in data) {
+
+                            option += '<option value="' + data[i].store_id + '">'
+                                + data[i].store_name + '</option>';
+                        }
+                        $("#store_ad").append(option);
+                    }
+                }
+            }
+        });
+	}
+
+    function goods(){
+        var goods_name = $("#goods_name").val();
+        $.ajax({
+            type: "POST",
+            url: '/Admin/Banner/getGoods',
+            data: {
+                goods_name: goods_name
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == '1') {
+                    data = data.data;
+                    if(data.length>0){
+                        var option  = '<option value="">请选择商品</option>';
+                        for ( var i in data) {
+                            option += '<option value="'+data[i].store_pro_id+'">'
+                                + data[i].store_pro_name + '</option>';
+                        }
+                        $("#goods_ad").append(option);
+                    }
+                }
+            }
+        });
+    }
+
+	function ad_type() {
+		var ad_url_type = $("#ad_url_type").val();
+		if(parseInt(ad_url_type) == 0){
+			$('#store_search').hide();
+			$('#store_ad_url').hide();
+			$('#goods_search').hide();
+			$('#goods_ad_url').hide();
+			$('#banner_ad_url').hide();
+		}else if(parseInt(ad_url_type) == 1){
+			$('#store_search').show();
+			$('#store_ad_url').show();
+			$('#goods_search').hide();
+			$('#goods_ad_url').hide();
+			$('#banner_ad_url').hide();
+		}else if(parseInt(ad_url_type) == 2){
+			$('#store_search').hide();
+			$('#store_ad_url').hide();
+			$('#banner_ad_url').hide();
+			$('#goods_search').show();
+			$('#goods_ad_url').show();
+		} else if(parseInt(ad_url_type) == 3){
+			$('#store_search').hide();
+			$('#store_ad_url').hide();
+			$('#goods_search').hide();
+			$('#goods_ad_url').hide();
+			$('#banner_ad_url').show();
+		}
+	};
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

@@ -1,0 +1,156 @@
+﻿<!--html头-->
+{include file="Public/head_top" /}
+
+<body>
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span> 消息管理
+	<span class="c-gray en">&gt;</span> 短信消息列表
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+		<i class="Hui-iconfont">&#xe68f;</i>
+	</a>
+</nav>
+<div class="page-container">
+	<form action="/admin/Message/mobileMessageList" method="get">
+		<div class="text-c">
+			<input type="text" class="input-text" style="width:250px" placeholder="输入发送者/消息内容" id="keywords" name="keywords" value="{$where.keywords}">
+			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜消息</button>
+		</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		{in name="mobileMessageAdd" value=$action_code_list}
+		<span class="l">
+				<a href="/admin/Message/mobileMessageAdd" class="btn btn-primary radius">
+					<i class="Hui-iconfont">&#xe600;</i> 发送短信
+				</a>
+			</span>
+		{/in}
+		{in name="mobileMessageDel" value=$action_code_list}
+			<span class="l" style="margin-left: 5px;">
+				<a href="javascript:del_query()" class="btn btn-danger radius">
+					<i class="Hui-iconfont">&#xe6e2;</i>批量删除
+				</a>
+			</span>
+		{/in}
+	</div>
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+		<tr>
+			<th scope="col" colspan="11">短信消息列表</th>
+		</tr>
+		<tr class="text-c">
+			<th width="25"><input type="checkbox" name="" value="0"></th>
+			<th width="40" onclick="sort('Message/mobileMessageList','id')">ID</th>
+			<th width="150" onclick="sort('Message/mobileMessageList','admin_user_nickname')">发送人</th>
+			<th width="150" onclick="sort('Message/mobileMessageList','content')">短信内容</th>
+			<th width="100" onclick="sort('Message/mobileMessageList','mobile')">手机号</th>
+			<th width="100" onclick="sort('Message/mobileMessageList','mobile_count')">手机数</th>
+			<th width="100" onclick="sort('Message/mobileMessageList','success_count')">接口提交手机数</th>
+			<th width="100" onclick="sort('Message/mobileMessageList','report_seccess_count')">发送成功手机数</th>
+			<th width="100" onclick="sort('Message/mobileMessageList','create_time')">发送时间</th>
+			<th width="200">操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		{volist name="mobile_message_list" id="c"}
+			<tr class="text-c">
+				<td><input type="checkbox" value="{$c.id}" name=""></td>
+				<td>{$c.id}</td>
+				<td>{$c.admin_user_nickname}</td>
+				<td>{$c.content}</td>
+				<td>{$c.mobile}</td>
+				<td>{$c.mobile_count}</td>
+				<td>{$c.success_count}</td>
+				<td>{$c.report_seccess_count}</td>
+				<td>{$c.create_time}</td>
+				<td class="td-manage">
+					{in name="mobileMessageDel" value=$action_code_list}
+						<a title="删除" href="javascript:;" onclick="admin_del(this,{$c.id})" class="ml-5" style="text-decoration:none">
+							<i class="Hui-iconfont">&#xe6e2;</i>
+						</a>
+					{/in}
+				</td>
+			</tr>
+		{/volist}
+		</tbody>
+	</table>
+</div>
+<div class="pages">{$page}</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="Public/foot_js" /}
+<!--/_footer 作为公共模版分离出去-->
+
+<input type="hidden" name="orderBy" id="orderBy" value="{$orderBy}">
+<input type="hidden" name="orderByUpOrDown" id="orderByUpOrDown" value="{$orderByUpOrDown}">
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin_file/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin_file/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin_file/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+
+/*删除*/
+function admin_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+            url:"/admin/Message/mobileMessageDel",
+            data:{"id":id,"is_ajax":1},
+            type:"POST",
+			success: function(data){
+                if(data.code == 1){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:2000});
+                }else{
+                    layer.msg(data.msg,{icon:2,time:2000});
+                }
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+
+
+/* 批量删除*/
+function del_query(){
+    layer.confirm('确认要删除吗？',function(index){
+        var val = '';
+        $("input[type=checkbox]:checked").each(function () {
+            if(typeof($(this).val()) != "undefined" && $(this).val() != 0){
+                if(val == ''){
+                    val += $(this).val();
+                }else{
+                    val += ',' + $(this).val();
+                }
+            }
+
+        });
+        $.ajax({
+            url:"/admin/Message/mobileMessageQueryDel",
+            data:{"id":val,"is_ajax":1},
+            type:"POST",
+            success: function(data){
+                if(data.code == 1){
+                    $("input[type=checkbox]:checked").each(function () {
+                        if(typeof($(this).val()) != "undefined" && $(this).val() != 0){
+                            $(this).parents("tr").remove();
+                        }
+                    });
+                    layer.msg('已删除!',{icon:1,time:2000});
+                }else{
+                    layer.msg(data.msg,{icon:2,time:2000});
+                }
+            },
+            error:function(data) {
+                console.log(data.msg);
+            },
+        });
+    });
+}
+
+
+</script>
+</body>
+</html>
